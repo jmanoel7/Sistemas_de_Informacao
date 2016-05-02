@@ -1,0 +1,1690 @@
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+   <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+   <meta name="Author" content="Jair Cavalcanti Leite">
+   <title>3. Análise e Especificação de Requisitos</title>
+</head>
+<body bgcolor="#FFFFFF">
+<font face="Arial" color="#000080"><b>Notas de aula de Engenharia de 
+Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C)
+Jair
+ C Leite, 2000&nbsp;</b></font>
+<hr width="100%"><a href="https://www.dimap.ufrn.br/%7Ejair/ES/c2.html">Anterior</a> | <a href="https://www.dimap.ufrn.br/%7Ejair/ES/indice.html">Índice</a> |
+<a href="https://www.dimap.ufrn.br/%7Ejair/ES/c4.html">Próximo</a>
+<hr>
+<h1>
+3. Análise e Especificação de Requisitos</h1>
+
+Os objetivos deste capítulo são:
+<ul>
+<li>
+Definir o que são requisitos de software</li>
+
+<li>
+Introduzir os objetivos da Engenharia de Requisitos</li>
+
+<li>
+Apresentar técnicas de comunicação para obter informações
+dos clientes e usuários</li>
+
+<li>
+Apresentar técnicas para descrever o domínio, usuários
+e tarefas.</li>
+
+<li>
+Especificar requisitos funcionais utilizando Casos de Uso</li>
+
+<li>
+Especificar requisitos não funcionais</li>
+</ul>
+
+<h2>
+<a name="3.1"></a>
+3.1 Introdução</h2>
+Vimos que o software é parte de um sistema computacional mais abrangente
+e que a Análise de Sistemas é a atividade de identificar
+os problemas do domínio, apresentar alternativas de soluções
+e o estudo da viabilidade de cada uma delas. Uma vez que se tenha feito
+a análise do sistema computacional, e delimitado o escopo do software,
+os requisitos do software devem ser analisados e especificados.
+
+<p>A <b>análise e especificação de requisitos de software</b>
+envolve as atividades de determinar os objetivos de um software
+e as restrições associadas a ele. Ela deve também
+estabelecer o relacionamento entre estes objetivos e restrições
+e a especificação precisa do software.
+
+</p><p>A análise e especificação dos requisitos de software
+deve ser vista como uma sub-atividade da análise de sistemas. Normalmente
+ela é iniciada juntamente com a análise do sistema, podendo
+se estender após a elaboração do documento de especificação
+do sistema e do planejamento do desenvolvimento, quando serão refinados
+os requisitos do software.</p><p>Análise e especificação são atividades inter-dependentes
+e devem ser realizadas conjuntamente. A <b>análise</b> é
+o processo de observação e levantamento dos elementos do
+domínio no qual o sistema será introduzido. Deve-se identificar&nbsp; as
+pessoas,
+atividades, informações do domínio para que se possa
+decidir o que deverá ser informatizado ou não. Pessoas e as atividades que não serão informatizadas
+deverão ser consideradas entidades externas ao software.
+
+</p><p>A <b>especificação</b> é a descrição
+sistemática e abstrata do que o software deve fazer, a partir daquilo
+que foi analisado. Ela apresenta a solução de como os problemas
+levantados na análise serão resolvidos pelo software do sistema
+computacional. Visa descrever de maneira sistemática quais as propriedades
+funcionais são necessárias para resolver
+o problema do domínio. A especificação é também
+a forma de comunicação sistemática entre analistas
+e projetistas do software.
+
+</p><p>O objetivo da definição dos requisitos é especificar
+o que o sistema deverá fazer e determinar os critérios de
+validação que serão utilizados para&nbsp; que se possa
+avaliar se o sistema cumpre o que foi definido.
+</p><h2>
+<a name="3.2"></a>
+3.2 O que são requisitos?</h2>
+Como sistemas computacionais são construídos para terem utilidade
+no mundo real. Modelar uma parte do mundo real, o domínio de aplicação
+é uma atividade extremamente importante para se compreender a necessidade
+e a importância do sistema a ser construído e definir os requisitos
+que tornam o sistema útil.
+
+<p><b>Requisitos </b>são objetivos ou restrições estabelecidas
+por clientes e usuários do sistema que definem as diversas propriedades
+do sistema. Os requisitos&nbsp; de software são, obviamente, aqueles
+dentre os requisitos de sistema que dizem respeito a propriedades do software.
+
+</p><p>Um conjunto de requisitos pode ser definido como uma condição
+ou capacidade necessária que o software deve possuir (1) para que
+o usuário possa resolver um problema ou atingir um objetivo ou (2)
+para atender as necessidades ou restrições da organização
+ou dos outros componentes do sistema.
+
+</p><p>Tradicionalmente, os requisitos de software são separados em
+requisitos funcionais e não-funcionais. Os <b>requisitos funcionais</b>
+são a descrição das diversas funções
+que clientes e usuários querem ou precisam que o software ofereça.
+Eles definem a funcionalidade desejada do software. O termo função
+é usado no sentido genérico de operação que
+pode ser realizada pelo sistema, seja através comandos dos usuários
+ou seja pela ocorrência de eventos internos ou externos ao sistema.
+
+</p><p>São exemplos de requisitos funcionais:
+</p><ul>
+<li>
+"o software deve possibilitar o cálculo dos gastos diários,
+semanais, mensais e anuais com pessoal".</li>
+
+<li>
+"o software deve emitir relatórios de compras a cada quinze dias"</li>
+
+<li>
+"os usuários devem poder obter o número de aprovações,
+reprovações e trancamentos em todas as disciplinas por um
+determinado período de tempo.</li>
+</ul>
+A especificação de um requisito funcional deve determinar
+o <u>que</u> se espera que o software faça, sem a preocupação
+de <u>como</u> ele faz. É importante diferenciar a atividade de
+especificar requisitos da atividade de especificação que
+ocorre durante o design do software. No design do software deve-se tomar
+a decisão de quais a funções o sistema efetivamente
+terá para satisfazer àquilo que os usuários querem.
+
+<p><b>Requisitos não-funcionais </b>são as qualidades globais
+de um software, como manutenibilidade, usabilidade, desempenho, custos
+e várias outras. Normalmente estes requisitos são descritos
+de maneira informal, de maneira controversa (por exemplo, o gerente quer
+segurança mas os usuários querem facilidade de uso) e são
+difíceis de validar.
+
+</p><p>São exemplos de requisitos não-funcionais:
+</p><ul>
+<li>
+"a base de dados deve ser protegida para acesso apenas de usuários
+autorizados".</li>
+
+<li>
+"o tempo de resposta do sistema não deve ultrapassar 30 segundo".</li>
+
+<li>
+"o software deve ser operacionalizado no sistema Linux"</li>
+
+<li>
+"o tempo de desenvolvimento não deve ultrapassar seis meses".</li>
+</ul>
+A necessidade de se estabelecer os requisitos de forma precisa
+é crítica na medida que o tamanho e a complexidade do software
+aumentam. Os requisitos exercem influência uns sobre os outros. Por
+exemplo, o requisito de que o software deve ter grande <i> portabilidade</i> (por
+exemplo, ser implementado em Java) pode implicar em que o requisito <i> desempenho</i>
+não seja satisfeito (programas em Java são, em geral, mais
+lentos).
+<h2>
+<a name="3.3"></a>
+3.3 A Engenharia de Requisitos</h2>
+Os diversos relacionamento e restrições que os requisitos
+exercem uns sobre os outros são muito difíceis de ser controlados.
+Principalmente se considerarmos que algumas decisões de design que
+afetam um ou mais requisitos só serão tomadas mais adiante
+do desenvolvimento. Por exemplo, a decisão de implementar em Java
+pode ser decidida apenas após o design da arquitetura. Desta forma,
+os requisitos precisam ser gerenciados durante todo o desenvolvimento.&nbsp;
+<p>
+A importância e complexidade desta atividade levou ao surgimento, no início
+dos anos 90, da <b>Engenharia de Requisitos.</b> O objetivo desta denominação é ressaltar que o
+processo de definir os requisitos de software é uma atividade extremamente
+importante e independente das outras atividades da engenharia de software. Ela requer fundamentação e processos próprios, e que
+devem ser planejados e gerenciados ao longo de todo o ciclo de vida.</p>
+
+<p>Os objetivos da Engenharia de Requisitos podem ser categorizados em
+três grupos principais [Zave]:
+</p><ul>
+<li>
+Investigação de objetivos, funções e restrições
+de uma aplicação de software</li>
+
+<ul>
+<li>
+Ultrapassar as barreiras de comunicação</li>
+
+<li>
+Gerar estratégias para converter objetivos vagos em propriedades
+ou restrições específicas</li>
+
+<li>
+Compreender prioridades e graus de satisfação</li>
+
+<li>
+Associar requisitos com os vários agentes do domínio</li>
+
+<li>
+Estimar custos, riscos e cronogramas</li>
+
+<li>
+Assegurar completude</li>
+</ul>
+
+<li>
+Especificação do software</li>
+
+<ul>
+<li>
+Integrar representações e visões múltiplas</li>
+
+<li>
+Avaliar estratégias de soluções alternativas que satisfaçam
+os requisitos</li>
+
+<li>
+Obter uma especificação completa, consistente e não
+ambígua</li>
+
+<li>
+Validar a especificação - verificar que ela satisfaz aos
+requisitos</li>
+
+<li>
+Obter especificações que sejam apropriadas para as atividades
+de design e implementação</li>
+</ul>
+
+<li>
+Gerenciamento<b> </b>da evolução e das famílias do
+software</li>
+
+<ul>
+<li>
+Reutilização de requisitos durante o processo de evolução</li>
+
+<li>
+Reutilização de requisitos no desenvolvimento de software
+similares</li>
+
+<li>
+Reconstrução de requisitos</li>
+</ul>
+</ul>
+A Engenharia de Requisitos deve envolver a documentação das
+funções, do desempenho, interfaces externas e internas e
+atributos de qualidade do Software.
+
+<p>Esta área é inerentemente abrangente, interdisciplinar
+e aberta. Ela lida com a descrição de observações
+do mundo real através de notações apropriadas.
+
+</p><p>Os benefícios da Engenharia de Requisitos são:
+</p><ul>
+<li>
+Concordância entre desenvolvedores, clientes e usuário sobre
+o trabalho a ser feito e quais os critérios de aceitação
+do sistema.</li>
+
+<li>
+Uma base precisa para a estimativa dos recursos (custo, pessoal, prazos,
+ferramentas e equipamentos)</li>
+
+<li>
+Melhoria na usabilidade, manutenibilidade e outras qualidades do sistema.</li>
+
+<li>
+Atingir os objetivos com o mínimo de desperdício</li>
+</ul>
+Uma boa especificação de requisitos deve ser:
+<ul>
+<li>
+Clara e não-ambígua</li>
+
+<li>
+Completa</li>
+
+<li>
+Correta</li>
+
+<li>
+Compreensível</li>
+
+<li>
+Consistente</li>
+
+<li>
+Concisa</li>
+
+<li>
+Confiável</li>
+</ul>
+(Veja mais em <a href="http://www.sei.cmu.edu/interactive/Features/1999/March/Background/Background.mar99.htm">Dorfman,
+Merlin - Requirements Engineering</a>)
+
+<h2>
+<a name="3.4"></a>3.4 Modelos de documentos de especificação de requisitos</h2>
+O resultado final da análise e especificação de requisitos
+e das outras atividades da fase de definção devem ser apresentados
+aos clientes para que eles possam validá-lo. Este documento oferece
+a concordância entre clientes, analistas e desenvolvedores sobre
+o que deve ser desenvolvido. É utilizando este documento que as
+atividades da fase de desenvolvimento (design e programação)
+serão validadas.
+
+<p>Cada desenvolvedor utiliza um modelo específico para elaborar
+este documento. A sua estrutura muitas vezes depende do método que
+está sendo utilizado. Em linhas gerais este modelo deve ser basicamente
+textual, utilizando o mínimo de termos técnicos, e ilustrados
+como modelos gráficos que demonstrem mais claramente a visão
+que os analistas tiveram dos problemas e dos requisitos para o futuro sistema.
+
+</p><p>Vamos apresentar a seguir dois modelos de documentos encontrados na
+literatura. Estes modelos descrevem não apenas a especificação
+dos requisitos, mas os resultados do estudo de viabilidade e o processo
+de desenvolvimento.
+
+</p><p><a href="http://www.dimap.ufrn.br/%7Ejair/ES/home.html#biblio">Pressman</a>
+apresenta o seguinte documento de especificação de requisitos
+de software:
+<br>I. Introdução
+</p><ul>1. Referências do Sistema
+<br>2. Descrição Geral
+<br>3. Restrições de projeto do software</ul>
+II. Descrição da Informação
+<ul>1. Representação do fluxo de informação
+<ul>a. Fluxo de Dados
+<br>b. Fluxo de Controle</ul>
+2. Representação do conteúdo de informação
+<br>3. Descrição da interface com o sistema</ul>
+III Descrição Funcional
+<ul>1. Divisão funcional em partições
+<br>2. Descrição funcional
+<ul>a. Narativas
+<br>b. Restrições/limitações
+<br>c. Exigências de desempenho
+<br>d. Restrições de projeto
+<br>e. Diagramas de apoio</ul>
+3. Descrição do controle
+<ul>a. Especificação do controle
+<br>b. Restrições de projeto</ul>
+</ul>
+IV. Descrição Comportamental
+<ul>1. Estados do Sistema
+<br>2. Eventos e ações</ul>
+V. Critérios de Validação
+<ul>1. Limites de desempenho
+<br>2. Classes de testes
+<br>3. Reação esperada do software
+<br>4. Considerações especiais</ul>
+VI. Bibliografia
+<br>VII Apêndice
+
+<p>Uma proposta alternativa é a de <a href="http://www.dimap.ufrn.br/%7Ejair/ES/home.html#biblio">Farley</a>.
+De acordo com ele,
+um documento de especificação de requisitos deve possui as
+seguintes seções:
+</p><ul>
+<li>
+Visão geral do produto e Sumário</li>
+
+<li>
+Ambientes de desenvolvimento, operação e manutenção</li>
+
+<li>
+Interfaces Externas e Fluxo de Dados</li>
+
+<li>
+Requisitos Funcionais</li>
+
+<li>
+Requisitos de Desempenho</li>
+
+<li>
+Tratamento de Exceções</li>
+
+<li>
+Prioridades de Implementação</li>
+
+<li>
+Antecipação de mudanças e extensões</li>
+
+<li>
+Dicas e diretrizes de Design</li>
+
+<li>
+Critérios de aceitação</li>
+
+<li>
+Índice Remissivo</li>
+
+<li>
+Glossário</li>
+</ul>
+
+<h2>
+<a name="3.5"></a>3.5 Técnicas de comunicação com clientes e usuários</h2>
+Um dos objetivos da Engenharia de Requisitos é ultrapassar barreiras
+de comunicação entre os clientes e usuários e os analistas
+para que os requisitos possam capturados e modelados corretamente
+
+<p>Dentre as técnicas mais importantes para a comunicação
+podemos citar três:
+</p><ul>
+<li>
+<b>Entrevistas</b></li>
+
+<li>
+<b>Observação <i>in loco</i></b></li>
+
+<li>
+<b>Encontros</b></li>
+</ul>
+Estas três técnicas são complementares e podem todas
+ser usadas numa mesma análise de requisitos. A <b>entrevista</b>
+é normalmente a primeira técnica utilizada. Analistas entrevistam
+clientes para definir os objetivos gerais e restrições que
+o software deverá ter. A entrevista deve ser feita de forma objetiva
+visando obter o máximo de informações do cliente.
+Diversas seções de entrevistas podem ser marcadas.
+
+<p>Na <b>observação <i>in loco</i></b> os analista devem
+estar inseridos na rotina de trabalho da organização tentando
+entender e descrever as principais atividades que são realizadas.
+Na observação devem ser identificadas quais as atividades
+podem ser automatizadas, quem são os potenciais usuários,
+quais tarefas eles querem realizar com a ajuda do novo sistema, etc. A
+observação deve ser complementada com entrevistas específicas
+com os futuros usuários.
+
+</p><p>Os <b>encontros</b> são reuniões envolvendo analistas,
+clientes e usuários destinadas exclusivamente ao levantamento de
+informações, descrição dos problemas atuais
+e de metas futuras. Os encontros devem ser realizados em um local neutro
+(fora da organização) e normalmente duram poucos alguns dias.
+Nos encontros as informações que vão sendo levantadas
+vão sendo afixadas em paineis na sala de encontro para que possam
+ser analisadas e validadas pelos clientes e usuários. Ao final do
+encontro os analistas devem elaborar um relatório descrevendo os
+requisitos analisados.
+</p><h2>
+<a name="3.6"></a>3.6 Usando Cenários para Análise do Domínio</h2>
+Do ponto de vista de usabilidade, o desenvolvimento de um novo sistema
+implica na transformação das tarefas e práticas atuais
+dos usuários e da organização. Conhecer a situação
+atual e antecipar o impacto que um novo sistema deve ter é fundamental
+para o seu sucesso. Isso ocorre porque quando se introduz novas tecnologias,
+parte do contexto de tarefa de uma organização é alterado.
+Nessa reengenharia, novas tarefas e práticas são incorporadas
+enquanto que outras são eliminadas.
+
+<p>O levantamento de informações sobre as tarefas e os usuários
+pode ser melhor realizado quando os analistas procuram descrever situações
+do processo de trabalho. Os métodos baseados em <b>cenários</b>
+consistem de uma coleção de narrativas de situações
+no domínio que favorecem o levantamento de informações,
+a identificação de problemas e a antecipação
+das soluções. Cenários são uma maneira excelente
+de representar, para clientes e usuários, os problemas atuais e
+as possibilidades que podem surgir.
+
+</p><p>Os cenários têm como foco as atividades que as pessoas
+realizam nas organizações possibilitando uma perspectiva
+mais ampla dos problemas atuais onde o sistema será inserido, explicando
+porque ele é necessário. Eles proporcionam um desenvolvimento
+orientado a tarefas possibilitando maior usabilidade do sistema.
+
+</p><p>Não é objetivo dos cenários oferecer uma descrição
+precisa, mas provocar a discussão e estimular novos questionamentos.
+eles permitem também documentar o levantamento de informações
+a respeito dos problemas atuais, possíveis eventos, oportunidades
+de ações e riscos.
+
+</p><p>Por sua simplicidade, cenários são um meio de representação
+de fácil compreensão para os clientes e usuários envolvidos
+(muitas vezes de formação bastante heterogênea) que
+podem avaliar, criticar e fazer sugestões, proporcionando a reorganização
+de componentes e tarefas do domínio. Cenários oferecem um
+"meio-intermediário" entre a realidade e os modelos que serão
+especificados possibilitando que clientes, usuários e desenvolvedores
+participem do levantamento das informações e especificação
+dos requisitos. Em resumo, os cenários permitem compreensão
+dos problemas atuais pelos analistas e antecipação da situação
+futura pelo clientes e desenvolvedores.
+</p><h3>
+Elaborando Cenários</h3>
+Como toda atividade de análise e especificação de
+requisitos, a descrição do domínio através
+de cenários requer técnicas de comunicação
+e modelagem.
+
+<p>A descrição de cenários deve ser apoiada pelas
+três técnicas de comunicação vistas anteriormente.
+Antes de descrever os cenários, os analistas devem entrevistar clientes
+para entender os problemas e requisitos iniciais. A entrevista com usuários
+permite que cada um descreva as suas tarefas e os problemas associados
+a cada uma delas. A observação direta <i>in loco</i> é
+fundamental para que os analistas possam descrever a situação
+de uso como ela realmente vem ocorrendo na prática.
+
+</p><p>Após a elaboração dos cenários, clientes,
+usuários e analistas podem participar de <b>encontros</b> para que
+possam discutir cada um destes cenários. Eles podem ser afixados
+em quadros na parede onde os participantes possa analisá-los e fazer
+comentários, possivelmente afixando pequenos pedaços de papel
+a cada uma das cenas.
+
+</p><p>Cenários podem ser descritos em narrativas textuais ou através
+de <i>storyboards</i>. As narrativas textuais podem ser descritas livremente,
+identificando os agentes e as ações que eles participam.
+É possível utilizar notações para descrever
+roteiros de cinemas ou notações mais precisas como aquelas
+utilizadas pela Inteligência Artificial para representação
+de conhecimento.
+
+</p><p>Uma técnica que está bastante relacionada com cenários,
+por permitir descrever situações de uso, é o <b>storyboarding</b>.
+Essa técnica envolve a descrição através de
+quadros com imagens que ilustram as situações do domínio.
+Cada quadro deve apresentar a cena que descreve a situação,
+os atores e as ações que cada um deve desempenhar. Abaixo
+de cada quadro devem estar descritas ações que os atores
+desempenham. Os storyboards são bastante utilizados em cinemas como
+forma de comunicação entre roteiristas, diretores, atores
+e técnicos.
+
+</p><p>Existem ferramentas computacionais que podem ser utilizadas para a descrição
+de cenários como o <i>Scenario's Browser</i> [Rosson 99].
+</p><h3>
+Exemplos de cenários</h3>
+Como exemplo vamos considerar o domínio de uma locadora de fitas
+de vídeo.
+
+<p><b>Cena 1</b>: <i>Cliente procura uma fita com uma certa atriz</i>
+<br><b>Agentes</b>: Cliente, Atendente, Balconista
+<br><b>Ações</b>:
+</p><ul>Cliente entra na loja e dirige-se até a atendente.
+<br><b>Cliente</b>: <i>- Eu gostaria de alugar um filme com a atriz que
+ganhou o oscar este ano.</i>
+<br><b>Antendente</b>: - <i>Algum específico?&nbsp;</i>
+<br><b>Cliente</b>: - <i>Não, mas que não seja policial ou
+ação.</i>
+<br><b>Atendente</b>: <i>Você sabe o nome dela?</i>
+<br><b>Cliente</b>: <i>Não</i>.
+<br>A atendente pergunta à balconista.
+<br><b>Antendente</b>: - <i>Você sabe o nome da atriz que ganhou
+o Oscar 99?</i>
+<br><b>Balconista</b><i>: - Ih. É um nome bem complicado. Só
+sei que começa com G e o sobrenome é algo parecido com Paltrow.</i>
+<br><b>Cliente</b>: <i>É isto mesmo.</i>
+<br>A atendente então procura no fichário de atrizes as que
+começam com G. Não encontra nenhum nome parecido com o que
+a balconista falou. Ela então lembra-se de consultar uma revista
+especializada com os ganhadores do Oscar 99 e lá descobre o nome
+correto da atriz. Entretanto, não existe realmente ficha alguma
+com os filmes estrelados por esta atriz. O fichário está
+desatualizado.
+<br>A atendente procura nas estantes alguns filmes e lembra-se de dois:
+<i>O Crime Perfeito </i>e <i>Seven </i>e mostra-os ao cliente. O cliente
+recusa-se dizendo que não gosta do gênero destes filmes e
+pergunta pelo filme vencedor do Oscar.
+<br><b>A antendente responde</b>: - <i>Shakespeare Apaixonado?</i> Ainda
+não saiu em vídeo.</ul>
+<b>Cena 2</b>: <i>O cliente procura por filmes de um certo gênero</i>
+<br><b>Agentes</b>: Cliente, Atendente, Balconista
+<br><b>Ações</b>:
+<ul><b>Cliente</b>: - <i>Eu gostaria de comprar um filme de ação</i>.
+<br><b>Atendente</b>: - <i>Nós apenas alugamos.</i>
+<br><b>Cliente</b>: - <i>Tudo bem. Então, por favor, me dê
+algumas dicas de filmes de ação.</i>
+<br><b>Atendente</b>: <i>Com algum ator especial.</i>
+<br><b>Cliente</b>: <i>Pode ser com Chuck Norris, Van Dame, Statellone,
+Charles Bronson</i>
+<br><b>Atendente</b>: <i>Temos estes aqui.</i>
+<br>A atendente apresenta dez filmes. O cliente escolhe cinco e fica em
+dúvida se já assistiu outros três. Ele também
+pergunta à atendente se os outros dois filmes são bons. Após
+conversar durante alguns minutos com a atendente que entende muito do gênero,
+decide ficar com seis fitas. A atendente encaminha o cliente à balconista
+para calcular o valor da locação e o prazo de devolução.
+Após consultar as tabelas de preços e prazos, a balconista
+apresenta três planos de pagamento.
+<br><b>Balconista</b>: - <i>Se você devolver em um dia, paga apenas
+R$ 6,00. Se devolver em seis dias paga R$ 12,00 e se devolver em uma semana
+paga R$ 15,00. Após este prazo paga mais R$ 2,00 por fita, por dia</i>.</ul>
+<b>Cena 3</b>: <i>Cliente procura por filme usando o sistema de consulta</i>
+<br><b>Agentes</b>: Cliente e Sistema de Consulta
+<br><b>Ações</b>:
+<ul>João gostaria de assistir a um filme de guerra. Ele vai a uma
+locadora de fitas e, chegando lá, utiliza um sistema de consulta.
+Ele não lembra o título nem o diretor, mas sabe que se passava
+na guerra do Vietnã e lembra bastante da trilha sonora. Utilizando
+o sistema ele solicita as opções de filmes de guerra. Os
+sistema oferece a ele as possibilidades de escolher os filmes por local
+da guerra ou por época. João escolhe a sua opção
+(guerra) e obtem uma lista com dezenas de filmes sobre o vietnam. Ele pode
+organizar esta lista, por diretor, atores e título. Na tela do sistema
+aparecem a ilustração com o cartaz de divulgação
+do filme&nbsp; e uma opção para ele visualizar o trailler.
+O sistema, entretanto, não possibilita ele ouvir a trilha sonora.
+
+<p>Após analisar algumas opções ele finalmente encontra
+o filme desejado, mas uma informação na tela do sistema indica
+que o filme está alugado. João quer saber quando o filme
+será devolvido, mas esta informação não consta
+no sistema. Ele entretanto pode reservar e o sistema enviará para
+ele um e-mail avisando quando o filme estiver disponível. Ele sai
+da loja pensando "Que tempo perdido. Seria melhor que eu pudesse consultar
+o sistema de casa".</p></ul>
+
+<h3>
+Obtendo informações dos cenários através do
+<i>Questionamento Sistemático</i></h3>
+A descrição de informações do domínio
+através de narrativas só é efetivamente realizada
+se o processo de compreensão por parte dos analistas e projetista
+for realizado de maneira sistemática [J. Carroll et al. 94].
+
+<p>O <b>questionamento sistemático</b> é uma técnica
+psico-linguística que permite a psicólogos e lingüistas
+examinar o conteúdo e a estrutura de informações contidas
+numa narrativa. Uma narrativa é um sumário de um conjunto
+de eventos e ações envolvendo agentes e objetos do mundo.
+Nem todas as informações integrantes do contexto são
+passadas através da narrativa. Muitas dessas informações
+são inferidas do conhecimento cultural de cada indivíduo.
+Outras, entretanto, precisam ser obtidas diretamente na fonte, isto é,
+junto ao autor da narrativa. Essa técnica foi desenvolvida para
+se entender melhor o processo de compreensão de estórias
+em narrativas. O objetivo é compreender tudo o que envolve o contexto
+daquilo que está sendo passado na narrativa.
+
+</p><p>Aplicando essa técnica no processo de análise de domínios,
+os especialistas devem descrever em narrativas seu conhecimento do domínio.
+Entretanto esse conhecimento é muito mais abragente. O questionamento
+sistemático permite obter todo o conhecimento que está além
+do que foi comunicado na narrativa. Assim, analistas e projetista podem
+utilizar essa técnica para adquirir mais eficazmente conhecimento
+sobre o domínio e inferir objetos e interações que
+não estão descritos na narrativa. Isto ocorre usando-se cada
+sentença ou afirmação da narrativa como ponto de entrada
+na complexidade do problema.
+
+</p><p>Nessa técnica, cada questão é uma ponte entre uma
+idéia e outra. Uma resposta a uma questão sobre um componente
+da narrativa revela outras conexões que são críticas
+para o seu entendimento. Realizando, sistematica e exaustivamente muitos
+tipos de questões sobre componentes da narrativa e iterativamente
+fazendo perguntas sobre as respostas geradas, o analista elabora um mapa
+conceitual (rede de proposições) que representa as estruturas
+do conhecimento do domínio.
+
+</p><p>Os passos do método consistem de:
+</p><ul>1. <b>Geração do cenário</b> - as narrativas que
+compõe o cenário devem ser decritas pelo especialista no
+domínio. O analista pode motivá-lo fazendo perguntas como
+num processo convencional de entrevista (questões de elicitação
+do cenário).
+<br>2. <b>Elaboração da rede de proposições</b>
+- as narrativas devem ser simplificadas e expressas através de proposições.
+<br>3. <b>Análise</b> - a partir das proposições pode-se
+determinar as <b>tarefas</b> (ações e objetos) e <b>usuários</b>
+(agentes das ações).
+<br>4. <b>Questionamento sistemático</b> - novas proposições
+podem ser elaboradas através de questões que são feitas
+sobre elementos das proposições anteriores, num processo
+iterativo.</ul>
+Nos passos iniciais obtem-se informações sobre agentes, interações
+e objetos abstratos do domínio. Usando a técnica, pode-se
+chegar a um conhecimento mais profundo do domínio que permite aos
+analistas e projetista a elaboração de modelos funcionais
+do sistema.
+
+<p><b>Exemplo</b>
+<br>Considere o seguinte cenário sobre um caixa eletrônico.
+<br>Questão de elicitação do cenário:
+</p><ul><i>Como posso sacar R$ 100,00 do caixa eletrônico?</i></ul>
+Cenário:
+<ul><i>Primeiro ponha o seu cartão do banco no caixa eletrônico,
+digite a sua senha e pressione o botão "saque rápido". Depois
+pegue o dinheiro</i>.</ul>
+As duas sentenças do cenário acima contém quatro proposições:
+<ul>CLIENTE -- põe -- CARTÃO
+<br>CLIENTE -- digita -- SENHA
+<br>CLIENTE -- pressiona -- BOTÃO-DE-SAQUE-RÁPIDO
+<br>CLIENTE -- pega -- DINHEIRO</ul>
+A partir dessas proposições, o analista determina que o cartão
+e o cliente são agentes de ações. Numa análise voltada
+para a elicitação de requisitos da interação,
+seria determinado como usuário do sistema, o cliente. A ações
+são portanto: digita, pressiona e pega. São objetos da interação
+a senha, o botão e o dinheiro. Outros objetos são o caixa
+eletrônico e o cartão. É preciso determinar que tipo
+de objetos são esses. Uma outra dúvida é a respeito
+do cartão ser objeto ou agente.
+
+<p>Obviamente, como esse exemplo é bastante simples e a aplicação
+também é muito conhecida, parece desnecessário obter
+mais conhecimentos a respeito. Entretanto, como o objetivo aqui é
+exemplificar a técnica, mostraremos como pode-se questionar a respeito
+dessa aplicação.
+
+</p><p>O analista deve então realizar uma série de questões
+sobre as proposições. Nesse questionamento o analista precisa
+determinar qual o relacionamento entre a resposta e a proposição
+que originou a pergunta.
+
+</p><p>As questões da categoria por que, visam responder "razões"
+(metas) e "causas" a respeito de eventos da narrativa. As questões
+da categoria como oferecem maiores detalhes a&nbsp; respeito de determinados
+eventos, permitindo determinar sub-tarefas e maiores detalhes sobre a interação.
+Questões da categoria o que podem ser feitas sobre objetos, e revelam
+atributos e hieraquias de objetos. Perguntas de verificação
+podem ser feitas para se saber se as proposições estão
+sendo entendidas corretamente. As perguntas de verificação
+são as que têm resposta sim/não. Uma taxonomia mais
+completa ainda está sendo pesquisada pelos autores do método.
+
+</p><p>Continuando o exemplo anterior a tabela abaixo descreve uma seção
+de questionamento sistemático:
+<br>
+</p><hr width="100%">
+<br><b>Questões "por que"</b>
+<ul>Por que o cartão entra no caixa eletrônico?
+<br>_ Para iniciar. (evento conseqüente)
+<br>_ E então a máquina saberá quem é o cliente.
+(estado conseqüente)
+<br>Por que o cliente digita sua senha?
+<br>_ Para provar que ele é o usuário autorizado. (meta)
+<br>Por que o cliente pressiona o botão de saque rápido?
+<br>_ Porque é o botão para saques de R$ 100,00 (critério
+de descriminação).
+<br>_ Para evitar a digitação (cenário alternativo).
+<br>_ Porque ele está com pressa (causa)</ul>
+
+<hr width="100%">
+<br><b>Questões "como"</b>
+<ul>Como o cliente põe o cartão?
+<br>_ O cliente&nbsp; tira o cartão de sua bolsa e
+<br>_ insere no local apropriado no caixa eletrônico..
+<br>Como o cliente digita a senha?
+<br>_ Pressionando os botões adequados.
+<br>Como o cliente pressiona o botão de saque rápido?
+<br>_ Colocando o seu dedo nele.</ul>
+
+<hr width="100%"><b>Questões "o que"</b>
+<ul>O que é um botão de saque rápido?
+<br>_ É um tipo de botão que se pode pressionar.
+<br>O que é um botão?
+<br>_ É um dispositivo de controle no painel do caixa eletrônico.</ul>
+Observe que se o analista estivesse utilizando essa técnica para
+num método orientado a objetos, outras questões poderiam
+ser realizadas com outros objetivos de acordo com as necessidades do método,
+como, por exemplo, para determinar classes e hierarquia de classes.
+
+<p>Após os cenários estarem desenvolvidos, os analistas devem
+trabalhar em conjunto com os usuários para avaliá-los e refiná-los.
+Isto pode ser feito, por exemplo, colocando-se <i> posters</i> numa sala pela qual
+os usuários podem circular livremente e observar os diversos cenários.
+Cada cenário deve apresentar quadros (desenhos, gráficos,
+fotografias, etc.), usando <i> storyboards</i> por exemplo, e uma descrição
+narrativa da tarefa. Os usuários, munidos de papeis e lápis,
+podem fazer anotações (críticas e sugestões)
+e anexá-las a cada <i>poster</i>.
+</p><h3>
+Considerações finais sobre cenários</h3>
+O resultado da modelagem através de cenários é uma
+base para a compreensão de quem são os usuários, quais
+a tarefas envolvidas e quais funções a interface e a aplicação
+devem provê, de maneira que, já se possa ter meios de garantir
+a usabilidade do sistema.
+
+<p>A idéia de cenários em análise não está
+necessariamente associada à técnica de questionamento sistemático.
+Os cenários são extremamente úteis para descrição
+do domínio. A técnica sistematiza o processo de compreensão
+do conhecimento adquirido.
+
+</p><p> Os métodos em geral, e esse não deve fugir à
+regra, devem ser usados, não como uma camisa-de-força que
+limite o processo de análise, mas como ferramentas que orientam
+os analistas e aumentam sua capacidade intelectual.
+
+</p><h2>
+<a name="3.7"></a>
+3.7 Análise de Usuários</h2>
+Para que o sistema seja construído como uma ferramenta de apoio
+às atividades de usuários no domínio de aplicação,
+é preciso conhecer quem são os usuários e quais as
+suas necessidades, isto é quais tarefas eles necessitam realizar.
+A análise de usuários deve determinar quem eles são
+e quais tarefas eles normalmente fazem no domínio. Ela envolve a
+descrição dos diferentes papéis de usuários
+e qual o conhecimento, capacidade e cultura possuem os futuros usuários
+do sistema.
+<h3>
+3.7.1 Análise de Perfis de Usuários</h3>
+A análise do perfil dos diversos usuários do sistema descreve
+as várias características que podem influenciar as decisões
+dos projetistas no desenvolvimento do sistema. Os objetivos são
+assegurar que certas propriedades do sistema estejam adequadas ao conhecimento,
+cultura e capacidades do usuário, e que potenciais deficiências
+sejam levadas em consideração. Por exemplo, para um software
+de acompanhamento de pacientes em hospital, certos termos específicos
+da medicina devem ser incluídos nas telas do sistema e devem ser
+evitados termos técnicos de informática (<i> forneça
+informações patológicas </i>ao invés de&nbsp;<i>
+entrar dados da doença</i>). Para usuários com alguma deficiência
+física ou motora, elemento da interface devem ser modificados, como
+por exemplo, tela de maior tamanho e letras maiores para deficientes visuais.
+
+<p>Os perfil do usuário pode ser analisado através de formulários
+do tipo:
+<br>
+</p><hr width="100%">
+<center><b><font size="+1">Perfil do Usuário</font></b></center>
+
+
+<p>Nome do Sistema: ____________________________________________________________________
+<br>Função do Usuário: ___________________________________________________________________
+
+</p><p><b>Conhecimento e Experiência do Usuário</b>
+<table cols="3" width="100%">
+<tbody><tr>
+<td valign="TOP"><b>Nível educacional</b>&nbsp;
+<br>(&nbsp; ) Ensino fundamental&nbsp;
+<br>(&nbsp; ) Ensino médio&nbsp;
+<br>(&nbsp; ) Graduação&nbsp;
+<br>(&nbsp; ) Pós-Graduação</td>
+
+<td valign="TOP"><b>Língua Nativa</b>&nbsp;
+<br>(&nbsp; ) Português&nbsp;
+<br>(&nbsp; ) Inglês&nbsp;
+<br>(&nbsp; ) outra: ___________________</td>
+
+<td><b>Nível de leitura e expressão</b>&nbsp;
+<br>(&nbsp; ) Excelente&nbsp;
+<br>(&nbsp; ) Bom&nbsp;
+<br>(&nbsp; ) Regular&nbsp;
+<br>(&nbsp; ) Ruim</td>
+</tr>
+
+<tr>
+<td><b>Experiência com computadores</b>&nbsp;
+<br>(&nbsp; ) Iniciante&nbsp;
+<br>(&nbsp; ) Intermediário&nbsp;
+<br>(&nbsp; ) Experiente</td>
+
+<td><b>Experiência com sistema similar</b>&nbsp;
+<br>(&nbsp; ) Utiliza bastante um similar&nbsp;
+<br>(&nbsp; ) Já utilizou um similar&nbsp;
+<br>(&nbsp; ) Nunca utilizou um similar</td>
+
+<td valign="TOP">&nbsp;<b>Conhecimento sobre o domínio</b>&nbsp;
+<br>(&nbsp; ) Elementar&nbsp;
+<br>(&nbsp; ) Intermediário&nbsp;
+<br>(&nbsp; ) Especialista no domínio</td>
+</tr>
+</tbody></table>
+<b>Características Físicas</b>
+<table cols="2" width="100%">
+<tbody><tr>
+<td valign="TOP"><b>Manipulação</b>&nbsp;
+<br>(&nbsp; ) Canhoto&nbsp;
+<br>(&nbsp; ) Destro&nbsp;
+<br>(&nbsp; ) Ambidestro&nbsp;</td>
+
+<td><b>Deficiências</b>&nbsp;
+<br>(&nbsp; ) Auditiva&nbsp;
+<br>(&nbsp; ) Visual&nbsp;
+<br>(&nbsp; ) Corporal&nbsp;
+<br>(&nbsp; ) Vocal</td>
+</tr>
+</tbody></table>
+
+</p><hr width="100%">
+
+<p>O perfil deve dar as informações necessárias que
+os desenvolvedores precisam para tomar as suas decisões. A análise
+do perfil pode ser adaptada de acordo com as características do
+sistema e com as necessidades de analistas e desenvolvedores. Por exemplo,
+pode ser interesse dos designers saber se os usuários têm
+algumas experiência com interfaces gráficas e qual o padrão
+(Windows, Motif, Macintosh, etc.) eles estão acostumados a utilizar.
+</p><h3>
+3.7.2 Papéis de Usuários</h3>
+O papel (ou função ) específico de cada usuário
+é definido pelas tarefas que eles realizam. Numa organização,
+as pessoas trabalham juntas, de maneira estruturada. A estrutura da organização
+define relacionamentos entre as pessoas. A implicação imediata
+dos diferentes papéis de cada usuário são as diferentes
+tarefas que eles irão realizar. Algumas tarefas podem ser comuns
+a diferentes papéis de usuários, enquanto outras podem ser
+exclusivas de papéis específicos.
+
+<p>O conceito de papel de usuário permite abstrairmos as características
+específicas de um usuário e enfatizar nas diferentes necessidades
+associadas a função que ele exerce. Para cada papel devemos
+associar um conjunto de funções, como veremos mais adiante.
+
+</p><p>No domínio do departamento de informática da UFRN podemos
+identificar como papéis de usuários: <i>secretário
+do departamento,&nbsp; chefe, coordenador de graduação, secretário
+da coordenação, coordenador de pós-graduação,
+professor,&nbsp; aluno, funcionário de administração
+de laboratórios e&nbsp; usuário externo</i>.
+</p><h2>
+<a name="3.8"></a>
+3.8 Análise e Modelagem de Tarefas</h2>
+Os cenários permitem o levantamento e a descrição
+mais global das informações, das tarefas e dos problemas
+do domínio. O perfil de usuário descreve as características
+de usuários em termo de conhecimento, cultura, capacidades e limitações.
+A análise de tarefas visa determinar quais as atividades que os
+usuários (ou cada papel de usuário) devem realizar. Esta
+informação é essencial para se especificar os requisitos
+funcionais, determinando a funcionalidade do software. Para que o sistema
+possa ser construído para que estes problemas sejam resolvidos,
+ele deve ser uma ferramenta auxiliar na realização das tarefas
+de cada usuário.
+
+<p>Uma tarefa é, genericamente, uma atividade na qual um ou&nbsp;
+mais agentes tentam atingir uma meta especificada, através de uma
+mudança de estado em uma ou mais entidades do mundo. Num domínio
+de aplicação, as tarefas são as atividades que modificam
+estados de elementos deste domínio. A construção de
+um sistema computacional em um certo domínio tem por objetivo apoiar
+a realização de algumas destas atividades. Durante o processo
+de análise, deve-se determinar quais as do domínio e identificar
+quais delas podem ser auxiliadas pelo sistema.
+
+</p><p>A análise e modelagem de tarefas visa descrever as principais
+as tarefas que cada usuário do sistema terá de realizar para
+que os projetistas possam elaborar quais funções o sistema
+deve oferecer para que elas possam ser desempenhadas. Estas tarefas são
+descritas em termos de metas e um planejamento de possíveis atividades
+necessárias para atingi-las. As tarefas podem ser descritas
+a partir das informações obtidas nos cenários e devem
+ser agrupadas por <b>papéis de usuário</b>.
+
+</p><p>A análise de tarefas pode ser utilizadas nas diversas fases do
+ciclo de vida do software. Na fase de análise de requisitos ela
+pode ser utilizada para identificar problemas na maneira de como as tarefas
+vêm sendo realizadas. Os modelos de tarefas também podem descrever
+quais tarefas podem ser realizadas com o auxílio do sistema e como
+os usuários gostariam que ela fosse realizada. A análise
+de tarefa também é utilizada na avaliação do
+sistema para se determinar se como os usuários estão utilizando
+o sistema e se os objetivos foram atingidos.&nbsp; Nestes casos, a análise
+de tarefas ajuda ao projetista da interface ter uma visão da aplicação
+sob a perspectiva do usuário, isto é, um modelo das tarefas
+do usuário quando executando sessões da aplicação.
+</p><h3>
+3.8.1 Modelo de tarefas como base para a especificação de
+requisitos funcionais</h3>
+A análise e modelagem de tarefas pode ser utilizada como base para
+a especificação de requisitos funcionais. Para isto é
+preciso descrever as metas associadas a cada papel de usuário, que
+permitirão saber o que os usuário querem.
+
+<p>Resultados da psicologia cognitiva mostram que as pessoas realizam tarefas
+estabelecendo <b>metas</b> e elaborando um <b>plano</b> para cada uma delas.
+O <b>planejamento</b> consiste numa decomposição hierárquica
+de metas em <b>sub-metas</b> até que elas possam ser atingidas por
+<b>operações</b>. O <b>plano</b> ou <b>método</b>
+é, portanto, uma&nbsp; estrutura de sub-metas e operações
+para se atingir um certa meta. As <b>operações</b> correspondem
+a <i>ações básicas humanas</i>, isto é, aquelas
+que qualquer pessoa pode e sabe como realizar. São exemplos de operações&nbsp;
+<i>escrever uma palavra ou frase, ler uma informação, falar
+uma palavra ou frase, andar, relembrar, mover um objeto, pressionar um
+botão de controle</i> e várias outras.
+
+</p><p>Por exemplo, suponhamos que uma pessoa tem como meta <i>avisar</i> <i>a
+um amigo, através de uma carta, que sua filha nasceu</i>. Para atingir
+seu objetivo a pessoa deve estabelecer duas sub-metas: E<i>screver a carta
+e Colocá-la no correio</i>. A sub-meta escrever carta pode ser atingida
+pelo método:&nbsp; <i>Conseguir papel e lápis </i>e <i>Escrever
+mensagem</i>. Escrever mensagem já pode ser considerada uma operação,
+enquanto que conseguir papel e lápis requer um novo planejamento
+que determine as seguintes operações: <i>ir até o
+escritório, abrir o armário, pegar o papel e o lápis,
+levá-los até a mesa</i>.
+<br>O grão de refinamento do que podemos considerar com sendo uma
+operação é bastante subjetivo. Vai depender das dificuldades
+de quem realiza o plano. Na prática o plano é necessário
+quando a pessoa que vai realizar as ações não sabe
+ainda qual o método. Com a experiência o método torna-se
+automático e podemos considerar uma sub-meta como uma operação
+
+</p><p>Na utilização de um sistema computacional, os usuários
+realizam tarefas com o objetivo de atingir certas metas. Uma meta é
+um determinado estado do sistema ou de objetos do sistema ao qual o usuário
+quer chegar. Ao estabelecer a meta o usuário deve realizar um planejamento
+decompondo a meta em sub-metas até que ele saiba que existe uma
+determinada função do sistema que permita que sua meta seja
+atingida. O caso agora é um pouco diferente do planejamento anterior,
+pois não é o usuário quem vai realizar a operação
+desejada, mas o sistema. A decomposição deve ocorrer até
+que ele identifique que o sistema tem uma determinada função
+que quando executada realiza a operação necessária
+para que sua meta seja atingida. Chamamos estas operações
+que o sistema executa para satisfazer as metas do usuário de <b>função
+da aplicação</b>. O conjunto de funções da
+aplicação determina a funcionalidade do sistema.
+
+</p><p>Vejamos um exemplo. Suponha que o usuário esteja escrevendo uma
+carta utilizando um editor de texto e tenha como meta <i>formatar um documento</i>.Para
+atingir esta meta ele estabelece as seguintes sub-metas: <i>Formatar página,
+Formatar parágrafos, Formatar fontes</i>. Para cada uma destas sub-metas
+ele estabelece novas sub-metas até que ele identifique no software
+funções que o sistema pode realizar que permitam que as sub-metas
+sejam atingidas. Por exemplo, formatar página pode ser decomposta
+na função da aplicação <i>especificar tamanho
+da página </i>e na sub-meta <i>definir margens</i>. Esta última
+por sua vez pode ser atingida pelas operações <i>especificar
+valor da margem superior, especificar valor da margem inferior, especificar
+valor da margem esquerda e especificar valor da margem direita.</i>
+
+</p><p>Vejamos o plano deste usuário
+</p><ul>META: Formatar documento
+<ul>PLANO:
+<ul><i>Formatar página</i> (sub-meta)
+<ul><i>especificar tamanho da página </i>(função da
+aplicação )
+<br><i>Definir margens </i>(sub-meta)
+<ul><i>especificar valor da margem superior </i>(função da
+aplicação)
+<br><i>especificar valor da margem inferior </i>(função da
+aplicação)
+<br><i>especificar valor da margem esquerda </i>(função da
+aplicação)
+<br><i>especificar valor da margem direita </i>(função da
+aplicação)</ul>
+</ul>
+<i>Formatar parágrafos </i>(sub-meta)
+<ul><i>selecionar parágrado </i>(função da aplicação)
+<br>Especificar atributos do parágrafo (sub-meta)
+<ul><i>especificar espaçamento </i>(função da aplicação)
+<br><i>especificar recuos </i>(função da aplicação)</ul>
+...</ul>
+<i>Formatar fontes</i> (sub-meta)
+<ul>...</ul>
+</ul>
+</ul>
+</ul>
+O modelo de tarefas é extremamente útil para determinarmos
+as metas dos usuários e quais funções da aplicação
+eles gostariam que o sistema oferecesse. Por exemplo, a especificação
+dos requisitos pode determinar que deve existir uma função
+da aplicação para formatar documento de maneira que a meta
+do usuário pudesse ser atingida pelo sistema sem a necessidade de
+planejamento algum.
+
+<p>É importante ressaltar que uma meta pode ser satisfeita por uma
+única ou por várias funções da aplicação
+e que também mais de um método pode ser atingido uma mesma
+função da aplicação.Por exemplo, ao utilizar
+o Word 7.0, o usuário pode ter como meta <i>formatar um estilo</i>.
+Ao construir o seu plano o usuário em determinado momento pode estabelecer
+a sub-meta Especificar atributos do parágrafo. Esta sub-meta requer
+as mesmas funções de aplicação do plano para
+a meta formatar parágrafo. Assim, temos um grupo de funções
+da aplicação que são utilizadas para duas (ou mais)
+metas&nbsp; distintas.
+
+</p><p>Para que o usuário solicite ao sistema que execute uma determinada
+função de usuário, ele deve realizar operações
+que correspondam a um <b>comando de função</b>. Por exemplo,
+para o usuário solicitar ao sistema operacional que realize a função
+de copiar um arquivo de um diretório para outro ele deve escrever
+um comando do tipo <b>copy nome1 dir1 dir2</b> ou se estiver numa interface
+gráfica, mover o ícone correspondente ao arquivo da janela
+do diretório para a do outro diretório. Ao realizar o comando,
+o usuário precisa realizar operações com os dispositivos
+de interface do sistema, como <i>pressionar mouse, digitar número,
+teclar enter, etc.</i>
+
+</p><p>Apenas com a descrição das operações do
+usuário é que um plano para atingir uma meta fica completo.
+Quando o sistema está pronto, o plano tem que determinar exatamente
+as operações necessárias para comandar a função
+e, conseqüentemente, ter a meta atingida com o auxílio do sistema.
+
+</p><p>Na especificação de requisitos é suficiente decompor
+as metas que o usuário quer atingir nas correspondentes sub-metas.
+Caberá ao designer do software determinar qual o conjunto de funções
+que permita atingir o maior número possível de metas para
+cada papel de usuário e quais devem ser os comandos de interface
+para cada uma das funções.
+</p><h3>
+3.8.2 Modelagem de Tarefas usando GOMS</h3>
+Neste curso, utilizaremos a análise de tarefas na especificação
+de requisitos para determinar as tarefas que os usuários necessitam
+realizar com o sistema a ser construído. Para isto utilizaremos
+um método específico que utiliza o modelo <b>GOMS </b>simplificado.
+O modelo <b>GOMS</b> (<i>Goals, Operators, Methods, and Selection Rules</i>)<b>
+</b>oferece uma abodagem de análise da tarefa baseada num modelo
+do comportamento humano que possui três subsistemas de interação:
+o <b>perceptual</b> (auditivo e visual), o <b>motor </b>(movimentos braço-mão-dedo
+e cabeça-olho), e <b>cognitivo</b> (tomadas de decisão e
+acesso a memória). O modelos GOMS descreve o comportamento dinâmico
+da interação com um computador, especificando-se:
+<dir><b>Metas -</b> Uma aplicação é desenvolvida para
+auxiliar os usuários atingirem metas específicas. Isso requer
+uma série de etapas. Dessa forma, uma meta pode ser decomposta em
+várias submetas, formando uma hierarquia.
+
+<p><b>Operadores - </b>São as ações humanas básicas
+que os usuários executam.
+</p><dir><b>perceptual</b> - operações visuais e auditivas (<i>olhar
+a tela, escutar um beep</i>).
+
+<p><b>motor</b> - movimentos braço-mão-dedo e cabeça-olho
+(<i>pressionar uma tecla).</i>
+
+</p><p><b>cognitivo - </b>tomadas de decisão, armazenar e relembrar
+um item da memória de trabalho.
+<br>&nbsp;</p></dir>
+<b>Métodos</b> - Um método é uma sequência de
+passos para se atingir uma meta. Dependendo do nível da hierarquia,
+os passos num método podem ser submetas, operadores ou a combinação
+de ambos.
+
+<p><b>Regras de Seleção </b>- Pode existir mais de um método
+para se atingir uma meta. Uma regra de seleção especifica
+certas condições que devem ser satisfeitas antes que um método
+possa ser aplicado. Uma regra de seleção é uma expressão
+do tipo "condição-ação".</p></dir>
+O GOMS permite que se construa modelos de tarefas bem mais complexos e
+detalhados do que o necessário numa tarefa de análise para
+a especificação de requisitos. Usaremos uma versão
+simplificada do GOMS, pois:
+<ul>
+<dir>
+<li>
+o modelo da tarefa não deverá descrever informações
+de design da interface, uma vez que ela ainda não foi construída;</li>
+
+<li>
+o<b> </b>analista não é um especialista em psicologia cognitiva;</li>
+
+<li>
+o modelo simplificado pode ser expandido para o original, o que é
+bastante útil.</li>
+</dir>
+</ul>
+
+<ol>
+<li>
+<b><i>Diretrizes do Modelo de Tarefas Simplificado</i></b></li>
+</ol>
+Uma vez que a hierarquia de metas representa um aumento no nível
+de detalhe, se nos limitarmos à descrição de metas
+e submetas de mais alto nível, nenhuma decisão de design
+será envolvida.
+<ul>
+<dir>
+<li>
+<b>Faça a análise "top-down" </b>- comece das metas mais
+gerais em direção as mais específicas.</li>
+
+<li>
+<b>Use termos gerais para descrever metas </b>- não use termos específicos
+da interface.</li>
+
+<li>
+Examine todas as metas antes de descer para um nível mais baixo
+- isso facilita reuso de metas.</li>
+
+<li>
+<b>Considere todas as alternativas de tarefas </b>- as regras de seleção
+possibilitam representar alternativas.</li>
+
+<li>
+<b>Use sentenças simples para especificar as metas </b>- estruturas
+complexas indicam a necessidade de decomposição da meta em
+submetas.</li>
+
+<li>
+<b>Retire os passos de um método que sejam operadores</b> - os operadores
+são dependentes da interface.</li>
+
+<li>
+<b>Pare a decomposição quando as descrições
+estiverem muito detalhadas </b>- quando os métodos são operadores
+ou envolvem pressuposições de design.</li>
+</dir>
+</ul>
+<font size="-1">&nbsp;</font>
+<ol>
+<li>
+<b><i>Modelagem da Tarefa para aplicações com múltiplas
+funções de usuários.</i></b></li>
+
+
+<p>Se, para uma determinada aplicação, a função
+do usuário for um fator crítico dominante na análise
+de usuários, deveremos ter modelos de tarefas diferentes para cada
+função de usuário. No GOMS simplificado, veremos como
+representar as tarefas para cada usuário num só modelo. Antes
+de estudarmos a notação do modelo, vejamos algumas regras
+para modelos com múltiplas funções de usuários:
+<br>&nbsp;
+</p><ul>
+<li>
+Inicie especificando metas de alto nível para cada função
+de usuário.</li>
+
+<li>
+Se mais de um compartilham a mesma meta, agrupe-os sob uma só.</li>
+
+<li>
+Se todos compartilham a mesma meta, retire as referências a funções
+de usuário.</li>
+</ul>
+<font size="-1">&nbsp;</font>
+<li>
+<b><i>Notação</i></b></li>
+
+<ol>
+<li>
+Notação para Funções de Usuários.</li>
+</ol>
+</ol>
+
+<ul>
+<dir>
+<li>
+Funções de usuários distintas serão denotadas
+pelo símbolo <b>FU </b>seguido por um número.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir>ex.: Gerente de vendas (<b>FU1</b>), balconista (<b>FU2</b>), caixa
+(<b>FU3</b>)</dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+A descrição de cada função de usuário
+é a primeira parte do modelo de tarefas.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir>ex.: Gerente de vendas (<b>FU1</b>): responsável pela vendas
+nas lojas. Tem acesso a todos os dados do sistema.</dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+Um ponto-e-vírgula (;) é usado para separar o símbolo
+da função do usuário do restante da notação
+do modelo de tarefas.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: FU1;...</b></dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+Se uma meta é usada para mais de uma função de usuário,
+elas devem ser separadas por uma vírgula (,).</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: FU1, FU2; ...</b></dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+Um asterisco (*) é usado se uma meta é aplicada a todas as
+funções de usuários.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: *;...</b></dir>
+</dir>
+</dir>
+
+<ol>
+<ol>
+<li>
+<b>Notação para especificação de metas</b></li>
+</ol>
+</ol>
+
+<ul>
+<dir>
+<li>
+Cada passo num método é numerado numa ordem seqüencial,
+com cada nível de decomposição separado por um ponto
+(.), e com a endentação apropriada para reforçar a
+noção de hierarquia. Após o último número
+usa-se dois-pontos (:).</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: FU2; 2.1: Anotar correções.</b></dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+Um comentário começa com duas barras inclinadas para direita
+(//) e acaba ao final da linha.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: // Para fazer as anotações o balconista deverá
+examinar as</b>
+<br><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // listagens produzida durante
+as vendas do dia.</b>
+
+<p><b>FU2; 2.1: Anotar correções</b>
+<br>&nbsp;</p></dir>
+
+<li>
+<b>Notação para Métodos e Regras de Seleção</b></li>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+Se uma meta possui mais de um método para ser atingida, uma letra
+do alfabeto é usada de forma ordenada após o número
+que descreve a meta.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.:</b>
+
+<p><b>FU2; 2: Fazer relatório de vendas (meta)</b>
+</p><dir><b>FU2; 2A:</b> ... (método A)
+
+<p><b>FU2; 2B:</b> ... (método B)
+
+</p><p><font size="-1">&nbsp;</font></p></dir>
+</dir>
+</dir>
+</dir>
+
+<ul>
+<dir>
+<li>
+As regras de seleção e o método associado são
+descritos como pares "condição-ação", logo
+após a notação numérica da meta.</li>
+</dir>
+</ul>
+
+<dir>
+<dir>
+<dir><b>ex.: FU2; 2A: se (dia de hoje for sábado)</b>
+<dir>
+<dir>
+<dir><b>então (fazer relatório semanal)</b></dir>
+</dir>
+</dir>
+</dir>
+</dir>
+</dir>
+
+<ol>
+<ol>
+<li>
+<b>Reutilizando Metas</b></li>
+
+
+<p>Um aspecto importante dessa notação é que pode-se
+reutilizar metas, simplesmente usando o mesmo número de uma meta
+preexistente.
+
+</p><p><b>ex.:</b>
+
+</p><p><b>FU2; 2.1: Anotar correções. (meta preexistente)</b>
+
+</p><p><b>...</b>
+
+</p><p><b>FU1, FU3; 3: Modificar livro-caixa.</b>
+
+</p><p><b>FU1, FU3; 3.1: Procurar lotes em aberto.</b>
+
+</p><p><b>FU1, FU3; 2.1: Anotar correções. (meta reusada)</b>
+
+</p><p><b>FU1, FU3; 3.3: Recalcular valores.</b>
+<br>&nbsp;
+</p><li>
+<b>Diretrizes adicionais</b></li>
+</ol>
+</ol>
+
+<ul>
+<dir>
+<li>
+Delimite os passos de um método entre chaves: {}.</li>
+
+<li>
+Em aplicações com apenas uma função de usuário,
+não é necessário incluir a notação de
+função usuário antes de cada meta.</li>
+
+<li>
+Num nível de decomposição onde todas as metas têm
+o mesmo número-prefixo, apenas o número que indica a seqüência
+naquele nível é necessário.</li>
+
+<li>
+A diretriz anterior se aplica também à notação
+de função de usuário.</li>
+
+<li>
+Ao reutilizar uma meta anterior é necessário usar a notação
+completa para ela.</li>
+</dir>
+</ul>
+
+<dir>
+<dir><b>ex.: FU1, FU3; 3: Modificar livro-caixa.</b>
+<dir>
+<dir>
+<dir>
+<dir>
+<dir><b>1: Procurar lotes em aberto.</b>
+<dir>&nbsp;</dir>
+<b>2.1: Anotar correções. (meta reusada)</b>
+<dir>&nbsp;</dir>
+<b>3: Recalcular valores.</b>
+<dir><font size="-1">&nbsp;</font></dir>
+</dir>
+</dir>
+</dir>
+</dir>
+</dir>
+</dir>
+</dir>
+
+<h2>
+<a name="3.9"></a>
+3.9 Especificando Requisitos utilizando Casos de Uso</h2>
+Após saber quais as tarefas associadas a cada papel de usuário,
+é hora de elaborar os <b>casos de uso (use cases) </b>que permitem
+definir as funções de aplicação que o sistema
+deverá oferecer para o usuário. Os casos de uso podem ser
+utilizadas durante a análise e especificação dos requisitos
+para descrever a funcionalidade do sistema.
+
+<p>Os casos de uso foram definidos como parte da metodologia de Jacobson:
+<i>Object-oriented Analysis and Design - The User Case Driven Approach</i>.
+A linguagem de modelagem <a href="http://www.dimap.ufrn.br/%7Ejair/ES/conceitos.html#uml">UML</a>
+(<i>Unified Modeling Language</i>) apresenta notações para
+a representação de casos de uso.
+
+</p><p>Um caso de uso especifica o comportamento do sistema a ser desenvolvido
+sem, no entanto, especificar com este comportamento será implementado.
+Os comportamentos descrevem as funções da aplicação
+que caracterizam a funcionalidade do sistema. Um caso de uso representa
+o <u>que</u> o sistema faz e não <u>como</u> o sistema faz, proporcionando
+uma visão externa e não interna do sistema.
+
+</p><p>Cada caso de uso define um <b>requisito funcional </b>do sistema. Por
+exemplo, num sistema bancário, consulta de saldo, empréstimos
+e saques de dinheiro são exemplos de casos de uso.
+
+</p><p>O caso de uso descreve um conjunto de seqüências de ações
+que o sistema desempenha para produzir um resultado esperado pelo usuário.
+Cada seqüência representa a interação de entidades
+externas e o sistema. Estas entidades são chamadas de <b>atores
+</b>e que podem ser usuários ou outros sistemas. No caso de usuários,
+um ator representa na verdade uma função de usuários.
+
+</p><p>Os casos de uso podem ser compostos por outros casos de uso mais específicos.
+Esta estrutura deve estar em conformidade com o particionamento do sistema
+em sub-sistemas. Desta forma tanto é possível descrever casos
+de uso que aplicam-se ao sistema global, quanto casos que são específicos
+para cada uma das partes do sistema.
+
+</p><p>Casos de uso também podem ser especializados, por exemplo uma
+consulta pode ser especializada em consulta de saldo e consulta de extrato,
+que por sua vez podem ser especializados, cada um , em consultas a conta-corrente
+ou a conta-poupança.
+
+</p><p>Ao definir os requisitos funcionais, o caso de uso define o comportamento,
+as respostas esperadas e os casos de testes que devem validar a implementação
+do sistema.
+</p><h3>
+<b>3.9.1 A representação de casos de uso usando UML</b></h3>
+A notação UML será utilizada neste curso como linguagem
+de especificação para a maioria das atividades do ciclo de
+vida do sistema. A partir de agora vamos introduzir esta notação
+necessária para representar casos de uso. Ao longo do curso outros
+aspectos da linguagem serão introduzidos.
+
+<p>Um caso de uso é representado por uma <b>elipse</b>. Cada caso
+de uso disntigue-se de um outro por um <b>nome </b>que normalmente é
+um verbo seguido do seu objeto.
+
+</p><p>&nbsp;Um ator que pode ser uma ou mais função de usuário
+é representado por uma figura simples de um indivíduo (um
+<b><i>boneco-de-palitos</i></b>).
+
+</p><p>Os atores são conectados a casos de uso por uma associação
+representadas por uma <b>linha</b>.
+
+</p><p>O comportamento associado a cada caso de uso pode ser descrito como
+um <b>cenário</b>. Cada cenário descreve textualmente o fluxo
+de eventos ou seqüência que caracteriza o comportamento do ator
+e as respostas do sistema. Um cenário é uma instância
+do caso de uso.
+
+</p><p><a name="validarcliente"></a>Por exemplo num caixa eletrônico
+bancário, o caso de uso <i>validar cliente</i> pode ser descrito
+pelo seguinte cenário:
+</p><dir>
+<dir><i>Fluxo de eventos principal</i>: O casos de uso inicia quando o
+sistema solicita ao cliente (do banco) a sua senha. O cliente fornece os
+números através do teclado. O cliente confirma a senha pressionando
+a tecla <i>entre</i>. O sistema checa este número e verifica se
+ele é válido.
+
+<p><i>Fluxo de evento excepcional</i>: O cliente pode cancelar a transação
+a qualquer momento pressionando o botão <i>cancele</i>, reiniciando
+o caso de uso. Não é feita nenhuma mudança na conta
+do usuário.
+
+</p><p><i>Fluxo de evento excepcional</i>: O cliente pode corrigir a senha
+a qualquer momento antes de confirmar com a tecla <i>entre</i>.
+
+</p><p><i>Fluxo de evento excepcional</i>: Se o cliente fornece um número
+de senha inválido o caso de uso é reiniciado. Se isto acontecer
+três vezes seguidas, o sistema cancela o caso de uso e bloqueia por
+até uma hora.</p></dir>
+</dir>
+Os casos de uso também podem ser descritos de maneira mais estruturada
+e formal, por exemplo, usando <b>pré- e pós-condições</b>.
+Diversas técnicas e notações para especificações
+formais permitem descrever o comportamento da funções da
+aplicação em termos de pré- e pós-condições.
+As pré-condições estabelecem as condições
+que devem estar satisfeita antes que a função seja executada
+pelo sistema, enquanto que as pós-condições determinam
+o que deve ser válido ao final da execução. Estes
+estados iniciais e finais do sistema descrevem o comportamento independente
+de como será implementado, isto é, quais os algoritmos, estrutura
+de dados e linguagem de programação a serem utilizados. As
+especificações formais não são abordadas neste
+curso.
+
+<p>Os casos de uso podem ainda ser descritos através de outros diagramas
+UML. Os <b>diagramas de atividades </b>descrevem os diversos estados e
+as transições entre cada um deles. Os diagramas de interação
+permitem descrever as interações entre o ator e o componente
+do sistema que implementa o caso de uso. Estes diagramas serão estudados
+mais adiante no <a href="https://www.dimap.ufrn.br/%7Ejair/ES/c4.html">capítulo
+4</a>.
+<br>Veja o exemplo acima especificado através de diagramas de estados
+e de atividades na <a href="https://www.dimap.ufrn.br/%7Ejair/ES/c4.html#4.2.7">seção
+4.2.7</a>.
+</p><h3>
+3.9.2 Diagrama de Casos de Uso em UML</h3>
+A <a href="http://www.dimap.ufrn.br/%7Ejair/ES/conceitos.html#uml">UML</a>
+permite elaborar diversos diagramas para visualização, especificação,
+construção e documentação de diversas partes
+do sistema em diversas etapas do ciclo de vida. Existem cinco tipos de
+diagramas que permitem modelar aspectos dinâmicos do sistema através
+da UML. O <b>diagrama de&nbsp; casos de uso </b>é um destes diagramas
+e pode ser utilizado para visualização, especificação
+e documentação de requisitos do sistema.
+
+<p>A especificação dos requisitos visa descrever o que o
+sistema deve fazer para satisfazer as metas dos usuários (requisitos
+funcionais) e quais outras propriedades é desejável que o
+sistema possua (requisitos não-funcionais). Vimos que casos de usos,
+individualmente, descrevem requisitos funcionais. Acrescentandos <b>Notas</b>
+aos diagramas de casos de uso podemos especificar também os requisitos
+não-funcionais.
+
+</p><p>Um diagrama de casos de uso contém:
+</p><ul>
+<li>
+Casos de Uso</li>
+
+<li>
+Atores</li>
+
+<li>
+Relacionamentos de dependência, generalização e associações</li>
+</ul>
+Podem ser acrescentadas <b>Notas</b> com em qualquer outro diagrama UML.
+
+<p><img src="3.%20An%C3%A1lise%20e%20Especifica%C3%A7%C3%A3o%20de%20Requisitos_arquivos/casouso.gif" nosave="" height="300" width="400">
+
+</p><p>Para modelar os requisitos de software de um sistema podemos seguir
+as seguintes regras.
+</p><ul>
+<li>
+Estabeleça o contexto do sistema identificando os <b>atores</b>
+(usuários e sistemas externos) associados a ele.</li>
+
+<li>
+Para cada ator, considere o comportamento que cada um deles espera ou requer
+que o sistema possua, para que as suas metas sejam satisfeitas.</li>
+
+<li>
+Considere cada um destes comportamentos esperados como <b>casos de uso</b>,
+dando nomes para cada um deles.</li>
+
+<li>
+Analise os casos de uso tentando identificar comportamentos comuns a mais
+de um deles. Defina esta parte comum como caso de uso genérico,
+estabelecendo um relacionamento de <b>generalização</b>.
+Tente identificar outros <b>relacionamentos</b>, como a dependência
+entre casos de uso que incluem o comportamento de outros .</li>
+
+<li>
+Modele estes casos de uso, atores e seus relacionamentos em <b>diagramas
+de casos de uso</b>.</li>
+
+<li>
+Complemente estes casos de uso com <b>notas</b> que descrevam requisitos
+não-funcionais.</li>
+</ul>
+&nbsp;Além destas regras básicas, algumas dicas ajudam a
+construir diagramas mais claros.
+<ul>
+<li>
+Dê nomes que comuniquem o seu propósito.</li>
+
+<li>
+Quando existirem relacionamentos, distribua os casos de uso de maneira
+a minimizar os cruzamentos de linhas.</li>
+
+<li>
+Organize os elementos espacialmente de maneira que aqueles que descrevem
+comportamento associados fiquem mais próximos.</li>
+
+<li>
+Use notas para chamar a atenção de características
+importantes - as notas não são apenas para os requisitos
+não funcionais.</li>
+
+<li>
+Não complique o diagrama, coloque apenas o que é essencial
+para descrever os requisitos. O diagrama deve ser simples sem deixar de
+mostrar o que é relevante.</li>
+</ul>
+
+<hr width="100%"><a href="https://www.dimap.ufrn.br/%7Ejair/ES/c2.html">Anterior</a> | <a href="https://www.dimap.ufrn.br/%7Ejair/ES/indice.html">Índice</a> |
+<a href="https://www.dimap.ufrn.br/%7Ejair/ES/c4.html">Próximo</a>
+
+<hr width="100%">
+(C) <i>Jair C Leite, 2000 </i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<i>Última atualização: <!--webbot bot="Timestamp"
+S-Type="EDITED" S-Format="%d/%m/%y" startspan -->16/05/00<!--webbot bot="Timestamp" i-CheckSum="12297" endspan -->
+&nbsp;&nbsp;&nbsp;</i>
+
+
+</body></html>

@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xml:lang="pt-br" lang="pt-br"><head>
+<title>Artigo Engenharia de Software - Introdução a Teste de Software </title>
+<link href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/css.css" rel="stylesheet" type="text/css">
+
+<link href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/artigo_style_2013.css" rel="stylesheet" type="text/css">
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+
+
+	<meta property="og:image" content="http://www.devmedia.com.br/imagens/fotoscolunistas/Col_185582_ty.jpg">
+
+<meta name="description" content="Engenharia de Software Magazine - Ao longo deste artigo, iremos discutir os principais conceitos relacionados às atividades de teste, as principais técnicas e critérios de teste que podem ser utilizados para verificação ou validação de um produto."> 
+
+<link rel="canonical" href="http://www.devmedia.com.br/artigo-engenharia-de-software-introducao-a-teste-de-software/8035">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-language" content="pt-br">
+<meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=3.0,initial-scale=1.0">
+<meta name="msapplication-tap-highlight" content="no">
+
+<!-- ICON MAC -->  
+<link rel="apple-touch-icon" href="http://www.devmedia.com.br/favicon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://www.devmedia.com.br/imagens/2013/Devmedia72x.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://www.devmedia.com.br/imagens/2013/Devmedia114x.png">
+<link rel="apple-touch-icon" sizes="129x129" href="http://www.devmedia.com.br/imagens/2013/Devmedia129x.png">  
+<!-- FAVICON HTML5-->
+<link rel="icon" href="http://www.devmedia.com.br/favicon.png">
+<!-- FAVICON IE-->
+<link rel="icon" type="image/png" href="http://www.devmedia.com.br/favicon.png">
+
+<link href="https://plus.google.com/101753743720604160232" rel="publisher">
+<!-- CSS - RESET E PRESET -->
+<link rel="stylesheet" type="text/css" href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/devmedia.css">
+<!-- CSS - RESPONSIVO -->
+<link rel="stylesheet" type="text/css" href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/devmedia-responsive.css">
+<!-- CSS - HEADER E FOOTER -->
+<link rel="stylesheet" type="text/css" href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/devmedia-header-footer.css">
+<link rel="stylesheet" type="text/css" href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/style.css">
+
+<script async="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/cbgapi.loaded_1"></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/v2.js" type="text/javascript" async=""></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/bjGqbWII8r4A2pacwqm_6r.js" type="text/javascript" async=""></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/ti.js" type="text/javascript" async=""></script><script async="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/cbgapi.loaded_0"></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/ga.js" async="" type="text/javascript"></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/all.js" id="facebook-jssdk"></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/jquery.js"></script>
+<script async="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/menu.js"></script><script async="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/menu_002.js"></script>
+  <!--[if lt IE 9]>
+	<script async defer src="js/modernizr.custom.js"></script>
+  <![endif]-->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=145393072270566";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-15997918-1']);
+_gaq.push(['_setDomainName', 'devmedia.com.br']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<script async="" defer="defer" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/article.js"></script>
+
+<script gapi_processed="true" async="" type="text/javascript" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/plusone.js"></script>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "7fba8974-a42c-4d1b-96a9-4249a82ce8c0", onhover: false}); </script>	
+
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=3">
+
+
+<link rel="publisher" href="https://plus.google.com/101753743720604160232">
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/getAllAppDefault.esi" type="text/javascript"></script><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/checkOAuth.esi" type="text/javascript"></script><link href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/buttons.css" type="text/css" rel="stylesheet"><script src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/getCount2.php" type="text/javascript"></script><script gapi_processed="true" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/plusone.js" type="text/javascript"></script></head>
+
+<body>
+<div class="dm-shadow"></div>
+<section class="dm-shell">
+<header>
+<span class="opacity"></span>
+<nav class="lateral">
+<ul>
+<li><strong><a href="http://www.devmedia.com.br/" rel="nofollow"><span class="font-dev">bem</span><span class="font-media">vindo</span><span class="icon home"></span></a></strong></li>
+<li><a href="#" class="back" data-main="true">Voltar</a></li>
+
+<li><a href="http://www.devmedia.com.br/forum/"><span class="icon2 forum"></span>Fórum</a></li>
+<li><a href="http://www.devmedia.com.br/api/" style="text-transform:none;"><span class="icon2 devware"></span>APIs</a></li>
+<li><a href="#" rel="nofollow"><span class="icon2 servicos"></span>Serviços<span></span></a>
+<ul>
+<li><h5>Serviços<span class="icon servicos"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/player" rel="nofollow">Devmedia Player</a></li>
+<li><a href="http://www.devmedia.com.br/join" rel="nofollow">Cadastre-se</a></li>
+<li><a href="http://www.devmedia.com.br/feed" rel="nofollow">RSS</a></li>
+<li><a href="http://www.devmedia.com.br/whatsnew/?id=1">O que há de novo </a></li>
+<li><a href="http://www.devmedia.com.br/como-gerenciar-os-posts-lidos-assistidos-no-portal-devmedia/25840" rel="nofollow">Gerenciando o que foi lido</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow"><span class="icon2 mvp"></span>MVP</a></li>
+<li><a href="#" rel="nofollow"><span class="icon2 comprar"></span>Comprar<span></span></a>
+<ul>
+<li><h5>Comprar<span class="icon comprar"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow">MVP</a></li>
+<li><a href="http://www.devmedia.com.br/shop/" rel="nofollow">Loja Virtual</a></li>
+<li><a href="http://www.devmedia.com.br/assine/#assine-revistas">Assine revistas</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 tecnologia"></span>Conteúdo<span></span></a>
+<ul>
+<li><h5>Conteúdo<span class="icon tecnologia"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/mentoring/">Mentoring</a></li>
+<li><a href="http://www.devmedia.com.br/front-end-web">Front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/mobile">Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/java">Java</a></li>
+<li><a href="http://www.devmedia.com.br/dotnet">.net</a></li>
+<li><a href="http://www.devmedia.com.br/banco-de-dados">Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/engenharia-de-software">Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/php">PHP</a></li>
+<li><a href="http://www.devmedia.com.br/delphi">Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/canais/">Todo o conteúdo</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 revistas"></span>Revistas<span></span></a>
+<ul>
+<li><h5>Revistas<span class="icon revistas"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/revista-front-end-magazine">Front-end Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-mobile-magazine">Mobile magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-java-magazine">Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-java-magazine">easy Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-dotnet-magazine">.net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-dotnet-magazine">easy .net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-sql-magazine">SQL Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine">Engenharia de Software Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-clubedelphi">ClubeDelphi</a></li>
+<li><a href="http://www.devmedia.com.br/assgold">Todas as revistas</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 cursos"></span>Cursos<span></span></a>
+<ul>
+<li><h5>Cursos<span class="icon cursos"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/formacoes/">Formações completas</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/front-end-web">Cursos de front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/mobile">Cursos de Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/java">Cursos de Java</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/net">Cursos de .net</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/banco-de-dados">Cursos de Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/engenharia-de-software">Cursos de Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/php">Cursos de PHP</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/automacao">Cursos de Automação / NFe / Paf-ecf</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/delphi">Cursos de Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/">Todos os cursos</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/pocket-video"><span class="icon2 pocketvideos"></span>Pocket Videos</a></li>
+<li><a href="http://www.devmedia.com.br/fale-conosco/" rel="nofollow"><span class="icon2 atendimento"></span>Fale conosco</a></li>
+
+</ul>
+</nav>
+            <!-- MENU DESKTOP -->  
+            <nav class="dm-bgnav-out">
+			  <div class="container-fluid dm-bgnav"> <!-- MOSTRAR E OCULTAR NAVBAR -->
+                <div class="container">     
+                  <div class="devmenu">  
+                    
+                    <i class="drop-mobile"><a href="#" class="menu"></a></i>
+					<a class="logo-mob" href="http://www.devmedia.com.br/"><span class="font-dev">Dev</span><span class="font-media">Media</span></a>
+                    <span id="headermenudesktop"><ul class="navspace menucel ativo3 dm-1"><li><a href="#" rel="nofollow" class="menulink">Iniciar &nbsp;<small>&#9660;</small></a>	<ul class="submenu">	<li><a href="http://www.devmedia.com.br/cursos/">Cursos &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/cursos/front-end-web">Cursos de front-end web</a></li>		<li><a href="http://www.devmedia.com.br/cursos/mobile">Cursos de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/cursos/java">Cursos de Java</a></li>		<li><a href="http://www.devmedia.com.br/cursos/net">Cursos de .net</a></li>		<li><a href="http://www.devmedia.com.br/cursos/banco-de-dados">Cursos de Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/cursos/engenharia-de-software">Cursos de Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/cursos/php">Cursos de PHP</a></li>		<li><a href="http://www.devmedia.com.br/cursos/automacao">Cursos de Automação / NFe / Paf-ecf</a></li>		<li><a href="http://www.devmedia.com.br/cursos/delphi">Cursos de Delphi</a></li>		<li><a href="http://www.devmedia.com.br/cursos/" class="btn-dm-nav">Todos os cursos</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/cursos/formacoes/">Formações &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/curso/formacao-front-end-web/404">Formação de Front-end</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-android/405">Formação de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/java">Formações de Java</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/net">Formações de .NET</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-banco-de-dados/408">Formação de Banco de Dados</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-delphi-developer/109">Formação de Delphi</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-programacao-para-iniciantes/417">Formação Iniciantes</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/" class="btn-dm-nav">Todas as formações</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/pocket-video">Vídeos avulsos &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=58#result%22">Vídeos de Front-end web</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=38#result">Vídeos de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=34#result">Vídeos de Java</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=35#result">Vídeos de .NET</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=37#result">Vídeos de Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=43#result">Vídeos de Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=44#result">Vídeos de PHP</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=46#result">Vídeos de Infra</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=42#result">Vídeos Diversos</a></li>		<li><a href="http://www.devmedia.com.br/busca/?txtsearch=&amp;tipo=18&amp;vis=0&amp;site=0#result">Pockets Gratuitos</a></li>		<li><a href="http://www.devmedia.com.br/pocket-video" class="btn-dm-nav">Todos os vídeos avulsos</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/guias/">Guias de Referência &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/guia-html5/31741">Guia HTML</a></li>		<li><a href="http://www.devmedia.com.br/guia-asp-net-mvc/32173">Guia ASP.NET MVC</a></li>		<li><a href="http://www.devmedia.com.br/guias/" class="btn-dm-nav">Todos os guias de referência</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/assgold">Revistas &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/revista-front-end-magazine">Front-end Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-mobile-magazine">Mobile magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-java-magazine">Java Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-easy-java-magazine">easy Java Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-dotnet-magazine">.net Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-easy-dotnet-magazine">easy .net Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-sql-magazine">SQL Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine">Engenharia de Software Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-clubedelphi">ClubeDelphi</a></li>		<li><a href="http://www.devmedia.com.br/assgold" class="btn-dm-nav">Todas as revistas</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/canais/">Canais &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/front-end-web">Front-end web</a></li>		<li><a href="http://www.devmedia.com.br/mobile">Mobile</a></li>		<li><a href="http://www.devmedia.com.br/java">Java</a></li>		<li><a href="http://www.devmedia.com.br/dotnet">.net</a></li>		<li><a href="http://www.devmedia.com.br/banco-de-dados">Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/engenharia-de-software">Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/php">PHP</a></li>		<li><a href="http://www.devmedia.com.br/delphi">Delphi</a></li>		<li><a href="http://www.devmedia.com.br/canais/" class="btn-dm-nav">Todo o conteúdo</a></li>		</ul>	</li>	<li style="padding-top:3px;"><a href="http://www.devmedia.com.br/mentoring/" style="padding-top: 7px;border-top: 1px solid #fff;">Conteudo Mentoring</a>		<ul class="submenu2">		</ul>	</li>	<li><a href="http://www.devmedia.com.br/busca/?txtsearch=devcast&amp;tipo=0&amp;vis=-1&amp;site=0#result">DevCasts</a>		<ul class="submenu2">		</ul>	</li>	</ul></li></ul><ul class="menucel dm-5"><li><a href="http://www.devmedia.com.br/forum/" class="menulink2">Fórum</a></li></ul><ul class="menucel dm-5"><li><a href="http://www.devmedia.com.br/api/" rel="nofollow" class="menulink2" style="text-transform:none;">APIs</a></li></ul><ul class="menucel dm-6"><li><strong><a href="http://www.devmedia.com.br/mvp/" class="menulink2">Assine MVP</a></strong></li></ul></span>
+					
+					<div class="login-box">
+                    <div class="login-btn">
+					<a href="http://www.devmedia.com.br/join/" class="cadastre-se" rel="nofollow">Cadastre-se</a>
+                      <div class="popover1">Login</div>
+					  <div class="pai">
+                        <div class="login-pop deslogado">
+                          <div class="login-form">
+                            <div class="seta"></div>
+                              <form class="form-inline" method="post" action="http://www.devmedia.com.br/login/login.asp">
+                                <input name="usuario" class="input-medium pull-left" placeholder="Usuário" type="text">
+                                <input name="senha" class="input-medium pull-right" placeholder="Senha" type="password">
+								<input name="ac" value="1" type="hidden">
+                                <br><button type="submit">OK</button>
+                                <a href="http://www.devmedia.com.br/join/" class="cadastre-se">Cadastre-se</a>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <!-- FIM MENU DESKTOP -->
+
+            <!-- REVELAR MENU DROP-->
+			<div class="revelar dm-cor5">
+            <!-- DIV COM O Z-INDEX QUE SOBREPOE O DROPDOWN, CRIA A IDEIA DE REVELAR O MENU ESCONDIDO NA TRANSIÇÃO --> 
+              <!-- BLOCO TOPO -->
+			  <div class="container-fluid dm-busca">
+                <div class="container">
+                  <div class="row-fluid"> <!-- CABEÇALHO -->
+                    <a href="http://www.devmedia.com.br/"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/logo.png" alt="DevMedia" title="DevMedia"></a>
+                    <!-- BUSCA EM TELA DESKTOP E TABLET -->
+                    <nav id="busca">
+					  <form action="http://www.devmedia.com.br/busca/">
+                        <input name="txtsearch" placeholder="Buscar" type="text">
+                        <button type="submit"></button>
+					  </form>
+                    </nav>
+                  </div><!-- FIM CABEÇALHO -->
+                </div>
+              </div>
+              <!-- FIM BLOCO TOPO -->
+			  </div>
+</header>
+
+
+<div id="main">	
+	
+	
+
+	<div id="div_corpo_post">	 
+			
+			<section id="boxes_de_aviso">
+			<a name="boxvalorcreditos"></a>
+			<div id="div_feedback_post">
+		
+		Você precisa estar logado para dar um feedback. 
+		<a href="http://www.devmedia.com.br/login/login.asp?ret=articles/viewcomp.asp?comp=8035" rel="nofollow">Clique aqui para efetuar o login</a>
+		
+			</div>
+
+<div id="pop">
+	  
+	  Para efetuar o download você precisa estar logado. <a href="http://www.devmedia.com.br/login/login.asp">Clique aqui para efetuar o login</a>
+	  
+</div>	
+			</section>
+			
+			<!--include file="inc_mensagem_mvp.asp" -->
+			
+			
+								
+			
+			<section id="barra_botoes">
+			
+						   
+			   <label style="margin-right:30px;"><a href="#comentariosArtigo" rel="nofollow" class="linkpadrao">comentários</a></label>
+
+			   <label><a href="http://www.devmedia.com.br/favorite/addfavorite.asp?comp=8035" rel="nofollow" target="_blank" class="linkpadrao">post favorito 
+			   (26)
+			   </a></label>
+
+			   
+			   			
+			</section>		
+			
+			<article id="div_conteudo_post">
+			
+			
+									
+			<header>
+			<h1 class="normal">Artigo Engenharia de Software - Introdução a Teste de Software </h1>				
+			<div id="div_descricao">					
+			<h2 class="normal">Ao longo deste artigo, iremos discutir os 
+principais conceitos relacionados às atividades de teste, as principais 
+técnicas e critérios de teste que podem ser utilizados para verificação 
+ou validação de um produto.</h2>				
+			</div>
+			</header>
+			
+																
+							
+			<div id="div_barrasocial"> 
+			
+				<div id="box_social">		
+				  <span st_processed="yes" class="st_twitter_hcount" displaytext="Tweet"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/twitter_counter.png&quot;);" class="stMainServices st-twitter-counter">&nbsp;</span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">23</span></span></span></span></span></span>
+				  <span st_processed="yes" class="st_plusone_hcount" displaytext="Tweet2"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/fastbutton.html" name="I0_1434345337102" id="I0_1434345337102" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div></div></span>
+				  <span st_processed="yes" class="st_fblike_hcount" displaytext="Facebook"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;position:relative;margin:3px 3px 0;padding:0px;font-size:11px;line-height:0px;vertical-align:bottom;overflow:visible;"><div fb-iframe-plugin-query="app_id=145393072270566&amp;container_width=0&amp;href=http%3A%2F%2Fwww.devmedia.com.br%2Fartigo-engenharia-de-software-introducao-a-teste-de-software%2F8035&amp;layout=button_count&amp;locale=pt_BR&amp;sdk=joey&amp;send=false&amp;show_faces=false" fb-xfbml-state="rendered" data-href="http://www.devmedia.com.br/artigo-engenharia-de-software-introducao-a-teste-de-software/8035" class="fb-like fb_iframe_widget" data-show-faces="false" data-layout="button_count" data-send="false" data-action=""><span style="vertical-align: bottom; width: 87px; height: 22px;"><iframe class="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/like.html" style="border: medium none; visibility: visible; width: 87px; height: 22px;" title="fb:like Facebook Social Plugin" scrolling="no" allowfullscreen="true" allowtransparency="true" name="f1eca571699520a" frameborder="0" height="1000px" width="1000px"></iframe></span></div></span></span>
+				</div>			
+				
+				<span id="ja_votou">0</span>
+
+
+
+<div id="box_fb_comp">			
+	
+	
+
+	<div class="float_left">
+		<img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/handUp.png" border="0">
+	</div>
+
+	<div class="float_left">
+
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	&nbsp;Gostei (44)</a>
+	</div>
+
+	
+	
+	<div class="separador_feedback_rodape2"> 
+	<a href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/handDown.png" border="0">
+	</a>
+	</div>
+	
+	<div class="float_left">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<span class="feedback_rodape1">&nbsp;(5)</span>
+	</a>
+	</div>
+	
+	
+	
+	<div class="t_clear_both"></div>
+</div>
+	
+				
+				<div class="t_clear_both"></div>
+			
+			</div>
+			<a name="link_voto_negativo"></a>
+<section id="box_voto_negativo">
+
+	<a href="#" onclick="document.getElementById('box_voto_negativo').style.display='none';" class="linkpadrao">[fechar]</a>		
+	<p class="frase_box_qualidade1">Você não gostou da <b>qualidade</b> deste conteúdo?</p>
+	<p class="frase_box_qualidade2">(opcional) Você poderia comentar o que não lhe agradou?</p>		
+	
+	<div id="form_voto_negativo">
+	<form name="form_voto_negativo" method="post" action="http://www.devmedia.com.br/articles/grava_fb_negativo.asp">
+	  <textarea id="texto_voto" name="texto_voto"></textarea><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0152174 ! important;" title="É Tudo Texto!" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/gumdrop.png">
+	  <input name="idcomp" value="8035" type="hidden">
+	</form>
+	</div>
+
+	<span id="div_confirma_voto_negativo">
+	<a href="#" class="botao_confirma_negativo" onclick="document.forms['form_voto_negativo'].submit(); return false;">Confirmo meu voto negativo</a>
+	</span>
+</section>
+				<div id="div_conteudo">
+					
+					<div id="section_conteudo_post"> 
+					<a href="http://www.devmedia.com.br/articles/viewcomp.asp?comp=8028"></a><a href="http://www.devmedia.com.br/articles/viewcomp.asp?comp=8028"><strong>Esse artigo faz parte da revista</strong> <strong>Engenharia de Software edição especial</strong>. <strong>Clique aqui para ler todos os artigos desta edição</strong></a> <strong>
+<p align="justify"><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/capa_ES_G.gif" align="bottom" hspace="0" border="0"></p></strong>
+<p><strong>Verificação, Validação e Teste</strong></p>
+<h1 align="left">Introdução a Teste de Software</h1>
+ 
+<p><a href="http://www.devmedia.com.br/introducao-a-testes-de-software-parte-1-definicoes-iniciais/16075" target="_blank" title="Video: Introdução a Testes de Software – Parte 1 - Definições Iniciais">Teste
+ de software é o processo de execução de um produto para determinar se 
+ele atingiu suas especificações e funcionou corretamente no ambiente 
+para o qual foi projetado.</a> O seu objetivo é revelar falhas em um 
+produto, para que as causas dessas falhas sejam identificadas e possam 
+ser corrigidas pela equipe de desenvolvimento antes da entrega final. 
+Por conta dessa característica das atividades de teste, dizemos que sua 
+natureza é “destrutiva”, e não “construtiva”, pois visa ao aumento da 
+confiança de um produto através da exposição de seus problemas, porém 
+antes de sua entrega ao usuário final.</p>
+<p>O conceito de teste de software pode ser compreendido através de uma 
+visão intuitiva ou mesmo de uma maneira formal. Existem atualmente 
+várias definições para esse conceito. De uma forma simples, testar um 
+software significa verificar através de uma execução controlada se o seu
+ comportamento corre de acordo com o especificado. O objetivo principal 
+desta tarefa é revelar o número máximo de falhas dispondo do mínimo de 
+esforço, ou seja, mostrar aos que desenvolvem se os resultados estão ou 
+não de acordo com os padrões estabelecidos.</p>
+<p>Ao longo deste artigo, iremos discutir os principais conceitos 
+relacionados às atividades de teste, as principais técnicas e critérios 
+de teste que podem ser utilizados para <a href="http://www.devmedia.com.br/curso/definicoes-iniciais-sobre-validacao-verificacao-e-testes/309" target="_blank" title="Curso de V V &amp; T - Definições Iniciais sobre Validação, Verificação e Testes - DevMedia Cursos">verificação ou validação de um produto</a>, assim como exemplos práticos da aplicação de cada tipo de técnica ou critério de teste.</p>
+<h3>Conceitos básicos associados a Teste de Software</h3>
+<p>Antes de iniciarmos uma discussão sobre teste de software precisamos 
+esclarecer alguns conceitos relacionados a essa atividade. Inicialmente,
+ precisamos conhecer a diferença entre <strong>Defeitos</strong>, <strong>Erros</strong> e <strong>Falhas</strong>. As definições que iremos usar aqui seguem a terminologia padrão para Engenharia de Software do IEEE – <em>Institute of Electrical and Electronics Engineers</em> – (IEEE 610, 1990).</p>
+<p>• <strong>Defeito</strong> é um ato inconsistente cometido por um 
+indivíduo ao tentar entender uma determinada informação, resolver um 
+problema ou utilizar um método ou uma ferramenta. Por exemplo, uma 
+instrução ou comando incorreto.</p>
+<p>• <strong>Erro</strong> é uma manifestação concreta de um defeito num
+ artefato de software. Diferença entre o valor obtido e o valor 
+esperado, ou seja, qualquer estado intermediário incorreto ou resultado 
+inesperado na execução de um programa constitui um erro.</p>
+<p>• <strong>Falha</strong> é o comportamento operacional do software 
+diferente do esperado pelo usuário. Uma falha pode ter sido causada por 
+diversos erros e alguns erros podem nunca causar uma falha.</p>
+
+<p>A <strong>Figura 1</strong> expressa a diferença entre esses conceitos. <em>Defeitos</em>
+ fazem parte do universo físico (a aplicação propriamente dita) e são 
+causados por pessoas, por exemplo, através do mal uso de uma tecnologia.
+ <em>Defeitos</em> podem ocasionar a manifestação de <em>erros</em> em 
+um produto, ou seja, a construção de um software de forma diferente ao 
+que foi especificado (universo de informação). Por fim, os <em>erros</em> geram <em>falhas</em>,
+ que são comportamentos inesperados em um software que afetam 
+diretamente o usuário final da aplicação (universo do usuário) e pode 
+inviabilizar a utilização de um software.</p>
+ 
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image01.jpg" align="bottom" hspace="0" border="0"></p>
+<p><strong>Figura 1</strong>. Defeito x erro x falha</p>
+<p>Dessa forma, ressaltamos que teste de software revela simplesmente <em>falhas</em> em um produto. Após a execução dos testes é necessária a execução de um processo de <strong>depuração</strong> para a identificação e correção dos defeitos que originaram essa falha, ou seja, <em>Depurar</em> não é <em>Testar</em>!</p>
+<p>A atividade de teste é composta por alguns elementos essenciais que 
+auxiliam na formalização desta atividade. Esses elementos são os 
+seguintes:</p>
+<p>• <strong>Caso de Teste: </strong>descreve uma condição particular a 
+ser testada e é composto por valores de entrada, restrições para a sua 
+execução e um resultado ou comportamento esperado (CRAIG e JASKIEL, 
+2002).</p>
+<p>• <strong>Procedimento de Teste:</strong> é uma descrição dos passos necessários para executar um caso (ou um grupo de casos) de teste (CRAIG e JASKIEL, 2002).</p>
+<p>• <strong>Critério de Teste: </strong>serve para selecionar e avaliar
+ casos de teste de forma a aumentar as possibilidades de provocar falhas
+ ou, quando isso não ocorre, estabelecer um nível elevado de confiança 
+na correção do produto (ROCHA et al., 2001). Os critérios de teste podem
+ ser utilizados como:</p>
+<p>o <strong>Critério de Cobertura dos Testes: </strong>permitem a 
+identificação de partes do programa que devem ser executadas para 
+garantir a qualidade do software e indicar quando o mesmo foi 
+suficientemente testado (RAPPS e WEYUKER, 1982). Ou seja, determinar o 
+percentual de elementos necessários por um critério de teste que foram 
+executados pelo conjunto de casos de teste.</p>
+<p>o <strong>Critério de Adequação de Casos de Teste: </strong>Quando, a
+ partir de um conjunto de casos de teste T qualquer, ele é utilizado 
+para verificar se T satisfaz os requisitos de teste estabelecidos pelo 
+critério. Ou seja, este critério avalia se os casos de teste definidos 
+são suficientes ou não para avaliação de um produto ou uma função (ROCHA
+ et al., 2001).</p>
+<p>o <strong>Critério de Geração de Casos de Teste: </strong>quando o 
+critério é utilizado para gerar um conjunto de casos de teste T adequado
+ para um produto ou função, ou seja, este critério define as regras e 
+diretrizes para geração dos casos de teste de um produto que esteja de 
+acordo com o critério de adequação definido anteriormente (ROCHA et al.,
+ 2001).</p>
+
+<p>Definidos os elementos básicos associados aos testes de software, iremos a seguir discutir a origem dos defeitos em um software.</p>
+
+
+<h3>Defeitos no desenvolvimento de software</h3>
+
+<p>No processo de desenvolvimento de software, todos os defeitos são 
+humanos e, apesar do uso dos melhores métodos de desenvolvimento, 
+ferramentas ou profissionais, permanecem presentes nos produtos, o que 
+torna a atividade de teste fundamental durante o desenvolvimento de um 
+software. Já vimos que esta atividade corresponde ao último recurso para
+ avaliação do produto antes da sua entrega ao usuário final.</p><p>O 
+tamanho do projeto a ser desenvolvido e a quantidade de pessoas 
+envolvidas no processo são dois possíveis fatores que aumentam a 
+complexidade dessa tarefa, e consequentemente aumentam a probabilidade 
+de defeitos. Assim, a ocorrência de falhas é inevitável. Mas o que 
+significa dizer que um programa falhou? Basicamente significa que o 
+funcionamento do programa não está de acordo com o esperado pelo 
+usuário. Por exemplo, quando um usuário da linha de produção efetua 
+consultas no sistema das quais só a gerência deveria ter acesso. Esse 
+tipo de falha pode ser originado por diversos motivos:</p><p>• A especificação pode estar errada ou incompleta;</p><p>• A especificação pode conter requisitos impossíveis de serem implementados devido a limitações de hardware ou software;</p><p>• A base de dados pode estar organizada de forma que não seja permitido distinguir os tipos de usuário;</p><p>• Pode ser que haja um defeito no algoritmo de controle dos usuários.</p>
+<p>Os defeitos normalmente são introduzidos na transformação de 
+informações entre as diferentes fases do ciclo de desenvolvimento de um 
+software. Vamos seguir um exemplo simples de ciclo de vida de 
+desenvolvimento de software: os requisitos expressos pelo cliente são 
+relatados textualmente em um documento de especificação de requisitos. 
+Esse documento é então transformado em casos de uso, que por sua vez foi
+ o artefato de entrada para o projeto do software e definição de sua 
+arquitetura utilizando diagramas de classes da UML. Em seguida, esses 
+modelos de projetos foram usados para a construção do software em uma 
+linguagem que não segue o paradigma orientado a objetos. Observe que 
+durante esse período uma série de transformações foi realizada até 
+chegarmos ao produto final. Nesse meio tempo, defeitos podem ter sido 
+inseridos. A <strong>Figura 2</strong> expressa exatamente a metáfora discutida nesse parágrafo.</p>
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image02.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 2</strong>. Diferentes Interpretações ao longo do 
+ciclo de desenvolvimento de um software (Uma versão similar pode ser 
+obtida em http://www.projectcartoon.com/cartoon/611) </p>
+<p>Essa série de transformações resultou na necessidade de realizar 
+testes em diferentes níveis, visando avaliar o software em diferentes 
+perspectivas de acordo com o produto gerado em cada fase do ciclo de 
+vida de desenvolvimento de um software. Esse será o foco da seção 
+seguinte.</p>
+
+<h3>Níveis de teste de software</h3>
+<p>O planejamento dos testes deve ocorrer em diferentes níveis e em paralelo ao desenvolvimento do software (<strong>Figura 3</strong>). Buscando informação no Livro “Qualidade de Software – Teoria e Prática” (ROCHA <em>et al</em>., 2001), definimos que os principais níveis de teste de software são:</p>
+<p>• <strong>Teste de Unidade: </strong>também conhecido como testes 
+unitários. Tem por objetivo explorar a menor unidade do projeto, 
+procurando provocar falhas ocasionadas por defeitos de lógica e de 
+implementação em cada módulo, separadamente. O universo alvo desse tipo 
+de teste são os métodos dos objetos ou mesmo pequenos trechos de código.</p>
+<p>• <strong>Teste de Integração: </strong>visa provocar falhas 
+associadas às interfaces entre os módulos quando esses são integrados 
+para construir a estrutura do software que foi estabelecida na fase de 
+projeto.</p>
+<p>• <strong>Teste de Sistema: </strong>avalia o software em busca de 
+falhas por meio da utilização do mesmo, como se fosse um usuário final. 
+Dessa maneira, os testes são executados nos mesmos ambientes, com as 
+mesmas condições e com os mesmos dados de entrada que um usuário 
+utilizaria no seu dia-a-dia de manipulação do software. Verifica se o 
+produto satisfaz seus requisitos.</p>
+<p>• <strong>Teste de Aceitação: </strong>são realizados geralmente por 
+um restrito grupo de usuários finais do sistema. Esses simulam operações
+ de rotina do sistema de modo a verificar se seu comportamento está de 
+acordo com o solicitado.</p>
+<p>• <strong>Teste de Regressão: </strong>Teste de regressão não 
+corresponde a um nível de teste, mas é uma estratégia importante para 
+redução de “efeitos colaterais”. Consiste em se aplicar, a cada nova 
+versão do software ou a cada ciclo, todos os testes que já foram 
+aplicados nas versões ou ciclos de teste anteriores do sistema. Pode ser
+ aplicado em qualquer nível de teste.</p>
+
+<p>Dessa forma, seguindo a <strong>Figura 3</strong>, o planejamento e projeto dos testes devem ocorrer de cima para baixo, ou seja:</p>
+<p>1. Inicialmente é planejado o teste de aceitação a partir do documento de requisitos;</p>
+<p>2. Após isso é planejado o teste de sistema a partir do projeto de alto nível do software;</p>
+<p>3. Em seguida ocorre o planejamento dos testes de integração a partir o projeto detalhado;</p>
+<p>4. E por fim, o planejamento dos testes a partir da codificação.</p>
+
+<p>Já a execução ocorre no sentido inverso.</p>
+<p>Conhecidos os diferentes níveis de teste, a partir da próxima seção 
+descreveremos as principais técnicas de teste de software existentes que
+ podemos aplicar nos diferentes níveis abordados.</p>
+
+
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image03.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 3</strong>. Modelo V descrevendo o paralelismo entre as atividades de desenvolvimento e teste de software (CRAIG e JASKIEL, 2002)</p>
+
+<h3>Técnicas de teste de software</h3>
+<p>Atualmente existem muitas maneiras de se testar um software. Mesmo 
+assim, existem as técnicas que sempre foram muito utilizadas em sistemas
+ desenvolvidos sobre linguagens estruturadas que ainda hoje têm grande 
+valia para os sistemas orientados a objeto. Apesar de os paradigmas de 
+desenvolvimento serem diferentes, o objetivo principal destas técnicas 
+continua a ser o mesmo: encontrar falhas no software.</p>
+<p>As técnicas de teste são classificadas de acordo com a origem das 
+informações utilizadas para estabelecer os requisitos de teste. Elas 
+contemplam diferentes perspectivas do software e impõe-se a necessidade 
+de se estabelecer uma estratégia de teste que contemple as vantagens e 
+os aspectos complementares dessas técnicas. As técnicas existentes são: 
+técnica funcional e estrutural. </p>
+<p>A seguir conheceremos um pouco mais sobre cada técnica, mas iremos 
+enfatizar alguns critérios específicos para a técnica funcional. </p>
+
+<h3>Técnica Estrutural (ou teste caixa-branca)</h3>
+<p>Técnica de teste que avalia o comportamento interno do componente de software (<strong>Figura 4</strong>).
+ Essa técnica trabalha diretamente sobre o código fonte do componente de
+ software para avaliar aspectos tais como: teste de condição, teste de 
+fluxo de dados, teste de ciclos e teste de caminhos lógicos (PRESSMAN, 
+2005)</p>
+
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image04.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 4</strong>. Técnica de Teste Estrutural.</p>
+
+<p>Os aspectos avaliados nesta técnica de teste dependerão da 
+complexidade e da tecnologia que determinarem a construção do componente
+ de software, cabendo, portanto, avaliação de outros aspectos além dos 
+citados anteriormente. O testador tem acesso ao código fonte da 
+aplicação e pode construir códigos para efetuar a ligação de bibliotecas
+ e componentes. </p>
+<p>Este tipo de teste é desenvolvido analisando-se o código fonte e 
+elaborando-se casos de teste que cubram todas as possibilidades do 
+componente de software. Dessa maneira, todas as variações originadas por
+ estruturas de condições são testadas. A <strong>Listagem 1</strong> apresenta um código fonte, extraído de (BARBOSA <em>et al</em>., 2000) que descreve um programa de exemplo que deve validar um identificador digitado como parâmetro, e a <strong>Figura 5</strong> apresenta o grafo de programa extraído a partir desse código, também extraído de (BARBOSA <em>et al</em>.,
+ 2000). A partir do grafo deve ser escolhido algum critério baseado em 
+algum algoritmo de busca em grafo (exemplo: visitar todos os nós, arcos 
+ou caminhos) para geração dos casos de teste estruturais para o programa
+ (PFLEEGER, 2004).</p>
+
+<p><strong>Listagem 1</strong>. Código fonte do programa identifier.c (BARBOSA <em>et al</em>., 2000)</p>
+<p></p><div class="div_listagem"><pre class="pre_listagem">/* 01 */  {
+ /* 01 */        char  achar;
+ /* 01 */        int   length, valid_id;
+ /* 01 */        length = 0;
+ /* 01 */        printf ("Digite um possível identificador\n");
+ /* 01 */        printf ("seguido por : ");
+ /* 01 */        achar = fgetc (stdin);
+ /* 01 */        valid_id = valid_starter (achar);
+ /* 01 */        if (valid_id)
+ /* 02 */                 length = 1;
+ /* 03 */        achar = fgetc (stdin);
+ /* 04 */        while (achar != '\n')
+ /* 05 */        {
+ /* 05 */                 if (!(valid_follower (achar)))
+ /* 06 */                          valid_id = 0;
+ /* 07 */                 length++;
+ /* 07 */                 achar = fgetc (stdin);
+ /* 07 */        }
+ /* 08 */        if (valid_id &amp;&amp; (length &gt;= 1) &amp;&amp; (length &lt; 6) )
+ /* 09 */                 printf ("Valido\n");
+ /* 10 */        else
+ /* 10 */                 printf ("Invalido\n");
+ /* 11 */   }</pre></div><p></p>
+
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image05.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 5</strong>. Grafo de Programa (Identifier.c) (BARBOSA <em>et al</em>., 2000).</p>
+
+<p>Um exemplo bem prático desta técnica de teste é o uso da ferramenta 
+livre JUnit para desenvolvimento de casos de teste para avaliar classes 
+ou métodos desenvolvidos na linguagem Java. A técnica de teste de 
+Estrutural é recomendada para os níveis de Teste da Unidade e Teste da 
+Integração, cuja responsabilidade principal fica a cargo dos 
+desenvolvedores do software, que são profissionais que conhecem bem o 
+código-fonte desenvolvido e dessa forma conseguem planejar os casos de 
+teste com maior facilidade. Dessa forma, podemos auxiliar na redução dos
+ problemas existentes nas pequenas funções ou unidades que compõem um 
+software.</p>
+
+<h3>Teste Funcional (ou teste caixa-preta)</h3>
+<p>Técnica de teste em que o componente de software a ser testado é 
+abordado como se fosse uma caixa-preta, ou seja, não se considera o 
+comportamento interno do mesmo (<strong>Figura 6</strong>). Dados de 
+entrada são fornecidos, o teste é executado e o resultado obtido é 
+comparado a um resultado esperado previamente conhecido. Haverá sucesso 
+no teste se o resultado obtido for igual ao resultado esperado. O 
+componente de software a ser testado pode ser um método, uma função 
+interna, um programa, um componente, um conjunto de programas e/ou 
+componentes ou mesmo uma funcionalidade. A técnica de teste funcional é 
+aplicável a todos os níveis de teste (PRESSMAN, 2005).</p>
+
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image06.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 6</strong>. Técnica de Teste Funcional.</p>
+
+<p>Um conjunto de critérios de teste pode ser aplicado aos testes funcionais. A seguir conheceremos alguns deles.</p>
+
+<h3>Particionamento em classes de equivalência</h3>
+<p>Esse critério divide o domínio de entrada de um programa em classes 
+de equivalência, a partir das quais os casos de teste são derivados. Ele
+ tem por objetivo minimizar o número de casos de teste, selecionando 
+apenas um caso de teste de cada classe, pois em princípio todos os 
+elementos de uma classe devem se comportar de maneira equivalente. 
+Eventualmente, pode-se também considerar o domínio de saída para a 
+definição das classes de equivalência (ROCHA et al., 2001).</p>
+<p>Uma classe de equivalência representa um conjunto de estados válidos e
+ inválidos para uma condição de entrada. Tipicamente uma condição de 
+entrada pode ser um valor numérico específico, uma faixa de valores, um 
+conjunto de valores relacionados, ou uma condição lógica. As seguintes 
+diretrizes podem ser aplicadas:</p>
+<p>• Se uma condição de entrada especifica uma faixa de valores ou 
+requer um valor específico, uma classe de equivalência válida (dentro do
+ limite) e duas inválidas (acima e abaixo dos limites) são definidas.</p>
+<p>• Se uma condição de entrada especifica um membro de um conjunto ou é
+ lógica, uma classe de equivalência válida e uma inválida são definidas.</p>
+
+<p>Devemos seguir tais passos para geração dos testes usando este critério:</p>
+
+<p>1. Identificar classes de equivalência (é um processo heurístico)</p>
+<p>o condição de entrada</p>
+<p>o válidas e inválidas</p>
+<p>2. Definir os casos de teste</p>
+<p>o enumeram-se as classes de equivalência</p>
+<p>o casos de teste para as classes válidas</p>
+<p>o casos de teste para as classes inválidas</p>
+
+<p>Em (BARBOSA <em>et al</em>., 2000) é apresentado a aplicação do 
+critério de particionamento por equivalência para o programa 
+identifier.c. Iremos apresentá-lo como exemplo do uso deste critério de 
+teste. Relembrando, o programa deve determinar se um identificador é 
+válido ou não.</p>
+
+
+<p>“Um identificador válido deve começar com uma letra e conter apenas 
+letras ou dígitos. Além disso, deve ter no mínimo 1 caractere e no 
+máximo 6 caracteres de comprimento. Exemplo: “abc12” (válido), “cont*1” 
+(inválido), “1soma” (inválido) e “a123456” (inválido).”</p>
+
+<p>O primeiro passo é a identificação das classes de equivalência. Isso está descrito na <strong>Tabela 1</strong>.</p>
+
+<table border="1" cellpadding="0" cellspacing="0">
+
+<tbody><tr>
+<td valign="top">
+<p>Condições de Entrada</p></td>
+<td valign="top">
+<p>Classes</p></td>
+<td valign="top">
+<p>Classes</p></td></tr>
+<tr>
+<td valign="top">
+<p>Tamanho <em>t</em> do identificador</p></td>
+<td valign="top">
+<p>(1) 1 ??<em>t</em>???6</p></td>
+<td valign="top">
+<p>(2) <em>t</em> &gt; 6</p></td></tr>
+<tr>
+<td valign="top">
+<p>Primeiro caractere <em>c </em>é uma letra</p></td>
+<td valign="top">
+<p>(3) Sim</p></td>
+<td valign="top">
+<p>(4) Não</p></td></tr>
+<tr>
+<td valign="top">
+<p>Só contém caracteres válidos</p></td>
+<td valign="top">
+<p>(5) Sim</p></td>
+<td valign="top">
+<p>(6) Não</p></td></tr></tbody></table>
+<p><strong>Tabela 1</strong>. Classes de Equivalência do programa identifier.c.</p>
+
+<p>A partir disso, conseguimos especificar quais serão os casos de teste
+ necessários. Para ser válido, um identificador deve atender às 
+condições (1), (3) e (5), logo é necessário um caso de teste válido que 
+cubra todas essas condições. Alem disso, será necessário um caso de 
+teste para cada classe inválida: (2), (4) e (6). Assim, o conjunto 
+mínimo é composto por quatro casos de teste, sendo uma das opções: </p><div class="div_listagem"><pre class="pre_listagem">T0 = {(a1,Válido), (2B3, Inválido), (Z-12, Inválido), (A1b2C3d, Inválido)}.</pre></div><p></p>
+
+<h3>Análise do valor limite</h3>
+<p>Por razões não completamente identificadas, um grande número de erros
+ tende a ocorrer nos limites do domínio de entrada invés de no “centro”.
+ Esse critério de teste explora os limites dos valores de cada classe de
+ equivalência para preparar os casos de teste (Pressman, 2005).</p>
+<p>Se uma condição de entrada especifica uma faixa de valores limitada em <em>a</em> e <em>b</em>, casos de teste devem ser projetados com valores <em>a</em> e <em>b</em> e imediatamente acima e abaixo de <em>a</em> e <em>b</em>. Exemplo: Intervalo = {1..10}; Casos de Teste à {1, 10, 0,11}.</p>
+<p>Como exemplo, extraído de (BARBOSA <em>et al</em>., 2000), iremos considerar a seguinte situação: </p>
+
+
+<p>"... o cálculo do desconto por dependente é feito da seguinte forma: a
+ entrada é a idade do dependente que deve estar restrita ao intervalo 
+[0..24]. Para dependentes até 12 anos (inclusive) o desconto é de 15%. 
+Entre 13 e 18 (inclusive) o desconto é de 12%. Dos 19 aos 21 (inclusive)
+ o desconto é de 5% e dos 22 aos 24 de 3%..." </p>
+
+<p>Aplicando o teste de valor limite convencional serão obtidos casos de teste semelhantes a este: <em>{-1,0,12,13,18,19,21,22,24,25}</em>.</p>
+
+<h3>Grafo de causa-efeito</h3>
+<p>Esse critério de teste verifica o efeito combinado de dados de 
+entrada. As causas (condições de entrada) e os efeitos (ações) são 
+identificados e combinados em um grafo a partir do qual é montada uma 
+tabela de decisão, e a partir desta, são derivados os casos de teste e 
+as saídas (ROCHA et al., 2001).</p>
+<p>Esse critério é baseado em quatro passos, que exemplificaremos utilizando o exemplo, também extraído de (BARBOSA <em>et al</em>., 2000):</p>
+
+
+<p>“Em um programa de compras pela Internet, a cobrança ou não do frete é
+ definida seguindo tal regra: Se o valor da compra for maior que R$ 
+60,00 e foram comprados menos que 3 produtos, o frete é gratuito. Caso 
+contrário, o frete deverá ser cobrado.”</p>
+
+<p>1. Para cada módulo,<em> </em><strong>Causas</strong> (condições de entrada) e <strong>efeitos</strong> (ações realizadas às diferentes condições de entrada) são relacionados, atribuindo-se um identificador para cada um.</p>
+<p>• Causa: valor da compra &gt; 60 <u>e</u> #produtos &lt; 3</p>
+<p>• Efeito: frete grátis</p>
+<p>2. Em seguida, um grafo de causa-efeito (árvore de decisão) é desenhado (<strong>Figura 7</strong>).</p>
+
+<p><img alt="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/image07.jpg" align="bottom" hspace="0" border="0"></p>
+
+<p><strong>Figura 7</strong>. Árvore de Decisão – Grafo de Causa-Efeito.</p>
+
+<p>1. Neste ponto, transforma-se o grafo numa tabela de decisão (<strong>Tabela 2</strong>). </p>
+
+<table border="1" cellpadding="0" cellspacing="0">
+
+<tbody><tr>
+<td rowspan="2">
+<p>Causa</p></td>
+<td valign="top">
+<p>Valor da compra</p></td>
+<td valign="top">
+<p>&gt; 60</p></td>
+<td valign="top">
+<p>&gt; 60</p></td>
+<td valign="top">
+<p>&lt;= 60</p></td></tr>
+<tr>
+<td valign="top">
+<p>#Produtos</p></td>
+<td valign="top">
+<p>&lt; 3</p></td>
+<td valign="top">
+<p>&gt;= 3</p></td>
+<td valign="top">
+<p>--</p></td></tr>
+<tr>
+<td rowspan="2">
+<p>Efeito</p></td>
+<td valign="top">
+<p>Cobrar frete</p></td>
+<td valign="top">
+</td>
+<td valign="top">
+<p>V</p></td>
+<td valign="top">
+<p>V</p></td></tr>
+<tr>
+<td valign="top">
+<p>Frete grátis</p></td>
+<td valign="top">
+<p>V</p></td>
+<td valign="top">
+</td>
+<td valign="top">
+</td></tr></tbody></table>
+<p><strong>Tabela 2</strong>. Tabela de decisão para o programa de compra pela Internet.</p>
+
+<p>2. As regras da tabela de decisão são, então, convertidas em casos de teste. </p>
+
+<p>Para a elaboração dos casos de teste, devemos seguir todas as regras 
+extraídas da tabela. Esse critério deve ser combinado com os dois outros
+ já apresentados neste artigo para a criação de casos de teste válidos 
+(extraídos das regras) e inválidos (valores foras da faixa definida). Os
+ casos de teste definidos a seguir refletem somente as regras extraídas 
+da tabela de decisão. Fica como exercício pensar nos casos de teste 
+inválidos para este problema.</p>
+<p>• <em>Casos de Teste (valor, qtd produtos, resultado esperado) = 
+{(61,2,“frete grátis”); (61,3,“cobrar frete”); (60, qualquer 
+quantidade,“cobrar frete”)}</em></p>
+<p><em> </em></p>
+<h3>Outras técnicas</h3>
+<p>Outras técnicas de teste podem e devem ser utilizadas de acordo com 
+necessidades de negócio ou restrições tecnológicas. Destacam-se as 
+seguintes técnicas: teste de desempenho, teste de usabilidade, teste de 
+carga, teste de stress, teste de confiabilidade e teste de recuperação. 
+Alguns autores chegam a definir uma técnica de teste caixa cinza, que 
+seria um mesclado do uso das técnicas de caixa preta e caixa branca, 
+mas, como toda execução de trabalho relacionado à atividade de teste 
+utilizará simultaneamente mais de uma técnica de teste, é recomendável 
+que se fixem os conceitos primários de cada técnica.</p>
+
+<h3>Conclusões</h3>
+<p>O teste de software é uma das atividades mais custosas do processo de
+ desenvolvimento de software, pois pode envolver uma quantidade 
+significativa dos recursos de um projeto. O rigor e o custo associado a 
+esta atividade dependem principalmente da criticalidade da aplicação a 
+ser desenvolvida. Diferentes categorias de aplicações requerem uma 
+preocupação diferenciada com as atividades de teste.</p>
+<p>Um ponto bastante importante para a viabilização da aplicação de 
+teste de software é a utilização de uma infraestrutura adequada. 
+Realizar testes não consiste simplesmente na geração e execução de casos
+ de teste, mas envolvem também questões de planejamento, gerenciamento e
+ análise de resultados. Apoio ferramental para qualquer atividade do 
+processo de teste é importante como mecanismo para redução de esforço 
+associado à tarefa em questão, seja ela planejamento, projeto ou 
+execução dos testes. Após ter sua estratégia de teste definida, tente 
+buscar por ferramentas que se encaixem na sua estratégia. Isso pode 
+reduzir significantemente o esforço de tal tarefa.</p>
+<p>Além disso, é importante ressaltar que diferentes tipos de aplicações
+ possuem diferentes técnicas de teste a serem aplicadas, ou seja, testar
+ uma aplicação web envolve passos diferenciados em comparação aos testes
+ de um sistema embarcado. Cada tipo de aplicação possui características 
+especificas que devem ser consideradas no momento da realização dos 
+testes. O conjunto de técnicas apresentado neste artigo cobre diversas 
+características comuns a muitas categorias de software, mas não é 
+completo.</p>
+<p>Para finalizar, podemos destacar outros pontos importantes 
+relacionados às atividades de teste que podemos abordar em próximos 
+artigos, tais como processo de teste de software, planejamento e 
+controle dos testes e teste de software para categorias específicas de 
+software, como aplicações web. Até a próxima!</p>
+
+<p><strong>Agradecimentos</strong></p>
+<p>Agradecemos aos professores José Carlos Maldonado e Ellen Barbosa por
+ terem gentilmente autorizado a publicação deste material, cujos 
+exemplos utilizados estão fundamentados em seus trabalhos.</p>
+
+<p><strong>Referências</strong></p>
+<p>• BARBOSA, E.; MALDONADO, J.C.; VINCENZI, A.M.R.; DELAMARO, M.E; 
+SOUZA, S.R.S. e JINO, M.. “Introdução ao Teste de Software. XIV Simpósio
+ Brasileiro de Engenharia de Software”, 2000.</p>
+<p>• CRAIG, R.D., JASKIEL, S. P., “Systematic Software Testing”, Artech House Publishers, Boston, 2002. </p>
+<p>• IEEE Standard 610-1990: IEEE Standard Glossary of Software Engineering Terminology, IEEE Press.</p>
+<p>• PFLEEGER, S. L., “Engenharia de Software: Teoria e Prática”, Prentice Hall- Cap. 08, 2004.</p>
+<p>• PRESSMAN, R. S., “Software Engineering: A Practitioner’s Approach”, McGraw-Hill, 6th ed, Nova York, NY, 2005.</p>
+<p>• RAPPS, S., WEYUKER, E.J., “Data Flow analysis techniques for test 
+data selection”, In: International Conference on Software Engineering, 
+p. 272-278, Tokio, Sep. 1982.</p>
+<p>• ROCHA, A. R. C., MALDONADO, J. C., WEBER, K. C. et al., “Qualidade 
+de software – Teoria e prática”, Prentice Hall, São Paulo, 2001.</p>
+
+
+
+					</div>	
+					
+					
+				</div>
+			
+				<footer>
+				<section id="box_autor_revista">
+
+	<a href="http://www.devmedia.com.br/autor/arilo-claudio-dias-neto/185582"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/Col_185582_ty.jpg" width="55px" border="0"></a>
+	
+	<br>
+		
+	<a href="http://www.devmedia.com.br/autor/arilo-claudio-dias-neto/185582" rel="author" class="nome_autor">Arilo Claudio Dias Neto</a><br>
+		
+	<p class="minibio_autor">É Doutor em Engenharia de Sistemas e 
+Computação formado pela Universidade Federal do Rio de Janeiro (COPPE). 
+Possui 6 anos de experiência em análise e desenvolvimento de software. É
+ ainda editor técnico da Revista SQL Magazine, ge [...]</p>
+	
+
+</section>					
+				</footer>
+				
+
+				<div id="separador_vert_60"></div>
+			
+				<a name="comentariosArtigo"></a>	
+				<section id="feedback_rodape"> 
+					
+					<div id="div_frase_feedback_rodape">
+					O que você achou deste post?
+					</div>
+					
+<div id="box_vota_rodape">
+	
+	
+	<div class="float_left">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/handUp.png" border="0"></a>
+	</div>
+
+	<div class="float_left">
+	<a href="#" onclick="document.getElementById('div_feedback_post').style.display='block';" class="linkfeedback">&nbsp;Gostei (44)
+	</a> 
+	</div>
+	
+			
+	
+	<div class="separador_feedback_rodape2">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/handDown.png" border="0"> 
+	</a>
+	</div>
+
+	<div class="separador_feedback_rodape1">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<span class="feedback_rodape1">(5)</span>
+	</a>
+	</div>  
+	
+	
+	
+	<div class="t_clear_both"></div>
+</div>
+	
+					<div class="t_clear_both"></div>
+					
+				</section>
+										
+					 
+			
+<style>
+	.mark-mvp {
+		display: inline-block;
+		background-color: #8CC53E;
+		margin-left: 7px;
+		padding: 0 5px;
+		height: 2em;
+		color: #fff;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: 2.1em;
+		border-radius: 3px;
+		text-transform: uppercase;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.div_listagem
+	{
+	   word-wrap: normal !important;
+	}
+	.linkMyComments{text-decoration: none;color: #000;}
+	.linkMyComments:hover{text-decoration:underline;}
+	@media screen and (max-width: 480px){
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;  border-radius: 3px;width: 25%;text-align: center;}
+	.link_postarDuvida:after{font-size:14px;content:"Postar dúvida Comentário" !important;text-align: center;}
+	}
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;border-radius: 3px;}
+	.link_postarDuvida{color:#fff;text-decoration:none;}
+	.link_postarDuvida:after{content:"Postar dúvida / Comentário";}
+	
+	
+</style>
+<aside id="div_comentarios">
+
+<div id="comentarios" style="font-family: arial;border-top: 1px solid rgb(221, 221, 221);padding-top: 10px;color: rgb(151, 151, 151);font-size: 17px;">Todos os comentarios (5)</div><a href="http://www.devmedia.com.br/meus-comentarios/" style="display: block;margin-bottom: 35px;margin-top: 10px;font-family: Arial;font-size: 14px;color: rgb(21, 11, 197);text-decoration: none;">Meus comentarios</a><div class="btn_postarDuvida"><a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035" class="link_postarDuvida"></a></div>
+  
+	 <div class="foto_comentario1"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/usuariosemfoto.png" width="45">
+				
+		</div>
+		<div class="margin_left60"> 
+	    <span class="texto_comentario">  
+		
+		  
+				<span class="texto_comentario_nome">Débora Soares</span>
+			
+
+			  <div class="texto_comentario_conteudo">	
+		  	  Excelente artigo. Me ajudou bastante. Obrigada! 
+			 </div>
+
+	  	
+     	  <div class="margin_top10">
+		  [há +1 ano] - 
+		  <a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035&amp;idco_pai=37734" rel="nofollow" class="linkpadrao">Responder</a>
+		  </div>
+	   
+	</span>
+	</div>
+
+	<div class="t_clear_both">&nbsp;</div>
+
+	<div>  
+	</div>	
+	
+	
+		
+		<div id="divisor_comentarios"></div>
+				 
+	
+	 <div class="foto_comentario1"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/342564_20141105231126.jpg" width="45">
+				
+		</div>
+		<div class="margin_left60"> 
+	    <span class="texto_comentario">  
+		
+		  
+				<span class="texto_comentario_nome">Caroline Thompson De Mello Brito</span>
+			
+
+			  <div class="texto_comentario_conteudo">	
+		  	  Muito bom seu artigo, os conceitos estão muito bem definidos e 
+corretos!! Me ajudou muito com o meu TCC, muito obrigado!! 
+			 </div>
+
+	  	
+     	  <div class="margin_top10">
+		  [há +1 mês] - 
+		  <a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035&amp;idco_pai=53229" rel="nofollow" class="linkpadrao">Responder</a>
+		  </div>
+	   
+	</span>
+	</div>
+
+	<div class="t_clear_both">&nbsp;</div>
+
+	<div>  
+	</div>	
+	
+	
+		
+		<div id="divisor_comentarios"></div>
+				 
+	
+	 <div class="foto_comentario1"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/usuariosemfoto.png" width="45">
+				
+		</div>
+		<div class="margin_left60"> 
+	    <span class="texto_comentario">  
+		
+		  
+				<span class="texto_comentario_nome">Jose Renato Da Silva Alves</span>
+			
+
+			  <div class="texto_comentario_conteudo">	
+		  	  Prezado,
+ <br> 
+ <br>   O conceito de erro e defeito estão invertidos. Erro é um resultado da ação humana e defeito é a manifestação do erro. 
+			 </div>
+
+	  	
+     	  <div class="margin_top10">
+		  [há +1 ano] - 
+		  <a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035&amp;idco_pai=35555" rel="nofollow" class="linkpadrao">Responder</a>
+		  </div>
+	   
+	</span>
+	</div>
+
+	<div class="t_clear_both">&nbsp;</div>
+
+	<div>  
+		 
+			<div class="foto_comentario_sub"> <img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/12-7.jpg" width="45">
+						</div>
+						<div class="box_comentario_sub1">
+
+						<span class="texto_comentario">
+
+						
+								<span class="texto_comentario_nome">Arilo Cláudio Dias Neto</span>
+							
+						  
+							  <div class="texto_comentario_conteudo">	
+							  José Renato, permita-me discordar de você.
+ <br> Esses conceitos estão definidos no padrão IEEE-610, Glossário de 
+Termos em Engenharia de Software 
+(http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=159342). 
+ <br> 
+ <br> O que você chamou de Erro, na verdade é ENGANO (mistake em inglês), que consiste na ação humana que provoca um defeito.
+ <br> O defeito é uma deficiência mecânica ou algorítmica existente em 
+algum artefato do projeto que se for ativada leva o sistema a uma falha.
+ Um erro é um estado do programa como consequência do defeito, ou seja, 
+pra onde ele me levou após a falha ocasionada pelo existência do 
+defeito.
+ <br> 
+ <br> Reforçando a origem dos conceitos, você pode encontrá-los no livro
+ Introdução ao Teste de Software, dos professores Márcio Delamaro, José 
+Maldonado e Mário Jino.
+ <br> 
+ <br> Att's
+ <br> Arilo 
+							  </div>
+					
+					  
+     					  <div class="margin_top10">
+						  [há +1 ano] - 
+						  <a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035&amp;idco_pai=35557" rel="nofollow" class="linkpadrao">Responder</a>
+						  </div>
+					  
+					</span>
+					</div>
+					<div class="t_clear_both">&nbsp;</div>
+				     
+			  
+		 
+			<div class="foto_comentario_sub"> <img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/usuariosemfoto.png" width="45">
+						</div>
+						<div class="box_comentario_sub1">
+
+						<span class="texto_comentario">
+
+						
+								<span class="texto_comentario_nome">Elias Batista Ferreira</span>
+							
+						  
+							  <div class="texto_comentario_conteudo">	
+							  Gostei do Artigo.
+ <br> Parece não existir um consenso sobre essas definições. No Sylabbus
+ a definição diferencia um pouco: 
+http://www.bstqb.org.br/uploads/docs/syllabus_ctfl_2011br.pdf. 
+							  </div>
+					
+					  
+     					  <div class="margin_top10">
+						  [há +1 mês] - 
+						  <a href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035&amp;idco_pai=58532" rel="nofollow" class="linkpadrao">Responder</a>
+						  </div>
+					  
+					</span>
+					</div>
+					<div class="t_clear_both">&nbsp;</div>
+				     
+			  
+	</div>	
+	
+	
+</aside>
+
+
+	
+														
+									
+		</article>
+						
+					
+		<div id="box_ad_mvp">
+		<span class="titulo_box_ad_mvp">Conhece a assinatura MVP?</span>
+		<div>
+		<iframe src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/index.html" scrolling="no" marginwidth="0px" marginheight="0px" frameborder="0" height="90" width="265"></iframe>
+		
+		</div>
+</div>
+		<div id="div_publicidade">		
+		
+<span style="font-size:10px; font-family:Arial, Verdana; color:#999999;">Publicidade</span><br>
+<a target="_blank" href="http://www.devmedia.com.br/campanha/v.asp?i=129"><img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/1_PT.gif" height="250" width="300" border="0"></a>
+
+		<div style="margin-top:40px;margin-bottom:40px;"></div>
+
+		
+		</div>
+		<section id="box_servicos_new"> 
+
+<div id="box_post_title">
+<center>
+Serviços
+</center>
+</div>
+
+ <div id="conteudo_box_servicos">
+
+			  
+
+			 
+					<div>
+						
+						<a class="linkservico" href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=8035" rel="nofollow">Inclua um comentário</a>
+						</div>
+				  
+					<div class="link_box_servico">
+						<a href="http://www.devmedia.com.br/favorite/addfavorite.asp?comp=8035" class="linkservico" rel="nofollow">
+						Adicionar aos Favoritos</a>
+						</div>
+				  
+				  <div class="link_box_servico">
+					<a href="http://www.devmedia.com.br/favorite/add_finished.asp?comp=8035" class="linkservico" rel="nofollow">Marcar como lido/assistido</a>
+				  </div>
+
+				  <div class="link_box_servico">
+						<a class="linkservico" href="http://www.devmedia.com.br/anotacoes/add/?idcomp=8035" rel="nofollow">
+						Incluir anotação pessoal</a>				  						
+					</div>
+					
+				  <div class="link_box_servico">
+						<a class="linkservico" href="http://www.devmedia.com.br/articles/viewcomp_forprint.asp?comp=8035">Versão para impressão</a>
+						</div>
+
+					
+					
+
+	</div>
+</section><div id="box_artigo_canal">  
+
+	<div id="div_link_canal">
+	
+	<a href="http://www.devmedia.com.br/engenharia-de-software">
+	
+	
+	+Engenharia de software
+	</a> 
+	</div>
+	
+   
+</div>	
+		</div>
+		
+	</div>
+
+<div class="t_clear_both"></div>
+
+
+<!--include file="box_relacionados.asp" -->
+
+<style>
+mark {
+	padding: 0 5px;
+	height: 20px;
+	margin-left: 7px;
+	background-color: #43B1AB;
+	color: #fff;
+	border-radius: 3px;
+	font-weight: normal;
+	display: inline-block;
+	font-size: 10px;
+	text-transform: uppercase;
+	top: -4px;
+	position: relative;
+	box-sizing: border-box;
+	line-height: 20px;
+}
+
+
+
+#botao-mais-canal {
+  width: 200px;
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  color: #FFF;
+  background-color: #6c6;;
+  padding: 10px;
+  margin: -65px 0px 0px 230px;  
+}
+
+@media (max-width: 480px) {
+
+#botao-mais-canal {
+  width: 200px;
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  color: #FFF;
+  background-color: #6c6;;
+  padding: 10px; 
+  margin: 0px 0px 0px 0px;   
+}
+
+}
+</style>
+
+<link href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/css.css" rel="stylesheet" type="text/css">
+<link href="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/artigo_style_2013_002.css" rel="stylesheet" type="text/css">
+
+<section id="section_relacionados">
+	<p class="titulo_relacionados">Mais posts</p> 
+	<div class="separador10px"></div>
+	<nav id="nav_relacionados">		
+		<ul class="ul_lista_relacionados"> 
+			<li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/automacao-de-testes-para-aplicacoes-moveis-em-android-parte-1/32708" class="titulo_post_relacionado">Automação de testes para aplicações móveis em Android – Parte 1</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/gerencia-de-requisitos-com-osrmt/32707" class="titulo_post_relacionado">Gerência de requisitos com OSRMT</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/modelagem-de-processos-com-o-oryx-standalone-client/32705" class="titulo_post_relacionado">Modelagem de processos com o Oryx Standalone Client</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/guia-pmbok-auditoria-em-projetos-de-software/32704" class="titulo_post_relacionado">Guia PMBOK: Auditoria em projetos de software</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/elaboracao-do-contrato-com-product-backlog/32703" class="titulo_post_relacionado">Elaboração do contrato com Product Backlog</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/conceitos-e-processos-para-a-criacao-de-pmos-ageis-parte-2/32702" class="titulo_post_relacionado">Conceitos e processos para a criação de PMOs Ágeis – Parte 2</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Revista</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine-76/32701" class="titulo_post_relacionado">Revista Engenharia de Software Magazine 76</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/gerenciando-projetos-ageis-com-o-kanbanize/32498" class="titulo_post_relacionado">Gerenciando projetos ágeis com o Kanbanize</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/como-identificar-divida-tecnica-em-projetos-utilizando-mineracao-de-dados/32497" class="titulo_post_relacionado">Como identificar dívida técnica em projetos utilizando mineração de dados</a></div></li>
+		</ul>
+	</nav>
+	<div class="separador10px"></div>
+	<div id="div_listar_relacionados">
+		<div id="botao_listar_relacionados"> 
+			<center>
+			
+			
+			    
+				  <a href="http://www.devmedia.com.br/engenharia" class="link_listar_relacionados">Listar mais conteúdo</a>
+				
+								
+			</center>
+		
+		</div>
+
+
+		
+				
+	</div>	
+	
+	
+
+	
+</section>
+<section class="dm-limitfoot"></section>
+<footer class="footer-fixed">
+<section class="container-fluid dm-cor1 footer-box">
+<div class="container">
+<div class="row-fluid">
+<div class="span7 f-box-filho">
+<div class="row-fluid cx2">
+<img src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/logo-footer.png" alt="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" title="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" height="32" width="145">
+<nav><a href="http://www.web-03.net/devmedia.asp" target="_blank">Anuncie</a> | <a href="http://www.devmedia.com.br/shop/">Loja</a> | <a href="http://www.devmedia.com.br/seja-um-autor-devmedia/28103">Publique</a> | <a href="http://www.devmedia.com.br/mvp/">Assine</a> | <a href="http://www.devmedia.com.br/fale-conosco/">Fale conosco</a></nav>
+</div>
+<ul class="social-bar">
+<li><a class="icon-1" href="http://www.facebook.com/pages/DevMedia/144522665592650" target="_blank"></a></li>
+<li><a class="icon-3" href="http://twitter.com/devmedia" target="_blank"></a></li>
+<li><a class="icon-4" href="https://plus.google.com/101753743720604160232?prsrc=3" target="_blank"></a></li>
+<li><a class="icon-2" href="http://www.devmedia.com.br/feed/"></a></li>
+</ul>
+</div>
+<div class="span5 cx3">
+<div id="fb-root"></div>
+<div class="fb-shell">
+<div fb-iframe-plugin-query="app_id=145393072270566&amp;color_scheme=light&amp;container_width=470&amp;header=false&amp;height=184&amp;href=https%3A%2F%2Fwww.facebook.com%2FDevmediaWeb03&amp;locale=pt_BR&amp;sdk=joey&amp;show_border=false&amp;show_faces=true&amp;stream=false&amp;width=767" fb-xfbml-state="rendered" class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/DevmediaWeb03" data-width="767" data-height="184" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"><span style="vertical-align: bottom; width: 767px; height: 184px;"><iframe class="" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/like_box.html" style="border: medium none; visibility: visible; width: 767px; height: 184px;" title="fb:like_box Facebook Social Plugin" scrolling="no" allowfullscreen="true" allowtransparency="true" name="f3973286ed6f98a" frameborder="0" height="184px" width="767px"></iframe></span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="container-fluid dm-cor2 footer-box2">
+<div class="container">
+<div class="row-fluid">
+<div class="span4">Hospedagem web por <a href="http://www.porta80.com.br/" target="_blank">Porta 80 Web Hosting</a></div>
+
+</div>
+</div>
+</section>
+
+</footer>
+</section><div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/1ldYU13brY_.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0"></iframe><iframe src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/1ldYU13brY__002.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+
+<iframe style="display:none;" scrolling="no" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/getSegment.html" name="stSegmentFrame" id="stSegmentFrame" frameborder="0" height="0px" width="0px"></iframe><iframe src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/rtifr.html" style="position: absolute; overflow: hidden; visibility: hidden; height: 1px; width: 1px; bottom: 1px; left: 1px;"></iframe><div style="display: none;" class="stwrapper stwrapper5x" id="stwrapper"><iframe src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/index_002.html" scrolling="no" name="stLframe" class="stLframe" id="stLframe" allowtransparency="true" frameborder="0"></iframe></div><div onclick="javascript:stWidget.closeWidget();" id="stOverlay"></div><div id="fb-root"></div><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Artigo%20Engenharia%20de%20Software%20-%20Introdu%C3%A7%C3%A3o%20a%20Teste%20de%20Software_arquivos/postmessageRelay.html" id="oauth2relay804218266" name="oauth2relay804218266"></iframe></body></html>

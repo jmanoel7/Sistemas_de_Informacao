@@ -1,0 +1,80 @@
+* fases do ciclo de vida de um software
+
+O ciclo de vida de um artefato diz respeito às diversas fases pelas quais ele
+passa desde o seu surgimento até a o momento no qual ele não será mais útil.
+No sistema computacional todos os componentes possuem um ciclo de vida próprio.
+Embora eles sejam relacionados entre si, eles possuem ciclos de vida
+independentes. O hardware pode continuar existindo mesmo que o software seja
+destruído. O software, em sua forma estática, pode também continuar existindo
+mesmo que um computador específico torne-se inoperante. Quando o software é
+construído para um hardware específico é que o ciclo de vida de ambos pode ser
+mesmo. Neste curso, vamos nos limitar a estudar e discutir o  ciclo de vida do
+software.
+
+No ciclo de vida do software identificamos três fases:
+
+    Definição
+    Desenvolvimento
+    Operação
+
+Na fase de definição os requisitos do software são determinados, a sua
+viabilidade é estudada e o planejamento das atividades é elaborado.
+
+Na fase de desenvolvimento são realizadas as atividades destinadas a produção
+do software. Ela envolve atividades de concepção, especificação, design da
+interface, prototipação (do inglês prototyping, traduzido também por
+prototipagem), design da arquitetura, codificação e verificação, dentre outras.
+
+Na fase de operação o sistema deverá efetivamente ser utilizado pelos seus
+usuários produzindo os resultados desejados. Nesta fase devem ocorrer as
+atividades de manutenção, seja  para que se façam correções, ou seja para a sua
+evolução, isto é, para que o software satisfaça novos requisitos.
+
+** Fase de Definição
+
+Na fase de definição são tomadas as decisões de construir ou não o software.
+Como normalmente o software está inserido num contexto mais amplo - o sistema -
+a fase de definição do software está inserida na definição do sistema. Definir
+o sistema é definir todos os seus componentes.
+
+*** estudo de viabilidade
+
+Este estudo visa verificar se o software é viável técnica e economicamente,
+e se os benefícios trazidos serão compensadores. O estudo de viabilidade requer
+que tenham sido definidos alguns requisitos para que se possa ter idéia do que
+será o sistema. Conforme veremos mais adiante, alguns modelos de processo podem
+determinar que o estudo de viabilidade seja feito apenas após a análise
+completa dos requisitos. Em outros, ele pode ser realizado simultaneamente ou
+num processo iterativo.
+
+Associada a esta atividade devem ser realizadas estimativas de custos e prazos
+e a análise de riscos. A primeira visa determinar gastos e  prazos aproximados
+a partir de dados de experiências anteriores. A análise de riscos visa
+verificar se existem possibilidades de que algo possa sair errado, como por
+exemplo, o orçamento estourar ou se haverá dificuldades técnicas.
+
+O resultado do estudo de viabilidade é a decisão de que o software deve ou não
+ser construído com base nos requisitos, nas restrições técnicas, nas
+estimativas de custos e análise de riscos, dentre outros fatores, em relação
+aos benefícios que o sistema deverá proporcionar.
+
+*** análise (detalhar bem a fase de levantamento de requisitos)
+
+Aqui são definidos os requisitos do software, determinando-se o que o cliente quer, o que a organização necessita, quais os problemas nas atividades dos usuários, etc. O cliente pode, por exemplo, necessitar de um software que faça o controle de vendas e compras da sua empresa. Um cliente de uma empresa de publicidade pode necessitar de um software de editoração eletrônica para a Web.
+
+Também devem ser definidas algumas restrições ao software. Um exemplo de restrição técnica é: "o software deve ser executado no ambiente Unix/XWindow, uma vez que esta é a plataforma instalada na empresa". Outro caso seria: "o software deve ser executado num sistema remotamente distribuído uma vez que a empresa possui diversos pontos de venda". Existem restrições econômicas: "o orçamento de desenvolvimento não pode ultrapassar R$ 10.000,00".
+
+A definição dos requisitos é denominada de análise e especificação de requisitos indicando que existe uma atividade de observação e uma descrição rigorosa dos problemas e da proposta de soluções. Alguns autores argumentam que devido à sua complexidade esta atividade deve ser considerada uma engenharia de requisitos.  O objetivo deles também é ressaltar que os requisitos devem ser gerenciados durante todo o ciclo de vida do software.
+
+A especificação de requisitos tem por objetivo descrever aquilo que clientes ou futuros usuários necessitam e que será resolvido pela construção de um software. Como esta especificação precisa ser validada por clientes e usuários, normalmente ela é feita através de uma notação informal, como a linguagem natural, ou usando uma linguagem gráfica semi-formal como UML, DFD, DER, etc.  Uma técnica bastante utilizada para especificação informal de requisitos são os cenários.
+
+O resultado desta atividade é a descrição dos requisitos funcionais - que dizem respeito àquilo que se quer que o software faça - e os  não-funcionais - que dizem respeito a requisitos de ordem técnica, econômica, da organização, etc.
+
+** projeto
+
+** implementação (detalhar bem os tipos de testes de software)
+
+** implantação (detalhar bem os tipos de conversões)
+
+** manutenção (detalhar bem os tipos de manutenções).
+

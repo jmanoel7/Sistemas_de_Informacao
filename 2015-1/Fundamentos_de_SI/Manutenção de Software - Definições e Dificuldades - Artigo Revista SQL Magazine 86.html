@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html xmlns:og="http://opengraphprotocol.org/schema/" xml:lang="pt-br" lang="pt-br"><head>
+<title>Manutenção de Software: Definições e Dificuldades - Artigo Revista SQL Magazine 86</title>
+<link href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/css.css" rel="stylesheet" type="text/css">
+
+<link href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/artigo_style_2013.css" rel="stylesheet" type="text/css">
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+
+
+	<meta property="og:image" content="http://www.devmedia.com.br/imagens/fotoscolunistas/image001-32.jpg">
+
+<meta name="description" content="SQL Magazine - Esse artigo apresenta algumas definições de manutenção de software, os tipos existentes, os impactos de sua aplicação e como é utilizada durante o desenvolvimento de um sistema."> 
+
+<link rel="canonical" href="http://www.devmedia.com.br/manutencao-de-software-definicoes-e-dificuldades-artigo-revista-sql-magazine-86/20402">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-language" content="pt-br">
+<meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=3.0,initial-scale=1.0">
+<meta name="msapplication-tap-highlight" content="no">
+
+<!-- ICON MAC -->  
+<link rel="apple-touch-icon" href="http://www.devmedia.com.br/favicon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://www.devmedia.com.br/imagens/2013/Devmedia72x.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://www.devmedia.com.br/imagens/2013/Devmedia114x.png">
+<link rel="apple-touch-icon" sizes="129x129" href="http://www.devmedia.com.br/imagens/2013/Devmedia129x.png">  
+<!-- FAVICON HTML5-->
+<link rel="icon" href="http://www.devmedia.com.br/favicon.png">
+<!-- FAVICON IE-->
+<link rel="icon" type="image/png" href="http://www.devmedia.com.br/favicon.png">
+
+<link href="https://plus.google.com/101753743720604160232" rel="publisher">
+<!-- CSS - RESET E PRESET -->
+<link rel="stylesheet" type="text/css" href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/devmedia.css">
+<!-- CSS - RESPONSIVO -->
+<link rel="stylesheet" type="text/css" href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/devmedia-responsive.css">
+<!-- CSS - HEADER E FOOTER -->
+<link rel="stylesheet" type="text/css" href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/devmedia-header-footer.css">
+<link rel="stylesheet" type="text/css" href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/style.css">
+
+<script async="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/cbgapi.loaded_1"></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/v2.js" type="text/javascript" async=""></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/bjGqbWII8r4A2pacwqm_6r.js" type="text/javascript" async=""></script><script async="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/cbgapi.loaded_0"></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/ti.js" type="text/javascript" async=""></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/ga.js" async="" type="text/javascript"></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/all.js" id="facebook-jssdk"></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/jquery.js"></script>
+<script async="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/menu.js"></script><script async="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/menu_002.js"></script>
+  <!--[if lt IE 9]>
+	<script async defer src="js/modernizr.custom.js"></script>
+  <![endif]-->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=145393072270566";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-15997918-1']);
+_gaq.push(['_setDomainName', 'devmedia.com.br']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<script async="" defer="defer" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/article.js"></script>
+
+<script gapi_processed="true" async="" type="text/javascript" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/plusone.js"></script>
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "7fba8974-a42c-4d1b-96a9-4249a82ce8c0", onhover: false}); </script>	
+
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=3">
+
+
+<link rel="publisher" href="https://plus.google.com/101753743720604160232">
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/getAllAppDefault.esi" type="text/javascript"></script><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/checkOAuth.esi" type="text/javascript"></script><link href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/buttons.css" type="text/css" rel="stylesheet"><script src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/getCount2.php" type="text/javascript"></script><script gapi_processed="true" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/plusone.js" type="text/javascript"></script></head>
+
+<body>
+<div class="dm-shadow"></div>
+<section class="dm-shell">
+<header>
+<span class="opacity"></span>
+<nav class="lateral">
+<ul>
+<li><strong><a href="http://www.devmedia.com.br/" rel="nofollow"><span class="font-dev">bem</span><span class="font-media">vindo</span><span class="icon home"></span></a></strong></li>
+<li><a href="#" class="back" data-main="true">Voltar</a></li>
+
+<li><a href="http://www.devmedia.com.br/forum/"><span class="icon2 forum"></span>Fórum</a></li>
+<li><a href="http://www.devmedia.com.br/api/" style="text-transform:none;"><span class="icon2 devware"></span>APIs</a></li>
+<li><a href="#" rel="nofollow"><span class="icon2 servicos"></span>Serviços<span></span></a>
+<ul>
+<li><h5>Serviços<span class="icon servicos"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/player" rel="nofollow">Devmedia Player</a></li>
+<li><a href="http://www.devmedia.com.br/join" rel="nofollow">Cadastre-se</a></li>
+<li><a href="http://www.devmedia.com.br/feed" rel="nofollow">RSS</a></li>
+<li><a href="http://www.devmedia.com.br/whatsnew/?id=1">O que há de novo </a></li>
+<li><a href="http://www.devmedia.com.br/como-gerenciar-os-posts-lidos-assistidos-no-portal-devmedia/25840" rel="nofollow">Gerenciando o que foi lido</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow"><span class="icon2 mvp"></span>MVP</a></li>
+<li><a href="#" rel="nofollow"><span class="icon2 comprar"></span>Comprar<span></span></a>
+<ul>
+<li><h5>Comprar<span class="icon comprar"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/mvp/" rel="nofollow">MVP</a></li>
+<li><a href="http://www.devmedia.com.br/shop/" rel="nofollow">Loja Virtual</a></li>
+<li><a href="http://www.devmedia.com.br/assine/#assine-revistas">Assine revistas</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 tecnologia"></span>Conteúdo<span></span></a>
+<ul>
+<li><h5>Conteúdo<span class="icon tecnologia"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/mentoring/">Mentoring</a></li>
+<li><a href="http://www.devmedia.com.br/front-end-web">Front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/mobile">Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/java">Java</a></li>
+<li><a href="http://www.devmedia.com.br/dotnet">.net</a></li>
+<li><a href="http://www.devmedia.com.br/banco-de-dados">Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/engenharia-de-software">Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/php">PHP</a></li>
+<li><a href="http://www.devmedia.com.br/delphi">Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/canais/">Todo o conteúdo</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 revistas"></span>Revistas<span></span></a>
+<ul>
+<li><h5>Revistas<span class="icon revistas"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/revista-front-end-magazine">Front-end Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-mobile-magazine">Mobile magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-java-magazine">Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-java-magazine">easy Java Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-dotnet-magazine">.net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-easy-dotnet-magazine">easy .net Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-sql-magazine">SQL Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine">Engenharia de Software Magazine</a></li>
+<li><a href="http://www.devmedia.com.br/revista-clubedelphi">ClubeDelphi</a></li>
+<li><a href="http://www.devmedia.com.br/assgold">Todas as revistas</a></li>
+</ul>
+</li>
+<li><a href="#" rel="nofollow"><span class="icon2 cursos"></span>Cursos<span></span></a>
+<ul>
+<li><h5>Cursos<span class="icon cursos"></span></h5></li>
+<li><a href="#" class="back">Voltar</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/formacoes/">Formações completas</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/front-end-web">Cursos de front-end web</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/mobile">Cursos de Mobile</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/java">Cursos de Java</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/net">Cursos de .net</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/banco-de-dados">Cursos de Banco de dados</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/engenharia-de-software">Cursos de Engenharia de Software</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/php">Cursos de PHP</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/automacao">Cursos de Automação / NFe / Paf-ecf</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/delphi">Cursos de Delphi</a></li>
+<li><a href="http://www.devmedia.com.br/cursos/">Todos os cursos</a></li>
+</ul>
+</li>
+<li><a href="http://www.devmedia.com.br/pocket-video"><span class="icon2 pocketvideos"></span>Pocket Videos</a></li>
+<li><a href="http://www.devmedia.com.br/fale-conosco/" rel="nofollow"><span class="icon2 atendimento"></span>Fale conosco</a></li>
+
+</ul>
+</nav>
+            <!-- MENU DESKTOP -->  
+            <nav class="dm-bgnav-out">
+			  <div class="container-fluid dm-bgnav"> <!-- MOSTRAR E OCULTAR NAVBAR -->
+                <div class="container">     
+                  <div class="devmenu">  
+                    
+                    <i class="drop-mobile"><a href="#" class="menu"></a></i>
+					<a class="logo-mob" href="http://www.devmedia.com.br/"><span class="font-dev">Dev</span><span class="font-media">Media</span></a>
+                    <span id="headermenudesktop"><ul class="navspace menucel ativo3 dm-1"><li><a href="#" rel="nofollow" class="menulink">Iniciar &nbsp;<small>&#9660;</small></a>	<ul class="submenu">	<li><a href="http://www.devmedia.com.br/cursos/">Cursos &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/cursos/front-end-web">Cursos de front-end web</a></li>		<li><a href="http://www.devmedia.com.br/cursos/mobile">Cursos de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/cursos/java">Cursos de Java</a></li>		<li><a href="http://www.devmedia.com.br/cursos/net">Cursos de .net</a></li>		<li><a href="http://www.devmedia.com.br/cursos/banco-de-dados">Cursos de Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/cursos/engenharia-de-software">Cursos de Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/cursos/php">Cursos de PHP</a></li>		<li><a href="http://www.devmedia.com.br/cursos/automacao">Cursos de Automação / NFe / Paf-ecf</a></li>		<li><a href="http://www.devmedia.com.br/cursos/delphi">Cursos de Delphi</a></li>		<li><a href="http://www.devmedia.com.br/cursos/" class="btn-dm-nav">Todos os cursos</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/cursos/formacoes/">Formações &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/curso/formacao-front-end-web/404">Formação de Front-end</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-android/405">Formação de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/java">Formações de Java</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/net">Formações de .NET</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-banco-de-dados/408">Formação de Banco de Dados</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-delphi-developer/109">Formação de Delphi</a></li>		<li><a href="http://www.devmedia.com.br/curso/formacao-programacao-para-iniciantes/417">Formação Iniciantes</a></li>		<li><a href="http://www.devmedia.com.br/cursos/formacoes/" class="btn-dm-nav">Todas as formações</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/pocket-video">Vídeos avulsos &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=58#result%22">Vídeos de Front-end web</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=38#result">Vídeos de Mobile</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=34#result">Vídeos de Java</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=35#result">Vídeos de .NET</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=37#result">Vídeos de Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=43#result">Vídeos de Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=44#result">Vídeos de PHP</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=46#result">Vídeos de Infra</a></li>		<li><a href="http://www.devmedia.com.br/articles/listcomp.asp?tipo=18&amp;site=42#result">Vídeos Diversos</a></li>		<li><a href="http://www.devmedia.com.br/busca/?txtsearch=&amp;tipo=18&amp;vis=0&amp;site=0#result">Pockets Gratuitos</a></li>		<li><a href="http://www.devmedia.com.br/pocket-video" class="btn-dm-nav">Todos os vídeos avulsos</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/guias/">Guias de Referência &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/guia-html5/31741">Guia HTML</a></li>		<li><a href="http://www.devmedia.com.br/guia-asp-net-mvc/32173">Guia ASP.NET MVC</a></li>		<li><a href="http://www.devmedia.com.br/guias/" class="btn-dm-nav">Todos os guias de referência</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/assgold">Revistas &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/revista-front-end-magazine">Front-end Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-mobile-magazine">Mobile magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-java-magazine">Java Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-easy-java-magazine">easy Java Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-dotnet-magazine">.net Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-easy-dotnet-magazine">easy .net Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-sql-magazine">SQL Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-engenharia-de-software-magazine">Engenharia de Software Magazine</a></li>		<li><a href="http://www.devmedia.com.br/revista-clubedelphi">ClubeDelphi</a></li>		<li><a href="http://www.devmedia.com.br/assgold" class="btn-dm-nav">Todas as revistas</a></li>		</ul>	</li>	<li><a href="http://www.devmedia.com.br/canais/">Canais &nbsp;»</a>		<ul class="submenu2">		<li><a href="http://www.devmedia.com.br/front-end-web">Front-end web</a></li>		<li><a href="http://www.devmedia.com.br/mobile">Mobile</a></li>		<li><a href="http://www.devmedia.com.br/java">Java</a></li>		<li><a href="http://www.devmedia.com.br/dotnet">.net</a></li>		<li><a href="http://www.devmedia.com.br/banco-de-dados">Banco de dados</a></li>		<li><a href="http://www.devmedia.com.br/engenharia-de-software">Engenharia de Software</a></li>		<li><a href="http://www.devmedia.com.br/php">PHP</a></li>		<li><a href="http://www.devmedia.com.br/delphi">Delphi</a></li>		<li><a href="http://www.devmedia.com.br/canais/" class="btn-dm-nav">Todo o conteúdo</a></li>		</ul>	</li>	<li style="padding-top:3px;"><a href="http://www.devmedia.com.br/mentoring/" style="padding-top: 7px;border-top: 1px solid #fff;">Conteudo Mentoring</a>		<ul class="submenu2">		</ul>	</li>	<li><a href="http://www.devmedia.com.br/busca/?txtsearch=devcast&amp;tipo=0&amp;vis=-1&amp;site=0#result">DevCasts</a>		<ul class="submenu2">		</ul>	</li>	</ul></li></ul><ul class="menucel dm-5"><li><a href="http://www.devmedia.com.br/forum/" class="menulink2">Fórum</a></li></ul><ul class="menucel dm-5"><li><a href="http://www.devmedia.com.br/api/" rel="nofollow" class="menulink2" style="text-transform:none;">APIs</a></li></ul><ul class="menucel dm-6"><li><strong><a href="http://www.devmedia.com.br/mvp/" class="menulink2">Assine MVP</a></strong></li></ul></span>
+					
+					<div class="login-box">
+                    <div class="login-btn">
+					<a href="http://www.devmedia.com.br/join/" class="cadastre-se" rel="nofollow">Cadastre-se</a>
+                      <div class="popover1">Login</div>
+					  <div class="pai">
+                        <div class="login-pop deslogado">
+                          <div class="login-form">
+                            <div class="seta"></div>
+                              <form class="form-inline" method="post" action="http://www.devmedia.com.br/login/login.asp">
+                                <input name="usuario" class="input-medium pull-left" placeholder="Usuário" type="text">
+                                <input name="senha" class="input-medium pull-right" placeholder="Senha" type="password">
+								<input name="ac" value="1" type="hidden">
+                                <br><button type="submit">OK</button>
+                                <a href="http://www.devmedia.com.br/join/" class="cadastre-se">Cadastre-se</a>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <!-- FIM MENU DESKTOP -->
+
+            <!-- REVELAR MENU DROP-->
+			<div class="revelar dm-cor5">
+            <!-- DIV COM O Z-INDEX QUE SOBREPOE O DROPDOWN, CRIA A IDEIA DE REVELAR O MENU ESCONDIDO NA TRANSIÇÃO --> 
+              <!-- BLOCO TOPO -->
+			  <div class="container-fluid dm-busca">
+                <div class="container">
+                  <div class="row-fluid"> <!-- CABEÇALHO -->
+                    <a href="http://www.devmedia.com.br/"><img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/logo.png" alt="DevMedia" title="DevMedia"></a>
+                    <!-- BUSCA EM TELA DESKTOP E TABLET -->
+                    <nav id="busca">
+					  <form action="http://www.devmedia.com.br/busca/">
+                        <input name="txtsearch" placeholder="Buscar" type="text">
+                        <button type="submit"></button>
+					  </form>
+                    </nav>
+                  </div><!-- FIM CABEÇALHO -->
+                </div>
+              </div>
+              <!-- FIM BLOCO TOPO -->
+			  </div>
+</header>
+
+
+<div id="main">	
+	
+	
+
+	<div id="div_corpo_post">	 
+			
+			<section id="boxes_de_aviso">
+			<a name="boxvalorcreditos"></a>
+			<div id="div_feedback_post">
+		
+		Você precisa estar logado para dar um feedback. 
+		<a href="http://www.devmedia.com.br/login/login.asp?ret=articles/viewcomp.asp?comp=20402" rel="nofollow">Clique aqui para efetuar o login</a>
+		
+			</div>
+
+<div id="pop">
+	  
+	  Para efetuar o download você precisa estar logado. <a href="http://www.devmedia.com.br/login/login.asp">Clique aqui para efetuar o login</a>
+	  
+</div>	
+			</section>
+			
+			<!--include file="inc_mensagem_mvp.asp" -->
+			
+			
+			<section id="box_fechado3">Este é um post disponível para <a href="http://www.devmedia.com.br/mvp" target="_blank" rel="nofollow" class="linkpadrao"><b><u>assinantes MVP</u></b></a><div id="boxsaibamais">###</div></section>					
+			
+			<section id="barra_botoes">
+			
+						   
+			   <label style="margin-right:30px;"><a href="#comentariosArtigo" rel="nofollow" class="linkpadrao">comentários</a></label>
+
+			   <label><a href="http://www.devmedia.com.br/favorite/addfavorite.asp?comp=20402" rel="nofollow" target="_blank" class="linkpadrao">post favorito 
+			   
+			   </a></label>
+
+			   
+			   			
+			</section>		
+			
+			<article id="div_conteudo_post">
+			
+			
+			<div class="margin_top20"></div>
+			<span id="span_indice_revista"> 
+			<a href="http://www.devmedia.com.br/articles/viewcomp.asp?comp=20397" class="linkpadrao_branco">SQL Magazine&nbsp;86 - Índice</a>
+			</span>
+
+			
+			
+									
+			<header>
+			<h1 class="normal">Manutenção de Software: Definições e Dificuldades - Artigo Revista SQL Magazine 86</h1>				
+			<div id="div_descricao">					
+			<h2 class="normal">Esse artigo apresenta algumas definições de 
+manutenção de software, os tipos existentes, os impactos de sua 
+aplicação e como é utilizada durante o desenvolvimento de um sistema.</h2>				
+			</div>
+			</header>
+			
+																
+							
+			<div id="div_barrasocial"> 
+			
+				<div id="box_social">		
+				  <span st_processed="yes" class="st_twitter_hcount" displaytext="Tweet"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/twitter_counter.png&quot;);" class="stMainServices st-twitter-counter">&nbsp;</span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+				  <span st_processed="yes" class="st_plusone_hcount" displaytext="Tweet2"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/fastbutton.html" name="I0_1434353442026" id="I0_1434353442026" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div></div></span>
+				  <span st_processed="yes" class="st_fblike_hcount" displaytext="Facebook"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;position:relative;margin:3px 3px 0;padding:0px;font-size:11px;line-height:0px;vertical-align:bottom;overflow:visible;"><div fb-iframe-plugin-query="app_id=145393072270566&amp;container_width=0&amp;href=http%3A%2F%2Fwww.devmedia.com.br%2Fmanutencao-de-software-definicoes-e-dificuldades-artigo-revista-sql-magazine-86%2F20402&amp;layout=button_count&amp;locale=pt_BR&amp;sdk=joey&amp;send=false&amp;show_faces=false" fb-xfbml-state="rendered" data-href="http://www.devmedia.com.br/manutencao-de-software-definicoes-e-dificuldades-artigo-revista-sql-magazine-86/20402" class="fb-like fb_iframe_widget" data-show-faces="false" data-layout="button_count" data-send="false" data-action=""><span style="vertical-align: bottom; width: 87px; height: 22px;"><iframe class="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/like.html" style="border: medium none; visibility: visible; width: 87px; height: 22px;" title="fb:like Facebook Social Plugin" scrolling="no" allowfullscreen="true" allowtransparency="true" name="f1dce4ce48baa92" frameborder="0" height="1000px" width="1000px"></iframe></span></div></span></span>
+				</div>			
+				
+				<span id="ja_votou">0</span>
+
+
+
+<div id="box_fb_comp">			
+	
+	
+
+	<div class="float_left">
+		<img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/handUp.png" border="0">
+	</div>
+
+	<div class="float_left">
+
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	&nbsp;Gostei (1)</a>
+	</div>
+
+	
+	
+	<div class="separador_feedback_rodape2"> 
+	<a href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/handDown.png" border="0">
+	</a>
+	</div>
+	
+	<div class="float_left">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<span class="feedback_rodape1">&nbsp;(0)</span>
+	</a>
+	</div>
+	
+	
+	
+	<div class="t_clear_both"></div>
+</div>
+	
+				
+				<div class="t_clear_both"></div>
+			
+			</div>
+			<a name="link_voto_negativo"></a>
+<section id="box_voto_negativo">
+
+	<a href="#" onclick="document.getElementById('box_voto_negativo').style.display='none';" class="linkpadrao">[fechar]</a>		
+	<p class="frase_box_qualidade1">Você não gostou da <b>qualidade</b> deste conteúdo?</p>
+	<p class="frase_box_qualidade2">(opcional) Você poderia comentar o que não lhe agradou?</p>		
+	
+	<div id="form_voto_negativo">
+	<form name="form_voto_negativo" method="post" action="http://www.devmedia.com.br/articles/grava_fb_negativo.asp">
+	  <textarea id="texto_voto" name="texto_voto"></textarea><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0152174 ! important;" title="É Tudo Texto!" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/gumdrop.png">
+	  <input name="idcomp" value="20402" type="hidden">
+	</form>
+	</div>
+
+	<span id="div_confirma_voto_negativo">
+	<a href="#" class="botao_confirma_negativo" onclick="document.forms['form_voto_negativo'].submit(); return false;">Confirmo meu voto negativo</a>
+	</span>
+</section>
+					
+					
+					<div id="box_indice_leitor">
+				
+					<p><a href="http://www.devmedia.com.br/websys.5/webreader.asp?cat=2&amp;artigo=3466&amp;revista=sqlmagazine_86#a-3466" class="linkpadrao">Clique aqui e acesse o Leitor Digital para ler este artigo completo.</a></p>
+
+					</div>
+					
+					
+					
+				<div id="div_conteudo">
+					
+					<div id="section_conteudo_post"> 
+					<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'"><!--?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /--><o:p>&nbsp;</o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Sabemos
+ que a vida de um software não termina após a sua implantação. Ele ainda
+ viverá durante muito tempo. Será utilizado por anos, e com certeza, 
+terá muitas atualizações, gerando novas versões do sistema. Nesse 
+sentido, a manutenção é caracterizada pela modificação do software já 
+entregue ao cliente, ou seja, a manutenção é qualquer alteração no 
+software após sua entrada em produção.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Embora
+ a definição de manutenção de software trate genericamente qualquer 
+produto de software, existem diferenças entre a manutenção de softwares 
+com propósitos distintos. <o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Uma
+ primeira classificação representa aqueles softwares construídos com 
+base em uma especificação rígida e bem definida, cujos resultados 
+esperados são bem conhecidos. Por exemplo, um software construído para 
+realizar operações com matrizes (adição, multiplicação e inversão). 
+Nesse tipo de software, uma vez que tenha sido construído considerando a
+ correta implementação do método, dificilmente haverá a necessidade de 
+manutenções.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'"><span style="mso-tab-count: 1">&nbsp; </span>Já
+ em uma segunda classificação, são agrupados os softwares que constituem
+ implementações de soluções aproximadas para problemas do mundo real, 
+uma vez que soluções completas somente são conseguidas na teoria nesses 
+casos. Como exemplo, pode-se citar um jogo de xadrez. Embora suas regras
+ sejam bem definidas, não é possível construir um software que calcule a
+ cada passo todos os possíveis movimentos de peças do tabuleiro, de 
+forma a determinar o melhor movimento. Isso porque o número de 
+movimentos possíveis é muito grande para ser calculado em um intervalo 
+de tempo relativamente curto. A técnica utilizada para desenvolver esse 
+tipo de solução baseia-se em descrever o problema de forma abstrata e 
+então definir os requisitos de software a partir dessa abstração.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'"><span style="mso-tab-count: 1">&nbsp; </span>Percebe-se
+ que esse tipo de sistema já abre espaço para diferentes interpretações 
+por parte do desenvolvedor, o que tende a produzir software com maior 
+necessidade de manutenção do que quando comparado aos da classificação 
+anterior. Por considerar uma abstração para especificação de requisitos,
+ a necessidade de mudança pode aparecer caso a abstração mude, na medida
+ em que um maior entendimento do problema seja alcançado.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'"><span style="mso-tab-count: 1">&nbsp; </span>Finalmente,
+ uma terceira e última classe de softwares considera mudanças no 
+ambiente onde o software vai ser utilizado, característica não existente
+ nas duas classificações anteriores.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'"><span style="mso-tab-count: 1">&nbsp; </span>Um
+ software integrante da terceira classificação corresponde àquele criado
+ com base em um modelo dos processos abstratos envolvidos no sistema, e 
+precisará mudar sempre que ocorrer mudanças nesses modelos, sendo, 
+portanto, parte do ambiente que ele modela. Um exemplo desse tipo de 
+software seria aquele que apresenta informações da economia de um país. À
+ medida que a economia passa a ser mais bem compreendida, o modelo muda e
+ com ele a abstração do problema, causando uma necessidade inevitável de
+ manutenção no software. Esse tipo de software, comumente encontrado no 
+dia-a-dia das organizações, tem interesse particular neste trabalho.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt; TEXT-ALIGN: left" align="left"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">O
+ objetivo da manutenção de software é diferente da manutenção de 
+produtos industrializados, pois a manutenção realizada não é feita para 
+reparar danos causados pelo tempo de uso do software. Defeitos não são 
+introduzidos pelo tempo e nem pela carga de utilização. Os defeitos 
+encontrados já existiam, antes do software entrar em produção. Por algum
+ motivo, não foram detectados em fases anteriores. Mas a manutenção não 
+se caracteriza apenas por correções. Existem três tipos principais de 
+manutenções em softwares, Adaptativas, Corretivas e Evolutivas 
+(Perfectivas):<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt 35.45pt; TEXT-INDENT: -21.25pt; TEXT-ALIGN: left; mso-list: l2 level1 lfo2" align="left"><span style="FONT-SIZE: 10pt; mso-fareast-font-family: Palatino; mso-bidi-font-family: Palatino"><span style="mso-list: Ignore">•<span style="FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style="mso-bidi-font-weight: normal"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Adaptativas:</span></b><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">
+ são alterações que visam adaptar o software a uma nova realidade ou 
+novo ambiente externo, normalmente imposto. Um exemplo claro seriam 
+mudanças de leis ou regras, definidas pelo governo e/ou órgãos 
+reguladores. Assim, manutenções do tipo adaptativas referem-se a adequar
+ o software ao seu ambiente externo. O exemplo apontado por Pfleeger 
+(2001) ilustra bem essa categoria. Suponha um gerenciador de banco de 
+dados, que faz parte um sistema maior de hardware e software. Em uma 
+atualização do gerenciador, os programadores perceberam que as já 
+existentes rotinas de acesso a disco precisavam agora de mais um 
+parâmetro adicional. Essa manutenção corresponde a uma manutenção 
+adaptativa, uma vez que teve por finalidade adequação do software ao seu
+ ambiente e não a correção de um defeito.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt 35.45pt; TEXT-INDENT: -21.25pt; TEXT-ALIGN: left; mso-list: l2 level1 lfo2" align="left"><span style="FONT-SIZE: 10pt; mso-fareast-font-family: Palatino; mso-bidi-font-family: Palatino"><span style="mso-list: Ignore">•<span style="FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style="mso-bidi-font-weight: normal"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Corretivas:</span></b><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">
+ como o próprio nome diz, servem para eliminar as falhas encontradas em 
+produção. É bastante comum, principalmente quando o processo de 
+desenvolvimento não se preocupou de maneira adequada com a qualidade do 
+software. Assim, manutenções do tipo corretivas visam corrigir defeitos 
+de funcionalidade, o que inclui acertos emergenciais de programa. 
+Pfleeger (2001) expõe um exemplo desse tipo de manutenção, que consiste 
+em um usuário apresentando um problema de impressão em um relatório. O 
+número de linhas impresso por folha é muito grande, o que causa 
+sobreposição de informações. O problema foi identificado como uma falha 
+no driver da impressora, provocando a necessidade de se alterar o menu 
+do relatório para aceitar um parâmetro adicional que determina o número 
+máximo de linhas impressas por folha.<o:p></o:p></span></p>
+<p class="Corpo" style="MARGIN: 0cm 0cm 0pt 35.45pt; TEXT-INDENT: -21.25pt; TEXT-ALIGN: left; mso-list: l2 level1 lfo2" align="left"><span style="FONT-SIZE: 10pt; mso-fareast-font-family: Palatino; mso-bidi-font-family: Palatino"><span style="mso-list: Ignore">•<span style="FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><b style="mso-bidi-font-weight: normal"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">Evolutivas:</span></b><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Verdana','sans-serif'">
+ são alterações que visam agregar novas funcionalidades e melhorias para
+ os usuários que as solicitaram. Não se deve confundir esse tipo de 
+manutenção com as entregas programadas de um processo de desenvolvimento
+ interativo. A integração com outros sistemas também é considerada um 
+tipo de evolução.<o:p>"</o:p></span></p>
+ <section id="mensagem_exibicao_artigo">
+					   <p>A exibição deste artigo foi interrompida</p>
+					   <p>Este post está disponível para assinantes MVP.</p>
+</section>
+
+
+					</div>	
+					
+					
+				</div>
+			
+				<footer>
+				<section id="box_autor_revista">
+
+	<a href="http://www.devmedia.com.br/autor/rodrigo-spinola/158130"><img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/image001-32.jpg" width="55px" border="0"></a>
+	
+	<br>
+		
+	<a href="http://www.devmedia.com.br/autor/rodrigo-spinola/158130" rel="author" class="nome_autor">Rodrigo Spinola</a><br>
+		
+	<p class="minibio_autor">Editor Chefe – SQL Magazine | WebMobile | Engenharia de Software Magazine
+Professor da Faculdade Ruy Barbosa (www.frb.edu.br), uma instituição parte do Grupo DeVry (www.devrybrasil.com.br).</p>
+	
+
+</section>					
+				</footer>
+				
+
+				<div id="separador_vert_60"></div>
+			
+				<a name="comentariosArtigo"></a>	
+				<section id="feedback_rodape"> 
+					
+					<div id="div_frase_feedback_rodape">
+					O que você achou deste post?
+					</div>
+					
+<div id="box_vota_rodape">
+	
+	
+	<div class="float_left">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';"><img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/handUp.png" border="0"></a>
+	</div>
+
+	<div class="float_left">
+	<a href="#" onclick="document.getElementById('div_feedback_post').style.display='block';" class="linkfeedback">&nbsp;Gostei (1)
+	</a> 
+	</div>
+	
+			
+	
+	<div class="separador_feedback_rodape2">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/handDown.png" border="0"> 
+	</a>
+	</div>
+
+	<div class="separador_feedback_rodape1">
+	<a class="linkfeedback" href="#" onclick="document.getElementById('div_feedback_post').style.display='block';">
+	<span class="feedback_rodape1">(0)</span>
+	</a>
+	</div>  
+	
+	
+	
+	<div class="t_clear_both"></div>
+</div>
+	
+					<div class="t_clear_both"></div>
+					
+				</section>
+										
+					 
+			
+<style>
+	.mark-mvp {
+		display: inline-block;
+		background-color: #8CC53E;
+		margin-left: 7px;
+		padding: 0 5px;
+		height: 2em;
+		color: #fff;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: 2.1em;
+		border-radius: 3px;
+		text-transform: uppercase;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.div_listagem
+	{
+	   word-wrap: normal !important;
+	}
+	.linkMyComments{text-decoration: none;color: #000;}
+	.linkMyComments:hover{text-decoration:underline;}
+	@media screen and (max-width: 480px){
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;  border-radius: 3px;width: 25%;text-align: center;}
+	.link_postarDuvida:after{font-size:14px;content:"Postar dúvida Comentário" !important;text-align: center;}
+	}
+	.btn_postarDuvida{float: right;margin-top: -77px;font-family: arial;color: #fff;background-color: rgb(73, 197, 191);padding: 4px 9px 4px 9px;border-radius: 3px;}
+	.link_postarDuvida{color:#fff;text-decoration:none;}
+	.link_postarDuvida:after{content:"Postar dúvida / Comentário";}
+	
+	
+</style>
+<aside id="div_comentarios">
+
+<div id="comentarios" style="font-family: arial;border-top: 1px solid rgb(221, 221, 221);padding-top: 10px;color: rgb(151, 151, 151);font-size: 17px;">Não há comentários</div>
+<a href="http://www.devmedia.com.br/meus-comentarios/" style="display: block;margin-bottom: 35px;margin-top: 10px;font-family: Arial;font-size: 14px;color: rgb(21, 11, 197);text-decoration: none;">Meus comentarios</a><div class="btn_postarDuvida"><a class="link_postarDuvida" href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=20402"></a></div>
+  
+</aside>
+
+
+	
+														
+									
+		</article>
+						
+					
+		
+		<div id="div_publicidade">		
+		
+<span style="font-size:10px; font-family:Arial, Verdana; color:#999999;">Publicidade</span><br>
+<a target="_blank" href="http://www.devmedia.com.br/campanha/v.asp?i=129"><img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/1_PT.gif" height="250" width="300" border="0"></a>
+
+		<div style="margin-top:40px;margin-bottom:40px;"></div>
+
+		
+		</div>
+		<section id="box_servicos_new"> 
+
+<div id="box_post_title">
+<center>
+Serviços
+</center>
+</div>
+
+ <div id="conteudo_box_servicos">
+
+			  
+
+			 
+					<div>
+						
+						<a class="linkservico" href="http://www.devmedia.com.br/rte3/addcomment.asp?idcomp=20402" rel="nofollow">Inclua um comentário</a>
+						</div>
+				  
+					<div class="link_box_servico">
+						<a href="http://www.devmedia.com.br/favorite/addfavorite.asp?comp=20402" class="linkservico" rel="nofollow">
+						Adicionar aos Favoritos</a>
+						</div>
+				  
+				  <div class="link_box_servico">
+					<a href="http://www.devmedia.com.br/favorite/add_finished.asp?comp=20402" class="linkservico" rel="nofollow">Marcar como lido/assistido</a>
+				  </div>
+
+				  <div class="link_box_servico">
+						<a class="linkservico" href="http://www.devmedia.com.br/anotacoes/add/?idcomp=20402" rel="nofollow">
+						Incluir anotação pessoal</a>				  						
+					</div>
+					
+				  <div class="link_box_servico">
+						<a class="linkservico" href="http://www.devmedia.com.br/articles/viewcomp_forprint.asp?comp=20402">Versão para impressão</a>
+						</div>
+
+					
+					
+
+	</div>
+</section><div id="box_artigo_canal">  
+
+	<div id="div_link_canal">
+	
+	<a href="http://www.devmedia.com.br/banco-de-dados">
+	
+	
+	+SQL
+	</a> 
+	</div>
+	
+   
+</div>	
+		</div>
+		
+		<div class="t_clear_both"></div>
+		
+	</div>
+
+<div class="t_clear_both"></div>
+
+
+<!--include file="box_relacionados.asp" -->
+
+<style>
+mark {
+	padding: 0 5px;
+	height: 20px;
+	margin-left: 7px;
+	background-color: #43B1AB;
+	color: #fff;
+	border-radius: 3px;
+	font-weight: normal;
+	display: inline-block;
+	font-size: 10px;
+	text-transform: uppercase;
+	top: -4px;
+	position: relative;
+	box-sizing: border-box;
+	line-height: 20px;
+}
+
+
+
+#botao-mais-canal {
+  width: 200px;
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  color: #FFF;
+  background-color: #6c6;;
+  padding: 10px;
+  margin: -65px 0px 0px 230px;  
+}
+
+@media (max-width: 480px) {
+
+#botao-mais-canal {
+  width: 200px;
+  font-family: Roboto,sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  color: #FFF;
+  background-color: #6c6;;
+  padding: 10px; 
+  margin: 0px 0px 0px 0px;   
+}
+
+}
+</style>
+
+<link href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/css.css" rel="stylesheet" type="text/css">
+<link href="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/artigo_style_2013_002.css" rel="stylesheet" type="text/css">
+
+<section id="section_relacionados">
+	<p class="titulo_relacionados">Mais posts</p> 
+	<div class="separador10px"></div>
+	<nav id="nav_relacionados">		
+		<ul class="ul_lista_relacionados"> 
+			<li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/estruturas-de-memoria-oracle/32833" class="titulo_post_relacionado">Estruturas de memória Oracle</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/introducao-ao-oracle-exadata/32832" class="titulo_post_relacionado">Introdução ao Oracle Exadata</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/como-executar-updates-com-o-tablespace-undo/32831" class="titulo_post_relacionado">Como executar updates com o tablespace UNDO</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/questoes-de-banco-de-dados-do-concurso-do-ministerio-do-desenvolvimento-agrario/32830" class="titulo_post_relacionado">Questões de banco de dados do concurso do Ministério do Desenvolvimento Agrário</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/alta-disponibilidade-com-galera-cluster/32829" class="titulo_post_relacionado">Alta disponibilidade com Galera Cluster</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/modelos-de-dados-federados-parte-1/32828" class="titulo_post_relacionado">Modelos de Dados Federados – Parte 1</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Artigo</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/processo-de-modelagem-de-data-warehouse/32827" class="titulo_post_relacionado">Processo de modelagem de Data Warehouse</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Revista</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/revista-sql-magazine-131/32837" class="titulo_post_relacionado">Revista SQL Magazine 131</a></div></li><li class="lista_relacionados"><div id="tipo_post_relacionado">Video aula</div><div id="box_titulo_post_relacionado"><a href="http://www.devmedia.com.br/projeto-fisico-estudo-de-caso-ii-curso-modelagem-de-dados-aula-39/32755" class="titulo_post_relacionado">Projeto Físico: Estudo de Caso II - Curso Modelagem de Dados - Aula 39</a></div></li>
+		</ul>
+	</nav>
+	<div class="separador10px"></div>
+	<div id="div_listar_relacionados">
+		<div id="botao_listar_relacionados"> 
+			<center>
+			
+			
+			    
+				  <a href="http://www.devmedia.com.br/banco-de-dados" class="link_listar_relacionados">Listar mais conteúdo</a>
+				
+								
+			</center>
+		
+		</div>
+
+
+		
+				
+	</div>	
+	
+	
+
+	
+</section>
+<section class="dm-limitfoot"></section>
+<footer class="footer-fixed">
+<section class="container-fluid dm-cor1 footer-box">
+<div class="container">
+<div class="row-fluid">
+<div class="span7 f-box-filho">
+<div class="row-fluid cx2">
+<img src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/logo-footer.png" alt="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" title="DevMedia - asp.net, Java, Delphi, SQL e web Design, tudo em um só lugar!" height="32" width="145">
+<nav><a href="http://www.web-03.net/devmedia.asp" target="_blank">Anuncie</a> | <a href="http://www.devmedia.com.br/shop/">Loja</a> | <a href="http://www.devmedia.com.br/seja-um-autor-devmedia/28103">Publique</a> | <a href="http://www.devmedia.com.br/mvp/">Assine</a> | <a href="http://www.devmedia.com.br/fale-conosco/">Fale conosco</a></nav>
+</div>
+<ul class="social-bar">
+<li><a class="icon-1" href="http://www.facebook.com/pages/DevMedia/144522665592650" target="_blank"></a></li>
+<li><a class="icon-3" href="http://twitter.com/devmedia" target="_blank"></a></li>
+<li><a class="icon-4" href="https://plus.google.com/101753743720604160232?prsrc=3" target="_blank"></a></li>
+<li><a class="icon-2" href="http://www.devmedia.com.br/feed/"></a></li>
+</ul>
+</div>
+<div class="span5 cx3">
+<div id="fb-root"></div>
+<div class="fb-shell">
+<div fb-iframe-plugin-query="app_id=145393072270566&amp;color_scheme=light&amp;container_width=470&amp;header=false&amp;height=184&amp;href=https%3A%2F%2Fwww.facebook.com%2FDevmediaWeb03&amp;locale=pt_BR&amp;sdk=joey&amp;show_border=false&amp;show_faces=true&amp;stream=false&amp;width=767" fb-xfbml-state="rendered" class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/DevmediaWeb03" data-width="767" data-height="184" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"><span style="vertical-align: bottom; width: 767px; height: 184px;"><iframe class="" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/like_box.html" style="border: medium none; visibility: visible; width: 767px; height: 184px;" title="fb:like_box Facebook Social Plugin" scrolling="no" allowfullscreen="true" allowtransparency="true" name="f18927ed8072dc8" frameborder="0" height="184px" width="767px"></iframe></span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="container-fluid dm-cor2 footer-box2">
+<div class="container">
+<div class="row-fluid">
+<div class="span4">Hospedagem web por <a href="http://www.porta80.com.br/" target="_blank">Porta 80 Web Hosting</a></div>
+
+</div>
+</div>
+</section>
+
+</footer>
+</section>
+
+<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/1ldYU13brY_.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0"></iframe><iframe src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/1ldYU13brY__002.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><iframe style="display:none;" scrolling="no" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/getSegment.html" name="stSegmentFrame" id="stSegmentFrame" frameborder="0" height="0px" width="0px"></iframe><div style="display: none;" class="stwrapper stwrapper5x" id="stwrapper"><iframe src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/index.html" scrolling="no" name="stLframe" class="stLframe" id="stLframe" allowtransparency="true" frameborder="0"></iframe></div><div onclick="javascript:stWidget.closeWidget();" id="stOverlay"></div><div id="fb-root"></div><iframe src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/rtifr.html" style="position: absolute; overflow: hidden; visibility: hidden; height: 1px; width: 1px; bottom: 1px; left: 1px;"></iframe><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Manuten%C3%A7%C3%A3o%20de%20Software:%20Defini%C3%A7%C3%B5es%20e%20Dificuldades%20-%20Artigo%20Revista%20SQL%20Magazine%2086_arquivos/postmessageRelay.html" id="oauth2relay499385472" name="oauth2relay499385472"></iframe></body></html>

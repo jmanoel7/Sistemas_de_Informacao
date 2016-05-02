@@ -1,0 +1,15 @@
+https://opensource.org/licenses/alphabetical
+
+saulo, diogo, arthur 	-> Academic Free License 3.0 (AFL-3.0)
+
+Danielle, Vitalino, João Manuel -> BSD
+
+Pedro, Milton, Alex -> MIT license (MIT)
+
+Cicero, Filipe -> Apache License 2.0 (Apache-2.0)
+
+Mateus, Adneulton , Lucas silva -> IPA Font License (IPA)
+
+Kenedy, Lucas Mendes e Gulherme -> Apple Public Source License (APSL-2.0)
+
+Roni, Vinicius, Gabriel -> Mozilla Public License 2.0 (MPL-2.0)

@@ -1,0 +1,26 @@
+Trabalho Fundamentos de Sistemas de Informação(Trabalho em dupla de 2)
+
+Proposta de Artigo Todo conteúdo ministrado no semestre
+
+Conceitos Sistemas /Sistemas de Informação
+
+O que são SI?
+
+Porque são importantes?
+
+necessidades Tipo - produção, relatórios gerenciais
+
+para que serve
+
+tipo de ERP(SAP)
+
+sig, sad, especialista, conhecimentos.
+
+Modelagem de Sistemas de Informação
+
+Fases de desenvolvimentos
+
+Melhoria de Processo de sistemas de TI
+
+
+Data de entrega : 13/07
