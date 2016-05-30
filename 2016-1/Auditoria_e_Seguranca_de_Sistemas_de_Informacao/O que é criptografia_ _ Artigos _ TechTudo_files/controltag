@@ -1,0 +1,65 @@
+/* ControlTag Loader for Globo 5007d44e-09d1-49b7-8c99-6b1cc38c3cbc */
+(function(w) {
+  // Twitter iOS client doesn't allocate enough memory for realtime segment processor, giving up for now.
+  if (/Twitter for iPhone/.test(w.navigator.userAgent || '')) {
+    return;
+  }
+
+  var debugging = /kxdebug/.test(w.location);
+  var log = function() {
+    // It's a flag, so if it's there, then it means debug.
+    debugging && w.console && w.console.log([].slice.call(arguments).join(' '));
+  };
+
+  var load = function(url, callback) {
+    log('Loading script from:', url);
+    var node = w.document.createElement('script');
+    node.async = true;  // This is just to be friendly.
+    node.src = url;
+
+    // Connect to both in case we're in older IE.
+    node.onload = node.onreadystatechange = function () {
+      var state = node.readyState;
+      if (!callback.done && (!state || /loaded|complete/.test(state))) {
+        log('Script loaded from:', url);
+        callback.done = true;  // Mark the callback, so we don't load it twice on accident.
+        callback();
+      }
+    };
+
+    // Fetch the first script element, so we can insert the
+    // controltag before it. There *must* be at least one
+    // script element, or this code would never be called
+    var sibling = w.document.getElementsByTagName('script')[0];
+    sibling.parentNode.insertBefore(node, sibling);
+  };
+
+  var config = {"app":{"name":"krux-scala-config-webservice","version":"3.8.3","schema_version":3},"confid":"J2lZajxx","context_terms":[],"publisher":{"id":1954,"name":"Globo","uuid":"5007d44e-09d1-49b7-8c99-6b1cc38c3cbc","version_bucket":"stable","version_hash":"3c4dd25bb095119373fe8eff1364e661"},"params":{"link_header_bidder":false,"site_level_supertag_config":"site","recommend":false,"control_tag_pixel_throttle":100,"fingerprint":false,"capture_js_errors":true,"user_data_timing":"load","store_realtime_segments":false,"tag_source":false,"first_party_uid":false,"link_hb_adserver_subordinate":true,"optimize_realtime_segments":false,"link_hb_adserver":"dfp","target_fingerprint":false,"context_terms":false,"dfp_premium":true,"control_tag_namespace":"globo"},"prioritized_segments":[],"realtime_segments":[],"services":{"userdata":"//cdn.krxd.net/userdata/get","contentConnector":"//connector.krxd.net/content_connector","stats":"//apiservices.krxd.net/stats","event":"//beacon.krxd.net/event.gif","set_optout":"//apiservices.krxd.net/consumer/optout","data":"//beacon.krxd.net/data.gif","link_hb_stats":"//beacon.krxd.net/link_bidder_stats.gif","userData":"//cdn.krxd.net/userdata/get","link_hb_mas":"//link.krxd.net/hb","config":"//cdn.krxd.net/controltag/{{ confid }}.js","social":"//beacon.krxd.net/social.gif","addSegment":"//cdn.krxd.net/userdata/add","pixel":"//beacon.krxd.net/pixel.gif","um":"//apiservices.krxd.net/um","click":"//apiservices.krxd.net/click_tracker/track","cookie":"//beacon.krxd.net/cookie2json","proxy":"//cdn.krxd.net/partnerjs/xdi","is_optout":"//beacon.krxd.net/optout_check","impression":"//beacon.krxd.net/ad_impression.gif","log":"//jslog.krxd.net/jslog.gif","set_optin":"//apiservices.krxd.net/consumer/optin"},"site":{"id":1285994,"name":"Barra"},"tags":[{"id":19938,"name":"Navegg User Match (Temp)","content":"<script>\r\n(function(){\r\n        var kuid = Krux('get', 'user');\r\n        if (kuid) {\r\n           var url = '//navdmp.com/req?prtid=16&kruxid=';\r\n           var i = new Image();\r\n           i.src = url + kuid;\r\n        }\r\n})();\r\n</script>","target":"","target_action":"append","timing":"asap","method":"document","internal":true,"template_replacement":true,"criteria":["and",["and",["and",["<=","$frequency",3]]]]},{"id":19929,"name":"Technographic Data provider tag","content":"<script>\r\n// this tag is intentionally blank\r\n</script>","target":"","target_action":"append","timing":"onload","method":"document","internal":true,"template_replacement":true,"criteria":["and",["and",["and",["<=","$frequency",3]]]]},{"id":19930,"name":"Krux Geographic Data provider tag","content":"None","target":null,"target_action":"append","timing":"onload","method":"document","internal":true,"template_replacement":true,"criteria":["and",["and",["and",["<=","$frequency",3]]]]},{"id":19936,"name":"Globo Data Transfer Code ","content":"<script>\r\n    (function() {\r\n        // Using UrlPath to produce page attribute url_path 1-5 \r\n        Krux('scrape', {\r\n            'page_attr_url_path_1': {\r\n                url_path: '1'\r\n            },\r\n            'page_attr_url_path_2': {\r\n                url_path: '2'\r\n            },\r\n            'page_attr_url_path_3': {\r\n                url_path: '3'\r\n            },\r\n            'page_attr_url_path_4': {\r\n                url_path: '4'\r\n            },\r\n            'page_attr_url_path_5': {\r\n                url_path: '5'\r\n            }\r\n        });\r\n\r\n        // lowercase Krux User ID\r\n        if (window.localStorage.kxglobo_user) {\r\n            Krux('set', 'user_attr_kxuser', localStorage.kxglobo_user);\r\n        }\r\n\r\n        var krux_utag = JSON.parse(localStorage.getItem('krux_utag'));\r\n\r\n        // Using \"utag_data\" object to define \"Tealium\" variables\r\n        if (krux_utag) {\r\n            Krux('set', {\r\n                page_attr_content_type: krux_utag.content_type,\r\n                page_attr_page_name: krux_utag.page_name,\r\n                page_attr_meta_keywords: krux_utag[\"meta.keywords\"],\r\n                page_attr_meta_site_name: krux_utag[\"meta.og:site_name\"],\r\n                page_attr_verticle: krux_utag.vertical,\r\n                user_attr_utag_cadun_id: krux_utag.cadun_id,\r\n                user_attr_utag_cadun_gender: krux_utag.cadun_gender,\r\n                user_attr_utag_cadun_state: krux_utag.cadun_state,\r\n                user_attr_utag_cadun_age: krux_utag.cadun_age\r\n            });\r\n            // Pulling variables from the structure tree\r\n            if (krux_utag.structure_tree) {\r\n                var sTree = krux_utag.structure_tree;\r\n            }\r\n            if (sTree) {\r\n                if (typeof(sTree) === \"string\" && sTree.match(/\"/)) {\r\n                    sTree = JSON.parse(sTree);\r\n                    for (var i = 0; i < sTree.length; i++) {\r\n                        Krux('set', 'page_attr_structure_tree_' + [i + 1], sTree[i])\r\n                    }\r\n                }\r\n            }\r\n\r\n        }\r\n\r\n        // Using \"pageOptions\" to capture onsite search keywords\r\n        if (window.pageOptions) {\r\n            Krux('set', 'page_attr_searchQuery', pageOptions.query)\r\n        }\r\n\r\n        Krux('set', 'page_attr_title', document.title)\r\n\r\n        // Using Meta name and property to produce page attributes \"editoria\", \"article:section\", \"video:series\"\r\n        Krux('scrape', {\r\n            'page_attr_meta_editoria': {\r\n                meta_name: 'editoria'\r\n            },\r\n            'page_attr_meta_article_section': {\r\n                meta_property: 'article:section'\r\n            },\r\n            'page_attr_meta_video_series': {\r\n                meta_property: 'video:series'\r\n            }\r\n        });\r\n\r\n        // Using document.location to define the full path, subdomain and domain\r\n        if (window.location) {\r\n            var hn = document.location.hostname,\r\n                pn = document.location.pathname,\r\n                dm, sd;\r\n            if (pn) {\r\n                if (pn.match('.html')) {\r\n                    pn = pn.replace('.html', '')\r\n                }\r\n                if (hn) {\r\n                    Krux('set', 'page_attr_full_path', hn + pn);\r\n                    hn = hn.split('.');\r\n                    if (hn[0] == \"www\") {\r\n                        dm = hn[1];\r\n                        sd = \"\"\r\n                    }\r\n                    if (hn[0] != \"www\") {\r\n                        dm = hn[1];\r\n                        sd = hn[0]\r\n                    }\r\n                    if (dm == \"com\") {\r\n                        dm = \"\"\r\n                    }\r\n                    if (sd == \"www\") {\r\n                        sd = \"\"\r\n                    }\r\n\r\n                    Krux('set', {\r\n                        page_attr_subdomain: sd,\r\n                        page_attr_domain: dm,\r\n                    });\r\n                }\r\n            }\r\n        }\r\n\r\n    })();\r\n</script>","target":"","target_action":"append","timing":"onload","method":"document","internal":true,"template_replacement":true,"criteria":[]},{"id":19937,"name":"Navegg provider tag","content":"None","target":null,"target_action":"append","timing":"onload","method":"document","internal":true,"template_replacement":true,"criteria":["and",["and",["and",["<=","$frequency",3]]]]},{"id":19939,"name":"eXelate Test (DO NOT USE) provider tag","content":"None","target":null,"target_action":"append","timing":"onload","method":"document","internal":false,"template_replacement":true,"criteria":["and",["and",["and",["<=","$frequency",3]]]]}],"link":{"adslots":{},"bidders":{}}};
+
+  // Wrap in a function and comment, then toString the func and replace
+  // everything that's not the beginning or end of a JSON object, so we get a
+  // string that's either empty or JSON.
+  var esiGeo = String(function(){/*
+   <esi:include src="/geoip_esi"/>
+   */}).replace(/^.*\/\*[^{]+|[^}]+\*\/.*$/g, '');
+
+  if (esiGeo) {
+    log('Got a request for:', esiGeo, 'adding geo to config.');
+    try {
+      config.geo = w.JSON.parse(esiGeo);
+    } catch (__) {
+      // Couldn't parse, so setting to {}
+      log('Unable to parse geo from:', config.geo);
+      config.geo = {};
+    }
+  }
+
+
+
+ 
+load('//cdn.krxd.net/ctjs/controltag.js.3c4dd25bb095119373fe8eff1364e661', function() {
+  log('Loaded stable controltag resource');
+  Krux('config', config);
+});
+ 
+})(window);
