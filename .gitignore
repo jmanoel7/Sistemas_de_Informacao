@@ -46,5 +46,4 @@ matriculas/
 processos/
 eng_comp_ufg/
 vestibular/
-email.txt
-declaracao_matriculado_*
+email*.txt
