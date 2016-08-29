@@ -1,0 +1,72 @@
+Inicialmente, o ator Coordenador escolhe a opcão Manter Colaboradores do Menu Principal.
+
+--------------------------------------------------------------------------------
+
+Fluxo P0:
+1. O ator Coordenador escolhe uma seguintes opcões do Menu Manter Colaboradores:
+- Inserir Colaborador;       [P1]
+- Alterar Colaborador;       [P2]
+- Excluir Colaborador;       [P3]
+- Voltar ao Menu Principal.  [A0]
+
+Fluxo P1:
+1. O sistema exibe um formulário com as opcões "Inserir" e "Cancelar", e os seguintes campos referentes ao colaborador:
+- Login;
+- Senha;
+- Nome;
+- Sexo;
+- Pai;
+- Mãe;
+- RG;
+- CPF;
+- Email;
+- Telefone;
+- Celular;
+- Endereco.
+2. O ator Coordenador preenche o formulário e escolhe "Inserir". [A1]
+3. O sistema insere os dados informados no banco de dados. [A2]
+4. O sistema exibe mensagem de sucesso ao inserir colaborador no banco de dados.
+5. O caso de uso se encerra.
+
+Fluxo P2:
+1. O sistema exibe um formulário com as opcões "Buscar" e "Cancelar", e os campos "Login" e "Nome".
+2. O ator Coordenador escolhe se deseja informar o "Nome" ou o "Login" de um colaborador, clicando no botão radio apropriado. [A1]
+3. O ator Coordenador preenche parte do nome no campo "Nome" ou o nome de usuário no campo "Login" (de acordo com a opcão escolhida no passo anterior) e escolhe "Buscar". [A1]
+4. O sistema exibe um formulário com as opcões "Alterar" e "Cancelar", e com as seguintes informacões do Colaborador pesquisado: [A3]
+- Nome;
+- Sexo;
+- Pai;
+- Mãe;
+- RG;
+- CPF;
+- Email;
+- Telefone;
+- Celular;
+- Endereco.
+5. O ator Coordenador altera os dados que desejar dos campos citados no passo 4, e escolhe a opcão "Alterar". [A4]
+6. O sistema altera os dados do Colaborador no banco de dados. [A5]
+7. O sistema exibe mensagem de sucesso ao alterar os dados do Colaborador no banco de dados.
+8. O caso de uso se encerra.
+
+Fluxo P3:
+1. O sistema exibe um formulário com as opcões "Buscar" e "Cancelar", e os campos "Login" e "Nome".
+2. O ator Coordenador escolhe se deseja informar o "Nome" ou o "Login" de um colaborador, clicando no botão radio apropriado. [A1]
+3. O ator Coordenador preenche parte do nome no campo "Nome" ou o nome de usuário no campo "Login" (de acordo com a opcão escolhida no passo anterior) e escolhe "Buscar". [A1]
+4. O sistema exibe um formulário com as opcões "Alterar" e "Cancelar", e com as seguintes informacões do Colaborador pesquisado: [A3]
+- Nome;
+- Sexo;
+- Pai;
+- Mãe;
+- RG;
+- CPF;
+- Email;
+- Telefone;
+- Celular;
+- Endereco.
+5. O ator Coordenador escolhe a opcão "Excluir". [A6]
+6. O sistema exclui os dados do Colaborador no banco de dados. [A7]
+7. O sistema exibe mensagem de sucesso ao excluir os dados do Colaborador no banco de dados.
+8. O caso de uso se encerra.
+
+--------------------------------------------------------------------------------
+
