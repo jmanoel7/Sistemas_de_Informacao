@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html class="js" prefix="og: http://ogp.me/ns#" lang="pt-BR"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+	<!--[if IE ]>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<![endif]-->
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<title>Desvendando os métodos equals e hashcode</title>
+		<link rel="icon" href="http://404846152.r.upxcdn.net/br/wp-content/uploads/2014/10/favicon_MATERA.png" type="image/x-icon">
+<!--iOS/android/handheld specific -->
+<link rel="apple-touch-icon" href="http://404846152.r.upxcdn.net/br/wp-content/themes/onepage/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="pingback" href="http://www.matera.com/br/xmlrpc.php">
+	    <script src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/gtm.js" async=""></script><script src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/page.js" async="" type="text/javascript"></script><script src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/analytics.js" async=""></script><script type="text/javascript"> //<![CDATA[
+        ajaxurl = 'http://www.matera.com/br/wp-admin/admin-ajax.php';
+    //]]> </script>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.7.4 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Vamos desvendar os motivos de utilizar os métodos equals e hashcode em nossas classes Java.">
+<link rel="canonical" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Desvendando os métodos equals e hashcode">
+<meta property="og:description" content="Vamos desvendar os motivos de utilizar os métodos equals e hashcode em nossas classes Java.">
+<meta property="og:url" content="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/">
+<meta property="og:site_name" content="MATERA Systems">
+<meta property="article:tag" content="equals,hashCode,Java">
+<meta property="article:section" content="Tecnologia">
+<meta property="article:published_time" content="2015-01-15T13:00:57+00:00">
+<meta property="article:modified_time" content="2016-03-18T16:19:04+00:00">
+<meta property="og:updated_time" content="2016-03-18T16:19:04+00:00">
+<meta property="og:image" content="http://404846152.r.upxcdn.net/br/wp-content/uploads/2014/12/codigo.jpg">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Feed de MATERA Systems »" href="http://www.matera.com/br/feed/">
+<link rel="alternate" type="application/rss+xml" title="MATERA Systems »  Feed de comentários" href="http://www.matera.com/br/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="MATERA Systems » Desvendando os métodos equals e hashcode  Feed de comentários" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/feed/">
+<link rel="stylesheet" id="front-end-styles-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/frontendstyles.css" type="text/css" media="all">
+<link rel="stylesheet" id="jquery-datepicker-css-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/datepicker.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-lightbox-nivo-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/nivo-lightbox.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-lightbox-nivo-default-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/default.css" type="text/css" media="all">
+<link rel="stylesheet" id="rs-plugin-settings-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/settings.css" type="text/css" media="all">
+<style id="rs-plugin-settings-inline-css" type="text/css">
+.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.largeredbtn{font-family:"Raleway",sans-serif;font-weight:900;font-size:16px;line-height:60px;color:#fff !important;text-decoration:none;padding-left:40px;padding-right:80px;padding-top:22px;padding-bottom:22px;background:rgb(234,91,31); background:-moz-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(234,91,31,1)),color-stop(100%,rgba(227,58,12,1))); background:-webkit-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-o-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-ms-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:linear-gradient(to bottom,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f',endColorstr='#e33a0c',GradientType=0 )}.largeredbtn:hover{background:rgb(227,58,12); background:-moz-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(227,58,12,1)),color-stop(100%,rgba(234,91,31,1))); background:-webkit-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-o-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-ms-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:linear-gradient(to bottom,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c',endColorstr='#ea5b1f',GradientType=0 )}.fullrounded img{-webkit-border-radius:400px;-moz-border-radius:400px;border-radius:400px}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.largeredbtn{font-family:"Raleway",sans-serif;font-weight:900;font-size:16px;line-height:60px;color:#fff !important;text-decoration:none;padding-left:40px;padding-right:80px;padding-top:22px;padding-bottom:22px;background:rgb(234,91,31); background:-moz-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(234,91,31,1)),color-stop(100%,rgba(227,58,12,1))); background:-webkit-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-o-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-ms-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:linear-gradient(to bottom,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f',endColorstr='#e33a0c',GradientType=0 )}.largeredbtn:hover{background:rgb(227,58,12); background:-moz-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(227,58,12,1)),color-stop(100%,rgba(234,91,31,1))); background:-webkit-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-o-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-ms-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:linear-gradient(to bottom,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c',endColorstr='#ea5b1f',GradientType=0 )}.fullrounded img{-webkit-border-radius:400px;-moz-border-radius:400px;border-radius:400px}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;line-height:140%}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#296169;text-shadow:none;text-decoration:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#296169}.tp-caption a{color:#296169;text-shadow:none;text-decoration:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#296169}.feature-round{color:#000;background:#fff;background:rgba(255,255,255,0.7);font-size:12px;width:100px;height:100px;line-height:14px;text-align:center;text-decoration:none;box-sizing:border-box;padding:35px 35px 35px 35px;background-color:transparent;border-radius:50px 50px 50px 50px;border-width:0px;border-color:#000000;border-style:none}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}
+</style>
+<link rel="stylesheet" id="tipsy-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/tipsy.css" type="text/css" media="all">
+<link rel="stylesheet" id="mts_wpshortcodes-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/wp-shortcode.css" type="text/css" media="all">
+<link rel="stylesheet" id="owl-carousel-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/owl.css" type="text/css" media="all">
+<link rel="stylesheet" id="stylesheet-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/style.css" type="text/css" media="all">
+<style id="stylesheet-inline-css" type="text/css">
+
+		body {background-color:#ffffff; }
+		body {background-image: url(http://404846152.r.upxcdn.net/br/wp-content/themes/onepage/images/nobg.png);}
+        .main-header, #navigation ul ul { background-color:#ffffff; background-image: url(http://404846152.r.upxcdn.net/br/wp-content/themes/onepage/images/nobg.png); box-shadow: 0 4px #ffffff; }
+        footer { background-color:#ffffff; background-image: url(http://404846152.r.upxcdn.net/br/wp-content/themes/onepage/images/nobg.png); box-shadow: 0 -4px 0 #ffffff; }
+        body.home #homepage-title-slider { background-image: url(); }
+        
+        .pace .pace-progress, #mobile-menu-wrapper ul li a:hover, .blog-title { background: #2d1f60; }
+		.postauthor h5, .copyrights a, .single_post a, .textwidget a, .pnavigation2 a, .sidebar.c-4-12 a:hover, .copyrights a:hover, footer .widget li a:hover, .sidebar.c-4-12 a:hover, .related-posts a:hover, .reply a, .title a:hover, .post-info a:hover, #tabber .inside li a:hover, .readMore a:hover, .fn a, a, a:hover,.counter-item .count,.homepage-twitter .mts_recent_tweets .twitter_username,#portfolio-grid .item a.expand-view .overlay span,#pricing_tables ul li.highlight .price,#navigation ul ul li > a:hover,.feature-icon span.fa, .single_post .single-title a:hover { color:#2d1f60; }	
+		
+		footer{border-top: 1px solid #2d1f60;}
+		.tagcloud a:hover:after{border-right-color:#2d1f60;}
+
+        .main-header { border-bottom: 1px solid #2d1f60; }
+        #navigation ul li:hover,
+        #navigation ul li.current-menu-item,
+        #navigation ul li.current_page_parent { border-bottom: 3px solid #2d1f60; color: #2d1f60; }
+		
+		#homepage-features .feature-icon .arrow ,#homepage-service .service-icon .arrow { border-top-color: #2d1f60; }
+
+        #service_slides .owl-buttons div:hover,#homepage-testimonials .owl-buttons div:hover, .team-member-contact i:hover, .homepage-button:hover, .widget_wpt .tab_title.selected a, nav a#pull, #commentform input#submit, .contactform #submit, .mts-subscribe input[type='submit'], #move-to-top:hover, #searchform .icon-search, .pagination a, #load-posts a, .widget_wpt ul.wpt-tabs li.selected a, .widget_wp_review_tab ul.wp-review-tabs li.selected a, .tagcloud a:hover, #navigation ul .sfHover a, #search-image.sbutton, #searchsubmit,.social_icons a:hover,.team-member .team-member-contact i:hover,#filters li a.selected,#portfolio-grid .item a.expand-view .overlay,#pricing_tables ul li .table_title,#pricing_tables ul li.highlight .table_button > a,#mtscontact_form > #mtscontact_submit,.blog-title,.postcontent .meta span a:hover, .service-icon span.fa, .widget-content a:hover + .posts-number, .ajax-pagination .paginate-link:hover, .ajax-pagination .paginate-link.current, div.slider-overlay, .latestPost-review-wrapper { background-color:#2d1f60; color: #fff!important; }
+		.widget-content a:hover + .posts-number, .ajax-pagination .paginate-link:hover, .ajax-pagination .paginate-link.current { border-color: #2d1f60; }
+		
+		.bypostauthor:after { content: "Autor"; position: absolute; right: 0px; top:4px; padding: 1px 10px; background: #818181; color: #FFF; }
+		
+		.loading:before {
+display: none!important;
+}
+			
+</style>
+<link rel="stylesheet" id="responsive-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/responsive.css" type="text/css" media="all">
+<link rel="stylesheet" id="A2A_SHARE_SAVE-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/addtoany.css" type="text/css" media="all">
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery_005.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/nivo-lightbox.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var rlArgs = {"script":"nivo","selector":"lightbox","customEvents":"","activeGalleries":"1","effect":"fade","clickOverlayToClose":"1","keyboardNav":"1","errorMessage":"The requested content cannot be loaded. Please try again later."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/front.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery_004.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery_003.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery_002.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/wp-shortcode.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.matera.com/br/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://404846152.r.upxcdn.net/br/wp-includes/wlwmanifest.xml"> 
+<!--Theme by MyThemeShop.com-->
+<link rel="shortlink" href="http://www.matera.com/br/?p=9578">
+
+<script type="text/javascript"><!--
+var a2a_config=a2a_config||{},wpa2a={done:false,html_done:false,script_ready:false,script_load:function(){var a=document.createElement('script'),s=document.getElementsByTagName('script')[0];a.type='text/javascript';a.async=true;a.src='http://404846152.r.upxcdn.net/br/wp-content/uploads/addtoany/page.js';s.parentNode.insertBefore(a,s);wpa2a.script_load=function(){};},script_onready:function(){if(a2a.type=='page'){wpa2a.script_ready=true;if(wpa2a.html_done)wpa2a.init();}},init:function(){for(var i=0,el,target,targets=wpa2a.targets,length=targets.length;i<length;i++){el=document.getElementById('wpa2a_'+(i+1));target=targets[i];a2a_config.linkname=target.title;a2a_config.linkurl=target.url;if(el){a2a.init('page',{target:el});el.id='';}wpa2a.done=true;}wpa2a.targets=[];}};a2a_config.tracking_callback=['ready',wpa2a.script_onready];a2a_localize = {
+	Share: "Compartilhar",
+	Save: "Salvar",
+	Subscribe: "Inscrever",
+	Email: "Email",
+	Bookmark: "Favoritos",
+	ShowAll: "Mostrar tudo",
+	ShowLess: "Mostrar menos",
+	FindServices: "Procurar serviço(s)",
+	FindAnyServiceToAddTo: "Encontrar rapidamente qualquer serviço para",
+	PoweredBy: "Serviço fornecido por",
+	ShareViaEmail: "Share via email",
+	SubscribeViaEmail: "Subscribe via email",
+	BookmarkInYourBrowser: "Adicionar aos favoritos",
+	BookmarkInstructions: "Press Ctrl+D or \u2318+D to bookmark this page",
+	AddToYourFavorites: "Adicionar a favoritos",
+	SendFromWebOrProgram: "Send from any email address or email program",
+	EmailProgram: "Email program",
+	More: "More&#8230;"
+};
+
+a2a_config.static_server="http://404846152.r.upxcdn.net/br/wp-content/uploads/addtoany";
+//--></script>
+
+<!-- BEGIN GADWP v4.4.7 Universal Tracking - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2035840-4', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- END GADWP Universal Tracking -->
+
+<link href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/css.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+#logo a { font-family: 'Roboto'; font-weight: 700; font-size: 38px; color: #000000;text-transform: uppercase; }
+.menu li, .menu li a { font-family: 'Roboto'; font-weight: normal; font-size: 14px; color: #4e4e4e; }
+body,#search-image.sbutton, #searchsubmit, .popular-posts a, .category-posts a, .advanced-recent-posts a, .related-posts-widget a ,.author-posts-widget li a,.widget_recent_entries a,.tagcloud a,.mts-subscribe input[type="submit"],.sidebar .menu li a,.ajax-search-results li  a,.wp_review_tab_widget_content .entry-title a,.wpt_widget_content .entry-title a { font-family: 'Roboto'; font-weight: normal; font-size: 16px; color: #212121; }
+#homepage_slider .flex-caption h2 { font-family: 'Roboto'; font-weight: 700; font-size: 68px; color: #ffffff; }
+.page-title, .post-title, .counter-item .count,#pricing_tables ul li .price, #pricing_tables ul li .table_title { font-family: 'Roboto'; font-weight: 700; font-size: 38px; color: #282828; }
+.single-title { font-family: 'Roboto'; font-weight: 700; font-size: 28px; color: #282828; }
+h1 { font-family: 'Roboto'; font-weight: 700; font-size: 28px; color: #282828; }
+h2 { font-family: 'Roboto'; font-weight: 700; font-size: 24px; color: #282828; }
+h3 { font-family: 'Roboto'; font-weight: 700; font-size: 22px; color: #282828; }
+h4 { font-family: 'Roboto'; font-weight: 700; font-size: 20px; color: #222222; }
+h5 { font-family: 'Roboto'; font-weight: 700; font-size: 18px; color: #222222; }
+h6 { font-family: 'Roboto'; font-weight: 700; font-size: 16px; color: #222222; }
+</style>
+<script type="text/javascript">document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');</script><script type="text/javascript">if (typeof ajaxurl === "undefined") {var ajaxurl = "http://www.matera.com/br/wp-admin/admin-ajax.php"}</script>	
+<script type="text/javascript">
+	
+	function openLogin(){
+		$('#modal_login').fadeIn(300);
+		var f=document.getElementById('matera_login');
+		f.src="http://www.cas.matera.com/suporte/secure/remoto.iface";
+	};
+	
+	function closeLogin(){
+		$('#modal_login').fadeOut(300);		
+	};
+	
+	function openModal(id){
+		$('#'+id).fadeIn(300);
+		return false;
+	};
+	function closeModal(id){
+		$('#'+id).fadeOut(300);
+		return false;
+	};
+	
+</script>
+
+<script type="text/javascript">
+	function submitform(){
+		document.forms["searchform"].submit();		
+	}
+</script>
+
+<style type="text/css">.a2a_menu, .a2a_menu * { -moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;float:none;margin:0;padding:0;height:auto;width:auto;}.a2a_menu { border-radius: 6px;display:none;direction:ltr;background:#FFF;font: 16px sans-serif-light, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, "Liberation Sans", sans-serif;color:#000;line-height:12px;border: 1px solid #CCC;vertical-align:baseline;overflow:hidden;}.a2a_mini {min-width:200px;position:absolute;width: 300px;z-index:9999997;}.a2a_overlay {display: none;background: #CCC; _height: expression( ((e=document.documentElement.clientHeight)?e:document.body.clientHeight)+"px" ); _width: expression( ((e=document.documentElement.clientWidth)?e:document.body.clientWidth)+"px" ); filter: alpha(opacity=50); opacity: .7;position: fixed;_position: absolute; top: 0;right: 0;left: 0;bottom: 0;z-index: 9999998;-webkit-animation: a2aFadeInOverlay .14s ease-out;animation: a2aFadeInOverlay .14s ease-out;}.a2a_full {background: #FFF;height: auto;height: calc(320px);top: 15%;_top: expression(40+((e=document.documentElement.scrollTop)?e:document.body.scrollTop)+"px"); left: 50%;margin-left: -320px; position: fixed;_position: absolute; text-align: center;width: 640px;z-index: 9999999; -webkit-animation: a2aFadeIn .14s ease-in;    animation: a2aFadeIn .14s ease-in;}.a2a_full_header,.a2a_full_services,.a2a_full_footer {border: 0;margin: 0;padding: 12px;box-sizing: border-box;}.a2a_full_header {padding-bottom: 8px;}.a2a_full_services {height: 280px; overflow-y: scroll;padding: 0 12px;-webkit-overflow-scrolling: touch;}.a2a_full_services .a2a_i {display: inline-block;float: none;width: 181px;width: calc(33.334% - 18px);}div.a2a_full_footer {font-size: 12px;text-align: center;padding: 8px 14px;}div.a2a_full_footer a,div.a2a_full_footer a:visited {display: inline;font-size: 12px;line-height:14px;padding: 8px 14px; }div.a2a_full_footer a:hover {background: none;border: 0;color: #0166FF;}div.a2a_full_footer a span.a2a_s_a2a {background-size: 14px;border-radius: 3px;display: inline-block;height:14px;line-height:14px;margin: 0 3px 0 0;vertical-align: top;*vertical-align: middle; width:14px;}@-webkit-keyframes a2aFadeIn {from { opacity: 0; }  to { opacity: 1; }}@keyframes a2aFadeIn {from { opacity: 0; }  to { opacity: 1; }}@-webkit-keyframes a2aFadeInOverlay {from { opacity: 0; }  to { opacity: .7; }}@keyframes a2aFadeInOverlay {from { opacity: 0; }  to { opacity: .7; }}@media (max-width: 639px) {.a2a_full {top: 15%;left: 0;margin-left: auto;width: 100%;}}@media (min-width: 318px) and (max-width: 437px) {.a2a_full .a2a_full_services .a2a_i {width: calc(50% - 18px);}}@media (max-width: 317px) {.a2a_full .a2a_full_services .a2a_i {width: calc(100% - 18px);}}@media (max-height: 436px) {.a2a_full {bottom: 40px;height: auto;top: 40px;}}.a2a_menu a { color:#0166FF;text-decoration:none;font: 16px sans-serif-light, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, "Liberation Sans", sans-serif;line-height:14px;height:auto;width:auto;outline:none;-moz-outline:none;}.a2a_menu a:visited{color:#0166FF}.a2a_menu a:hover,.a2a_menu a:active,.a2a_menu a.a2a_i:focus{color:#2A2A2A;border:1px solid #EEE;background-color:#EEE;text-decoration:none}.a2a_menu span.a2a_s_find { background-size: 24px;height:24px;left: 8px;position:absolute;top: 7px;width:24px;}.a2a_menu span.a2a_s_find svg {background-color: #FFF;}.a2a_menu span.a2a_s_find svg path {fill: #CCC;}#a2a_menu_container{display:inline-block} #a2a_menu_container{_display:inline} .a2a_menu_title_container {padding: 6px 8px;}.a2a_menu_find_container {border: 1px solid #CCC;border-radius: 6px;padding: 2px 24px 2px 0;position: relative;text-align: left;}.a2a_cols_container .a2a_col1{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.a2a_menu input, .a2a_menu input[type="text"]{display:block;background-image:none;box-shadow:none;line-height:100%;margin:0;overflow:hidden;padding:0;-moz-box-shadow:none;-webkit-box-shadow:none;-webkit-appearance:none} .a2a_menu_title_container input.a2a_menu_title {background-color: #FFF;border: 0;color: #2A2A2A;font: inherit;margin: 0;padding: 0;width: 99%;}.a2a_menu_find_container input.a2a_menu_find {background-color: transparent;_background-color: #FFF;border: 0;color: #2A2A2A;font: inherit;font-size: 16px;height: 28px;line-height: 20px;left: 38px;outline: 0;padding: 2px 0;position: relative;width: 99%;}.a2a_clear{clear:both} .a2a_img { background:url(http://404846152.r.upxcdn.net/br/wp-content/uploads/addtoany/icons.31.png);border:0;line-height:16px}.a2a_img, .a2a_svg { background-repeat:no-repeat; display:block; overflow:hidden;}.a2a_img{height:16px;line-height:16px;width:16px;}.a2a_svg{height:32px;line-height:32px;width:32px;}a.a2a_i,i.a2a_i{display:block;float:left;border:1px solid #FFF;line-height:24px;padding:6px 8px;text-align:left;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width:132px;}a.a2a_i span, a.a2a_more span {display: inline-block;overflow: hidden;vertical-align: top;*vertical-align: middle; }a.a2a_i .a2a_img,a.a2a_i .a2a_svg {margin: 0 6px 0 0;}a.a2a_i .a2a_svg,a.a2a_more .a2a_svg {background-size: 24px;height:24px;line-height:24px;width:24px;}a.a2a_sss:hover {border-left: 1px solid #CCC;}a.a2a_menu_show_more_less{border-bottom:1px solid #FFF;border-left:0;border-right:0;line-height:24px;margin:6px 0 0;padding:6px}a.a2a_menu_show_more_less span{display:inline-block;height:24px;margin:0 6px 0 0;} .a2a_kit .a2a_svg { background-repeat: repeat; }.a2a_default_style a{float:left;line-height:16px;padding:0 2px}.a2a_default_style a:hover .a2a_img,.a2a_default_style a:hover .a2a_svg,.a2a_floating_style a:hover .a2a_img,.a2a_floating_style a:hover .a2a_svg { opacity: .7;}.a2a_default_style .a2a_count,.a2a_default_style .a2a_svg, .a2a_floating_style .a2a_svg,.a2a_menu .a2a_svg { border-radius:4px ;} .a2a_default_style .a2a_img, .a2a_default_style .a2a_dd, .a2a_default_style .a2a_svg{float:left}.a2a_default_style .a2a_img_text{margin-right:4px}.a2a_default_style .a2a_divider{border-left:1px solid #000;display:inline;float:left;height:16px;line-height:16px;margin:0 5px}.a2a_kit a{cursor:pointer}.a2a_floating_style { background-color: #fff; border-radius: 6px; padding: 4px; position: fixed; z-index: 9999995; }.a2a_vertical_style a { display: block; padding: 4px; }.a2a_floating_style.a2a_default_style { bottom: 0; }.a2a_floating_style.a2a_default_style a { padding: 4px; }.a2a_count {background-color: #fff;border: 1px solid #ccc;box-sizing: border-box;color: #2a2a2a;display: block;float: left;font: 12px Arial,Helvetica,sans-serif;height: 16px;margin-left: 4px;position: relative;text-align: center;width: 50px;}.a2a_count:before,.a2a_count:after {border: solid transparent;border-width: 4px 4px 4px 0;content: "";height: 0;left: 0;line-height: 0;margin: -4px 0 0 -4px;position: absolute;top: 50%;width: 0;}.a2a_count:before {border-right-color: #ccc;}.a2a_count:after {border-right-color: #fff;margin-left: -3px;}.a2a_count span {-webkit-animation: a2aFadeIn .14s ease-in;    animation: a2aFadeIn .14s ease-in;}.a2a_nowrap{white-space:nowrap}.a2a_note{margin:0 auto;padding:9px;font-size:12px;text-align:center}.a2a_note .a2a_note_note{margin:0;color:#2A2A2A}.a2a_wide a{display:block;margin-top:3px;border:1px solid #EEE;text-align:center}iframe.a2a_shim {background-color: transparent;border: 0;bottom: 0;filter: alpha(opacity=0); height: 100%;left: 0;right: 0;top: 0;position: absolute;width: 100%;z-index: 9999996;_height: expression( ((e=document.documentElement.clientHeight)?e:document.body.clientHeight)+"px" ); _width: expression( ((e=document.documentElement.clientWidth)?e:document.body.clientWidth)+"px" ); }.a2a_dd img {border:0;-ms-touch-action:manipulation;}iframe[id^="PIN_"][id$="_nag"] {display: none !important;}.a2a_i_a2a{background-position:0 0!important}.a2a_i_a2a_sm{background-position:0 -17px!important}.a2a_i_agregator{background-position:0 -34px!important}.a2a_i_aim{background-position:0 -51px!important}.a2a_i_amazon{background-position:0 -68px!important}.a2a_i_aol{background-position:0 -85px!important}.a2a_i_app_net{background-position:0 -102px!important}.a2a_i_baidu{background-position:0 -119px!important}.a2a_i_balatarin{background-position:0 -136px!important}.a2a_i_bibsonomy{background-position:0 -153px!important}.a2a_i_bitty{background-position:0 -170px!important}.a2a_i_blinklist{background-position:0 -187px!important}.a2a_i_blogger{background-position:0 -204px!important}.a2a_i_blogmarks{background-position:0 -221px!important}.a2a_i_bookmark{background-position:0 -238px!important}.a2a_i_bookmarks_fr{background-position:0 -255px!important}.a2a_i_box{background-position:0 -272px!important}.a2a_i_buddymarks{background-position:0 -289px!important}.a2a_i_buffer{background-position:0 -306px!important}.a2a_i_care2{background-position:0 -323px!important}.a2a_i_chrome{background-position:0 -340px!important}.a2a_i_citeulike{background-position:0 -357px!important}.a2a_i_dailyrotation{background-position:0 -374px!important}.a2a_i_default{background-position:0 -391px!important}.a2a_i_delicious{background-position:0 -408px!important}.a2a_i_designfloat{background-position:0 -425px!important}.a2a_i_diary_ru{background-position:0 -442px!important}.a2a_i_diaspora{background-position:0 -459px!important}.a2a_i_digg{background-position:0 -476px!important}.a2a_i_dihitt{background-position:0 -493px!important}.a2a_i_diigo{background-position:0 -510px!important}.a2a_i_dzone{background-position:0 -527px!important}.a2a_i_email{background-position:0 -544px!important}.a2a_i_evernote{background-position:0 -561px!important}.a2a_i_facebook{background-position:0 -578px!important}.a2a_i_fark{background-position:0 -595px!important}.a2a_i_feed{background-position:0 -612px!important}.a2a_i_feedblitz{background-position:0 -629px!important}.a2a_i_feedbucket{background-position:0 -646px!important}.a2a_i_feedly{background-position:0 -663px!important}.a2a_i_feedmailer{background-position:0 -680px!important}.a2a_i_find{background-position:0 -697px!important}.a2a_i_firefox{background-position:0 -714px!important}.a2a_i_flipboard{background-position:0 -731px!important}.a2a_i_folkd{background-position:0 -748px!important}.a2a_i_friendfeed{background-position:0 -765px!important}.a2a_i_gmail{background-position:0 -782px!important}.a2a_i_google{background-position:0 -799px!important}.a2a_i_google_plus{background-position:0 -816px!important}.a2a_i_hatena{background-position:0 -833px!important}.a2a_i_instapaper{background-position:0 -850px!important}.a2a_i_itunes{background-position:0 -867px!important}.a2a_i_jamespot{background-position:0 -884px!important}.a2a_i_kakao{background-position:0 -901px!important}.a2a_i_kindle{background-position:0 -918px!important}.a2a_i_klipfolio{background-position:0 -935px!important}.a2a_i_line{background-position:0 -952px!important}.a2a_i_linkedin{background-position:0 -969px!important}.a2a_i_livejournal{background-position:0 -986px!important}.a2a_i_mail_ru{background-position:0 -1003px!important}.a2a_i_mendeley{background-position:0 -1020px!important}.a2a_i_meneame{background-position:0 -1037px!important}.a2a_i_miro{background-position:0 -1054px!important}.a2a_i_mixi{background-position:0 -1071px!important}.a2a_i_myspace{background-position:0 -1088px!important}.a2a_i_netlog{background-position:0 -1105px!important}.a2a_i_netvibes{background-position:0 -1122px!important}.a2a_i_netvouz{background-position:0 -1139px!important}.a2a_i_newsalloy{background-position:0 -1156px!important}.a2a_i_newsisfree{background-position:0 -1173px!important}.a2a_i_newstrust{background-position:0 -1190px!important}.a2a_i_newsvine{background-position:0 -1207px!important}.a2a_i_nujij{background-position:0 -1224px!important}.a2a_i_odnoklassniki{background-position:0 -1241px!important}.a2a_i_oknotizie{background-position:0 -1258px!important}.a2a_i_oldreader{background-position:0 -1275px!important}.a2a_i_outlook_com{background-position:0 -1292px!important}.a2a_i_pinboard{background-position:0 -1309px!important}.a2a_i_pinterest{background-position:0 -1326px!important}.a2a_i_plurk{background-position:0 -1343px!important}.a2a_i_pocket{background-position:0 -1360px!important}.a2a_i_podnova{background-position:0 -1377px!important}.a2a_i_print{background-position:0 -1394px!important}.a2a_i_printfriendly{background-position:0 -1411px!important}.a2a_i_protopage{background-position:0 -1428px!important}.a2a_i_pusha{background-position:0 -1445px!important}.a2a_i_qzone{background-position:0 -1462px!important}.a2a_i_reddit{background-position:0 -1479px!important}.a2a_i_rediff{background-position:0 -1496px!important}.a2a_i_renren{background-position:0 -1513px!important}.a2a_i_segnalo{background-position:0 -1530px!important}.a2a_i_share{background-position:0 -1547px!important}.a2a_i_sina_weibo{background-position:0 -1564px!important}.a2a_i_sitejot{background-position:0 -1581px!important}.a2a_i_slashdot{background-position:0 -1598px!important}.a2a_i_springpad{background-position:0 -1615px!important}.a2a_i_stumbleupon{background-position:0 -1632px!important}.a2a_i_stumpedia{background-position:0 -1649px!important}.a2a_i_svejo{background-position:0 -1666px!important}.a2a_i_symbaloo{background-position:0 -1683px!important}.a2a_i_thefreedictionary{background-position:0 -1700px!important}.a2a_i_thefreelibrary{background-position:0 -1717px!important}.a2a_i_tuenti{background-position:0 -1734px!important}.a2a_i_tumblr{background-position:0 -1751px!important}.a2a_i_twiddla{background-position:0 -1768px!important}.a2a_i_twitter{background-position:0 -1785px!important}.a2a_i_typepad{background-position:0 -1802px!important}.a2a_i_viadeo{background-position:0 -1819px!important}.a2a_i_vk{background-position:0 -1836px!important}.a2a_i_wanelo{background-position:0 -1853px!important}.a2a_i_webnews{background-position:0 -1870px!important}.a2a_i_whatsapp{background-position:0 -1887px!important}.a2a_i_winksite{background-position:0 -1904px!important}.a2a_i_wordpress{background-position:0 -1921px!important}.a2a_i_wykop{background-position:0 -1938px!important}.a2a_i_xing{background-position:0 -1955px!important}.a2a_i_y18{background-position:0 -1972px!important}.a2a_i_yahoo{background-position:0 -1989px!important}.a2a_i_yim{background-position:0 -2006px!important}.a2a_i_yoolink{background-position:0 -2023px!important}.a2a_i_youmob{background-position:0 -2040px!important}.a2a_i_yummly{background-position:0 -2057px!important}</style><link href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/icons.css" rel="stylesheet"></head>
+<body style="padding-top: 82px;" id="blog" class="single single-post postid-9578 single-format-standard main siteorigin-panels" itemscope="" itemtype="http://schema.org/WebPage"><div id="move-to-top" class="animate filling"><i class="fa fa-angle-up"></i></div>
+	<div class="main-container-wrap">		
+		<header style="position: fixed; top: 0px;" class="main-header" id="sticky">
+			<div id="topo">
+				<div class="sidebar-topo-div">	
+					<ul id="language">
+						<li><a href="http://www.matera.com/br" class="pt" title="Portugu�s">Portugu�s</a></li>
+						<li><a href="http://www.matera.com/en" class="en" title="English">English</a></li>
+					</ul>				
+						<label onclick="openLogin()">SUPORTE</label>	
+					
+						<span class="search-bar-icon" onclick="submitform();"></span>
+						<form method="get" name="searchform" id="searchform" class="search-form ajax-search" action="http://www.matera.com/br" _lpchecked="1">
+							<input name="s" id="s" placeholder="Buscar" autocomplete="off" type="text">							
+						<div style="display: none; transition-property: opacity; transition-duration: 200ms; transition-timing-function: ease-in-out; opacity: 0;" class="ajax-search-results-container"></div></form>	
+						<!-- Bot�o suporte -->
+						<a href="#" id="btn_clientarea" onclick="openLogin()"></a>
+					
+				</div>
+			</div>
+			<div id="modal_login" class="matera_modal_wrapper" style="display: block; display:none;">
+			 <div class="matera_modal_container"> <span id="btn_modal_close" onclick="closeLogin();">Fechar</span> <iframe src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/remoto.html" name="matera_login" marginwidth="0" marginheight="0" scrolling="No" id="matera_login" width="480" frameborder="0" height="210"> </iframe></div>
+			 <div class="matera_modal_overlay"></div>	
+			</div>
+			<div class="container">
+				<div id="header">
+					<div class="logo-wrap">
+																					  <h2 id="logo" class="image-logo">
+																				<a href="http://www.matera.com/br"><img src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/Logo_MATERA.png" alt="MATERA Systems" width="269" height="65"></a>
+									</h2><!-- END #logo -->
+																		</div>
+					                    
+                    							                        <div class="social_icons">
+	                            	                            
+	                            	                            <a class="fa fa-facebook" target="_blank" href="https://www.facebook.com/materasystems"></a>
+	                            	                            
+	                            	                            
+	                            	                            
+	                            	                            <a class="fa fa-linkedin" target="_blank" href="https://www.linkedin.com/company/matera-systems"></a>
+	                            	                            
+	                            	                            <a class="fa fa-rss" target="_blank" href="http://www.matera.com/br/feed/"></a>
+	                            	                            
+	                        </div>
+                                                                
+					<div class="secondary-navigation">
+						<nav id="navigation">
+	                        <a href="#" id="pull" class="toggle-mobile-menu">Menu</a>
+															<ul id="menu-primary" class="menu primary-menu"><li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/solucoes/">Soluções</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4165" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/mercado-financeiro/">Mercado Financeiro</a></li>
+	<li id="menu-item-4166" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/instituicoes-de-pagamento/">Instituições de Pagamento</a></li>
+	<li id="menu-item-4167" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/gestao-de-riscos/">Gestão de Riscos</a></li>
+	<li id="menu-item-4168" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/gestao-empresarial/">Gestão Empresarial</a></li>
+	<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/e-commerce/">e-Commerce</a></li>
+	<li id="menu-item-4169" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/nuvem/">Nuvem</a></li>
+</ul>
+</li>
+<li id="menu-item-4170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/servicos/">Serviços</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4171" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/desenvolvimento-e-manutencao-de-sistemas/">Desenvolvimento e Manutenção de Sistemas</a></li>
+	<li id="menu-item-4172" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/dba-oracle-sql-server/">DBA Oracle / SQL Server</a></li>
+	<li id="menu-item-4173" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/consultoria-websphere/">Consultoria Websphere MQ</a></li>
+	<li id="menu-item-4174" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/gerenciamento-de-infraestrutura-de-aplicacoes/">Gerenciamento de Infraestrutura de Aplicações</a></li>
+	<li id="menu-item-4175" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/migracao-de-aplicativos-para-a-nuvem/">Migração de Aplicativos para a Nuvem</a></li>
+</ul>
+</li>
+<li id="menu-item-4176" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/empresa/">Empresa</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4177" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/sobre/">Sobre</a></li>
+	<li id="menu-item-4178" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/tecnologia/">Tecnologia</a></li>
+	<li id="menu-item-4179" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/parcerias/">Parcerias</a></li>
+	<li id="menu-item-13044" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/startups/">Startups</a></li>
+	<li id="menu-item-4180" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/imprensa/">Imprensa</a></li>
+	<li id="menu-item-4181" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/responsabilidade-social/">Responsabilidade Social</a></li>
+</ul>
+</li>
+<li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/carreira/">Carreira</a></li>
+<li id="menu-item-12" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/blog/">Blog</a></li>
+<li id="menu-item-15297" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/webinars/">Webinars</a></li>
+<li id="menu-item-4182" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/contato/">Contato</a></li>
+</ul>													</nav>
+					</div>
+				</div><!--#header-->
+			</div><!--.container-->
+		</header>
+          
+       
+	<div class="main-container">
+	<div id="page" class="single">
+	<article class="article">
+		<div id="content_box">
+							<div id="post-9578" class="post-9578 post type-post status-publish format-standard has-post-thumbnail hentry category-tecnologia tag-equals tag-hashcode tag-java g has_thumb">
+					<div class="single_post clearfix">
+													<div class="breadcrumb" itemprop="breadcrumb"> <!-- Breadcrumb NavXT 5.2.0 -->
+<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" title="Go to MATERA Systems." href="http://www.matera.com/br" class="home">MATERA Systems</a></span> &gt; <span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" title="Go to the Tecnologia category archives." href="http://www.matera.com/br/category/tecnologia/" class="taxonomy category">Tecnologia</a></span> &gt; <span typeof="v:Breadcrumb"><span property="v:title">Desvendando os métodos equals e hashcode</span></span></div>
+																			<div class="featured-thumbnail">
+								<img src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/codigo.jpg" class="attachment-featured wp-post-image" alt="codigo" width="538" height="294">							</div>
+												<header>
+							<h1 class="single-title">Desvendando os métodos equals e hashcode</h1>
+															<div class="post-info">
+																			<span class="theauthor">Por: <a rel="nofollow" href="http://www.matera.com/br/author/edmar-bregagnolimatera-com/" title="Posts de Edmar Bregagnoli">Edmar Bregagnoli</a></span>
+																												<span class="thetime updated">Postado em: 15 de janeiro de 2015</span>
+																												<span class="thecategory"><a href="http://www.matera.com/br/category/tecnologia/" rel="nofollow">Tecnologia</a></span>
+																										</div>
+													</header><!--.headline_area-->
+						<div class="post-single-content box mark-links">
+							                            
+														<p>Muitas vezes no dia-a-da do desenvolvimento Java sobrescrevemos os métodos<strong> equals e hashcode</strong>
+ em nossas classes por várias razões, dentre elas porque alguma IDE o 
+faz de maneira automática ou mesmo porque seguimos recomendações de boas
+ práticas encontradas em artigos, livros, blogs, etc.</p>
+<p>Porém não paramos para analisar qual a utilidade desses métodos e quais são os seus reais benefícios para a aplicação.</p>
+<p>Pensando nisso, neste post iremos demonstrar o funcionamento desses 
+dois importantes métodos e como podem ser extramente úteis quando 
+trabalhamos com as Coleções (Collections) do Java.</p>
+<p>Para começar, vamos criar a classe Pessoa que terá apenas o atributo 
+Nome como mostra a Listagem 1. Essa classe possui também o método <strong>toString()</strong> para mostramos o valor do atributo Nome dos objetos do tipo Pessoa.</p>
+<div><div id="highlighter_93046" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Pessoa {</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">private</code> <code class="java plain">String nome;</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java comments">/*Getter and Setter omitidos*/</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String toString() {</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code> <code class="java string">"Pessoa [nome="</code> <code class="java plain">+ nome + </code><code class="java string">"]"</code><code class="java plain">;</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number10 index9 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 1 –&nbsp;Classe Pessoa com atributo Nome</h5>
+<p align="LEFT">Muito bem, agora vamos criar dois objetos do tipo Pessoa
+ com o mesmo Nome e verificar se esses objetos são iguais ou não. Para 
+fazer isso, criamos o código da Listagem 2.</p>
+<div><div id="highlighter_72559" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">Pessoa maria = </code><code class="java keyword">new</code> <code class="java plain">Pessoa();</code></div><div class="line number2 index1 alt1"><code class="java plain">maria.setNome(</code><code class="java string">"Maria"</code><code class="java plain">);</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number4 index3 alt1"><code class="java plain">Pessoa maria2 = </code><code class="java keyword">new</code> <code class="java plain">Pessoa();</code></div><div class="line number5 index4 alt2"><code class="java plain">maria2.setNome(</code><code class="java string">"Maria"</code><code class="java plain">);</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number7 index6 alt2"><code class="java keyword">if</code> <code class="java plain">(maria.equals(maria2)) {</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">System.out.println(</code><code class="java string">"São a mesma pessoa"</code><code class="java plain">);</code></div><div class="line number9 index8 alt2"><code class="java plain">} </code><code class="java keyword">else</code> <code class="java plain">{</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">System.out.println(</code><code class="java string">"Não são a mesma pessoa"</code><code class="java plain">);</code></div><div class="line number11 index10 alt2"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 2 – Comparando dois objetos do tipo Pessoa</h5>
+<p align="LEFT">Ao executar esse código o resultado será: <b>Não são a mesma pessoa</b>. Ambos os objetos (maria e maria2) possuem o mesmo valor para o atributo Nome e o método<strong> equals()</strong> retornou falso. Isso aconteceu porque a classe Pessoa não sobrescreveu o método <strong>equals()</strong> da classe Object a fim de definir uma lógica de comparação entre objetos do tipo Pessoa.</p>
+<p>Sendo assim, vamos sobrever o método equals na classe Pessoa como mostra a Listagem 3.</p>
+<div><div id="highlighter_977468" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Pessoa {</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">private</code> <code class="java plain">String nome;</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;</code>&nbsp;</div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String toString() {</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code> <code class="java string">"Pessoa [nome="</code> <code class="java plain">+ nome + </code><code class="java string">"]"</code><code class="java plain">;</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;</code>&nbsp;</div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java color1">@Override</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">boolean</code> <code class="java plain">equals(Object obj) {</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Pessoa p = (Pessoa)obj;</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code> <code class="java keyword">this</code><code class="java plain">.nome.equals(p.getNome());</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;</code>&nbsp;</div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java comments">/*Getter and Setter omitidos*/</code></div><div class="line number16 index15 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 3 – Implementando método equals() na classe Pessoa</h5>
+<p align="LEFT">No método <strong>equals()</strong> da classe Pessoa realizamos uma comparação a fim de verificar se valor do atributo Nome dos objetos do tipo Pessoa são iguais.</p>
+<p align="LEFT">Com o método <strong>equals()</strong> sobrescrito ao executar novamente o código da Listagem 2 o resultado será:<strong> São a mesma pessoa</strong>, como era o esperado já que os objetos maria e maria2 possuem o mesmo nome.</p>
+<p align="LEFT">Agora iremos observar como o método <strong>equals()</strong> funciona com a API Collection do Java como mostra a Listagem 4.</p>
+<div><div id="highlighter_330065" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">List&lt;Pessoa&gt; listaPessoas = </code><code class="java keyword">new</code> <code class="java plain">ArrayList&lt;Pessoa&gt;();</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number3 index2 alt2"><code class="java plain">listaPessoas.add(maria);</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="java keyword">if</code> <code class="java plain">(! listaPessoas.contains(maria2)) {</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">listaPessoas.add(maria2); </code></div><div class="line number7 index6 alt2"><code class="java plain">}</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number9 index8 alt2"><code class="java plain">System.out.println(</code><code class="java string">"Pessoas adicionadas: "</code><code class="java plain">);</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number11 index10 alt2"><code class="java keyword">for</code> <code class="java plain">(Pessoa pessoa : listaPessoas) {</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">System.out.println(pessoa.getNome());</code></div><div class="line number13 index12 alt2"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 4 – Método contains() da API Collection do Java</h5>
+<p align="LEFT">Nessa Listagem, criamos uma lista de pessoas e adicionamos o objeto <b>maria</b> na lista. Em seguida verificamos se o objeto <b>maria2</b>, está na lista e caso contrário é adicionado. Ao executar o laço <b>for&nbsp;</b>será mostrado apenas um nome, ou seja, apenas o objeto <b>maria</b> foi adicionado na lista.</p>
+<p align="LEFT">Esse comportamento se deve pelo fato do método <b>contains()&nbsp;</b>ter retornado <b>true</b> não adicionando assim o objeto <b>maria2&nbsp;</b>na lista.</p>
+<p align="LEFT">Isso acontece porque o método<strong> contains()</strong> da classe ArrayList faz uso do método <strong>equals()</strong>,
+ implementando na classe Pessoa, e como ambos os objetos (maria e 
+maria2) são “iguais” apenas um deles é adicionado na lista.&nbsp;Outra 
+situação é quando trabalhando com classes da API Collections do Java que
+ envolvem código Hash como é caso da classe HashSet, por exemplo.</p>
+<p align="LEFT">Antes de prosseguirmos, com um exemplo prático, vamos discutir um pouco sobre o método <strong>hashCode()</strong>.<br>
+O método <strong>hashCode()</strong> é utilizado para organizar os elementos de uma coleção em um mesmo <em>bucket</em> (balde ou compartimento).</p>
+<p align="LEFT">Por exemplo, em uma loja as fichas dos clientes podem ser separadas em várias pastas (cada pasta seria um <em>bucket</em>),
+ na pasta 1 ficariam todos os clientes cujo nome comece com a letra “A”,
+ na pasta 2, todos os clientes que comecem com a letra “B”, e assim por 
+diante.</p>
+<p align="LEFT">Essa organização torna mais rápida a busca por um 
+cliente, pois o logista vai até a pasta correspondente a primeira letra 
+do nome do cliente e procura por sua ficha. Exemplo: Para um cliente de 
+nome João, o logista pega a pasta dos clientes que começam com a letra 
+“J” e realiza a busca por sua ficha, ao invés de procurar entre todos os
+ cliente da loja, consequentemente aumentando a performance da busca.</p>
+<p align="LEFT">Transformando essa analogia em código Java, seria: Ao 
+analisar o nome “João” e recuperar a pasta que contém os clientes que 
+iniciam seu nome com a letra “J”, seria a execução do método <strong>hashCode()</strong>.
+ Ao recuperar a pasta, precisamos buscar o cliente específico, no caso, 
+João, ao comparar seu nome com os demais para recuperar a ficha correta 
+na pasta seria a execução do método <strong>equals()</strong>.</p>
+<p align="LEFT">Para gerar o código hash de um objeto é necessário sobrescrever o método <strong>hascode()</strong> da classe Object, como mostra a Listagem 5. É importante notar que esse método retorna um inteiro que representa o <em>bucket</em> onde se encontra o objeto.</p>
+<div><div id="highlighter_184019" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Cliente {</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">private</code> <code class="java plain">Long id;</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">private</code> <code class="java plain">String nome;</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">boolean</code> <code class="java plain">equals(Object obj) {</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Cliente c = (Cliente) obj;</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code> <code class="java keyword">this</code><code class="java plain">.id == c.getId() &amp;&amp; </code><code class="java keyword">this</code><code class="java plain">.nome.equals(c.getNome());</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">int</code> <code class="java plain">hashCode() {</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code> <code class="java keyword">this</code><code class="java plain">.nome.charAt(</code><code class="java value">0</code><code class="java plain">);</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java comments">/*Getter and Setter omitidos*/</code></div><div class="line number15 index14 alt2"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 5 – Classe Cliente com métodos equals() e hashCode()</h5>
+<p align="LEFT">Nessa Listagem o método <strong>equals()</strong> irá 
+retornar true se o id (atributo que identifica o cliente de forma única,
+ como um CPF, por exemplo)e nome forem iguais para ambos os objetos 
+comparados e o método <strong>hashCode()</strong> irá retornar um inteiro referente ao caracter inicial do nome do cliente definindo dessa forma o código do <em>bucket</em> onde o objeto cliente estará armazenado.</p>
+<p align="LEFT">Vamos criar agora uma coleção HashSet para testarmos os métodos <strong>hashCode()</strong> e <strong>equals()</strong>, como mostra a Listagem 6.</p>
+<div><div id="highlighter_602628" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">Collection&lt;Cliente&gt; hashSetCliente = </code><code class="java keyword">new</code> <code class="java plain">HashSet&lt;Cliente&gt;();</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number3 index2 alt2"><code class="java plain">Cliente cliente1 = </code><code class="java keyword">new</code> <code class="java plain">Cliente(</code><code class="java value">1</code><code class="java plain">, </code><code class="java string">"João"</code><code class="java plain">);</code></div><div class="line number4 index3 alt1"><code class="java plain">Cliente cliente2 = </code><code class="java keyword">new</code> <code class="java plain">Cliente(</code><code class="java value">2</code><code class="java plain">, </code><code class="java string">"João"</code><code class="java plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number6 index5 alt1"><code class="java plain">hashSetCliente.add(cliente1);</code></div><div class="line number7 index6 alt2"><code class="java plain">hashSetCliente.add(cliente2);</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number9 index8 alt2"><code class="java keyword">for</code> <code class="java plain">(Cliente cliente : hashSetCliente) {</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java plain">System.out.println(</code><code class="java string">"ID: "</code> <code class="java plain">+ cliente.getId() + </code><code class="java string">" Nome: "</code> <code class="java plain">+ cliente.getNome());</code></div><div class="line number11 index10 alt2"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<h5 align="center">Listagem 6 – Adicionando clientes em um HashSet</h5>
+<p align="LEFT">Quando se utiliza uma estrutura de dados como HashSet, dentre outras que utilizam código hash, o método <strong>hashCode()</strong> é fundamental para seu correto funcionamento. No caso do exemplo acima os dois objetos ocuparão o mesmo <em>bucket</em>, já que a lógica do método <strong>hashCode()</strong>
+ gera um código hash baseado no valor do caracter da primeira letra do 
+nome do cliente, e no exemplo ambos começam pela letra “J”.</p>
+<p align="LEFT">Uma característica da classe HashSet é que não são permitidos elementos iguais dentro da coleção.<br>
+No exemplo anterior, ambos os objetos foram incluídos na coleção porque, mesmo tendo código hash iguais, o método <strong>equals()</strong> da classe Cliente retornará false, já que o valor dos id’s são diferentes.</p>
+<p align="LEFT">A saída no console após a execução deste código será:</p>
+<p>ID: 2 Nome: João<br>
+ID: 1 Nome: João</p>
+<p align="LEFT">Mas e se tentássemos adicionar na coleção o seguinte objeto:<strong> Cliente cliente3 = new Cliente(2, João)</strong>? Esse objeto não seria incluído, além de possuir o mesmo código hash do objeto <strong>cliente2</strong> possui o mesmo nome e o mesmo id desse objeto.</p>
+<p>Ao trabalharmos com HashSet dois objetos são considerados iguais se o método <strong>hasCode()</strong> de ambos retornar o mesmo valor e o método <strong>equals()</strong>
+ retornar true na comparação desses dois objetos. Dessa forma apenas um 
+objeto será incluído na coleção. Se alguma dessas afirmativas na 
+comparação dos objetos não for verdadeira ambos os objetos são 
+considerados diferentes.</p>
+<p align="LEFT">Muito bem, depois de toda essa explicação vale o convite
+ para praticar os conceitos apresentados para assimiliar ainda mais o 
+aprendizado. Então, mãos a obra!</p>
+<div class="addtoany_share_save_container addtoany_content_bottom"><div style="line-height: 32px;" class="a2a_kit a2a_kit_size_32 addtoany_list a2a_target" id=""><a class="a2a_button_facebook" href="http://www.matera.com/" title="Facebook" rel="nofollow" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_facebook"></span></a><a class="a2a_button_linkedin" href="http://www.matera.com/" title="LinkedIn" rel="nofollow" target="_blank"><span class="a2a_svg a2a_s__default a2a_s_linkedin"></span></a>
+<script type="text/javascript"><!--
+wpa2a.script_load();
+//--></script>
+</div></div>														 
+                            
+							                            
+															<div class="tags padd-b"><span class="tagtext">Tags:</span><a href="http://www.matera.com/br/tag/equals/" rel="tag">equals</a>, <a href="http://www.matera.com/br/tag/hashcode/" rel="tag">hashCode</a>, <a href="http://www.matera.com/br/tag/java/" rel="tag">Java</a></div>
+														
+							
+							<div class="padd-t">
+							<p>	O Blog é mantido por profissionais da MATERA, e portanto, as opiniões não necessariamente refletem a opinião da empresa. </p>
+							</div>
+						
+						
+						</div>
+					</div><!--.post-content box mark-links-->		
+						
+                       
+                    											<div class="postauthor">
+							
+							<div class="postcontent">
+                                <div class="meta alignright">           
+                               
+									 
+                                                                        
+                                                                      
+									                                    
+                                                                        
+                                </div> <!--meta-->
+								
+								<img src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/120.jpg" alt="Edmar Bregagnoli" class="photo" width="150" height="150">					
+										
+								<h3><div class="pos-post-author">Autor:</div></h3>
+								<h5><a href="http://www.matera.com/br/author/edmar-bregagnolimatera-com/" rel="nofollow">Edmar  Bregagnoli</a></h5>
+								<p></p>
+
+                                                                <span class="author_link">
+                                	<a href="http://www.matera.com/br/author/edmar-bregagnolimatera-com/">Mais posts deste autor</a>
+                                </span>
+							</div>
+						</div>
+					  
+				</div><!--.g post-->
+				<!-- You can start editing here. -->
+	<div id="comments">
+		<h3>4 Comments</h3>
+			<ol class="commentlist clearfix">
+				<div class="navigation">
+					<div class="alignleft"></div>
+					<div class="alignright"></div>
+				</div>
+					<li class="comment even thread-even depth-1" id="li-comment-5272">
+		<div id="comment-5272" style="position:relative;">
+            <div class="comment-author-avatar">
+                <img alt="" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/44e1c13928427991a82c77f078f39045.png" class="avatar avatar-80 photo" width="80" height="80">            </div>
+            <div class="comment-data">
+    			<div class="comment-author vcard">
+    				Por: <span class="fn">adolfo</span> 
+    				    					<span class="ago" style="margin-left:10px;">Postado em: 17 de junho de 2016</span>
+    				    				<span class="comment-meta">
+    					    				</span>
+    			</div>
+    			    			<div class="thecomment">
+    				<p>Excelente Post! Parabéns!</p>
+    				<div class="reply">
+    					<a class="comment-reply-link" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/?replytocom=5272#respond" onclick='return addComment.moveForm( "comment-5272", "5272", "respond", "9578" )' aria-label="Responder para adolfo">Responder</a>    				</div>
+    			</div>
+            </div>
+		</div>
+	</li>
+<ul class="children">
+	<li class="comment byuser comment-author-edmar-bregagnolimatera-com bypostauthor odd alt depth-2" id="li-comment-5297">
+		<div id="comment-5297" style="position:relative;">
+            <div class="comment-author-avatar">
+                <img alt="" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/0e09ec9ddc8d87f0fd3ff74d233622ab.png" class="avatar avatar-80 photo" width="80" height="80">            </div>
+            <div class="comment-data">
+    			<div class="comment-author vcard">
+    				Por: <span class="fn">Edmar Bregagnoli</span> 
+    				    					<span class="ago" style="margin-left:10px;">Postado em: 20 de junho de 2016</span>
+    				    				<span class="comment-meta">
+    					    				</span>
+    			</div>
+    			    			<div class="thecomment">
+    				<p>Muito Obrigado pelo feedback, adolfo!</p>
+    				<div class="reply">
+    					<a class="comment-reply-link" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/?replytocom=5297#respond" onclick='return addComment.moveForm( "comment-5297", "5297", "respond", "9578" )' aria-label="Responder para Edmar Bregagnoli">Responder</a>    				</div>
+    			</div>
+            </div>
+		</div>
+	</li>
+<!-- #comment-## -->
+</ul><!-- .children -->
+<!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-5312">
+		<div id="comment-5312" style="position:relative;">
+            <div class="comment-author-avatar">
+                <img alt="" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/bd252b35625b4f720a6242fd5e33061c.png" class="avatar avatar-80 photo" width="80" height="80">            </div>
+            <div class="comment-data">
+    			<div class="comment-author vcard">
+    				Por: <span class="fn">Tailan</span> 
+    				    					<span class="ago" style="margin-left:10px;">Postado em: 21 de junho de 2016</span>
+    				    				<span class="comment-meta">
+    					    				</span>
+    			</div>
+    			    			<div class="thecomment">
+    				<p>Nossa, ótimo post, parabéns!</p>
+    				<div class="reply">
+    					<a class="comment-reply-link" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/?replytocom=5312#respond" onclick='return addComment.moveForm( "comment-5312", "5312", "respond", "9578" )' aria-label="Responder para Tailan">Responder</a>    				</div>
+    			</div>
+            </div>
+		</div>
+	</li>
+<!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="li-comment-5513">
+		<div id="comment-5513" style="position:relative;">
+            <div class="comment-author-avatar">
+                <img alt="" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/2d3b052ae9b31ddab4941a02a1668970.png" class="avatar avatar-80 photo" width="80" height="80">            </div>
+            <div class="comment-data">
+    			<div class="comment-author vcard">
+    				Por: <span class="fn">Leonardo</span> 
+    				    					<span class="ago" style="margin-left:10px;">Postado em: 8 de julho de 2016</span>
+    				    				<span class="comment-meta">
+    					    				</span>
+    			</div>
+    			    			<div class="thecomment">
+    				<p>Excelente o post, esse é um assunto que confunde muitos!!</p>
+    				<div class="reply">
+    					<a class="comment-reply-link" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/?replytocom=5513#respond" onclick='return addComment.moveForm( "comment-5513", "5513", "respond", "9578" )' aria-label="Responder para Leonardo">Responder</a>    				</div>
+    			</div>
+            </div>
+		</div>
+	</li>
+<!-- #comment-## -->
+				<div class="navigation">
+					<div class="alignleft"></div>
+					<div class="alignright"></div>
+				</div>
+			</ol>
+		</div>
+
+	<div id="commentsAdd">
+		<div id="respond" class="box m-t-6">
+											<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title"></h3><h3>Deixe um comentário</h3> <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/#respond" style="display:none;">Cancelar resposta</a></small>
+									<form action="http://www.matera.com/br/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">O seu endereço de email não será publicado</span> Campos obrigatórios são marcados <span class="required">*</span></p>							<p class="comment-form-author"><label style="display:none" for="author">Name<span class="required"></span></label><input id="author" name="author" placeholder="Name" size="30" type="text"></p>
+<p class="comment-form-email"><label style="display:none" for="email">Email<span class="required"></span></label><input id="email" name="email" placeholder="Email" size="30" type="text"></p>
+<p class="comment-form-url"><label style="display:none" for="url">Website</label><input id="url" name="url" placeholder="Website" size="30" type="text"></p>
+												<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" id="submit" class="submit" value="Enviar" type="submit">
+							<input name="comment_post_ID" value="9578" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="cc0ea017d3" type="hidden"></p><p style="display: none;"></p>					<input id="ak_js" name="ak_js" value="1475473028826" type="hidden"></form>
+							</div><!-- #respond -->
+					</div>
+	</div>
+					</div>
+	</article>
+	<aside class="sidebar c-4-12">
+	<div id="sidebars" class="g">
+		<div class="sidebar">
+			<div class="sidebar_list">
+				<div id="categories-2" class="widget widget_categories"><div class="widget-content"><h3 class="widget-title">Categorias</h3><select name="cat" id="cat" class="postform">
+	<option selected="selected" value="-1">Selecionar categoria</option>
+	<option class="level-0" value="14">Carreira</option>
+	<option class="level-0" value="6">e-Commerce</option>
+	<option class="level-0" value="10">Gestão de Riscos</option>
+	<option class="level-0" value="9">Gestão Empresarial</option>
+	<option class="level-0" value="8">Inovação</option>
+	<option class="level-0" value="1">Institucional</option>
+	<option class="level-0" value="7">Mercado Financeiro</option>
+	<option class="level-0" value="11">Nuvem</option>
+	<option class="level-0" value="302">Responsabilidade Social</option>
+	<option class="level-0" value="12">Serviços</option>
+	<option class="level-0" value="13">Tecnologia</option>
+</select>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var dropdown = document.getElementById("cat");
+	function onCatChange() {
+		if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+			location.href = "http://www.matera.com/br/?cat="+dropdown.options[dropdown.selectedIndex].value;
+		}
+	}
+	dropdown.onchange = onCatChange;
+/* ]]> */
+</script>
+
+</div></div><div id="archives-2" class="widget widget_archive"><div class="widget-content"><h3 class="widget-title">Arquivo</h3>		<select name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			<option selected="selected" value="">Selecionar o mês</option>
+
+				<option value="http://www.matera.com/br/2016/09/"> setembro 2016 </option>
+	<option value="http://www.matera.com/br/2016/08/"> agosto 2016 </option>
+	<option value="http://www.matera.com/br/2016/07/"> julho 2016 </option>
+	<option value="http://www.matera.com/br/2016/06/"> junho 2016 </option>
+	<option value="http://www.matera.com/br/2016/05/"> maio 2016 </option>
+	<option value="http://www.matera.com/br/2016/04/"> abril 2016 </option>
+	<option value="http://www.matera.com/br/2016/03/"> março 2016 </option>
+	<option value="http://www.matera.com/br/2016/02/"> fevereiro 2016 </option>
+	<option value="http://www.matera.com/br/2016/01/"> janeiro 2016 </option>
+	<option value="http://www.matera.com/br/2015/12/"> dezembro 2015 </option>
+	<option value="http://www.matera.com/br/2015/11/"> novembro 2015 </option>
+	<option value="http://www.matera.com/br/2015/10/"> outubro 2015 </option>
+	<option value="http://www.matera.com/br/2015/09/"> setembro 2015 </option>
+	<option value="http://www.matera.com/br/2015/08/"> agosto 2015 </option>
+	<option value="http://www.matera.com/br/2015/07/"> julho 2015 </option>
+	<option value="http://www.matera.com/br/2015/06/"> junho 2015 </option>
+	<option value="http://www.matera.com/br/2015/05/"> maio 2015 </option>
+	<option value="http://www.matera.com/br/2015/04/"> abril 2015 </option>
+	<option value="http://www.matera.com/br/2015/03/"> março 2015 </option>
+	<option value="http://www.matera.com/br/2015/02/"> fevereiro 2015 </option>
+	<option value="http://www.matera.com/br/2015/01/"> janeiro 2015 </option>
+	<option value="http://www.matera.com/br/2014/12/"> dezembro 2014 </option>
+	<option value="http://www.matera.com/br/2014/11/"> novembro 2014 </option>
+	<option value="http://www.matera.com/br/2014/10/"> outubro 2014 </option>
+	<option value="http://www.matera.com/br/2014/09/"> setembro 2014 </option>
+	<option value="http://www.matera.com/br/2014/08/"> agosto 2014 </option>
+	<option value="http://www.matera.com/br/2014/07/"> julho 2014 </option>
+	<option value="http://www.matera.com/br/2014/06/"> junho 2014 </option>
+	<option value="http://www.matera.com/br/2014/05/"> maio 2014 </option>
+	<option value="http://www.matera.com/br/2014/04/"> abril 2014 </option>
+	<option value="http://www.matera.com/br/2014/03/"> março 2014 </option>
+	<option value="http://www.matera.com/br/2014/02/"> fevereiro 2014 </option>
+	<option value="http://www.matera.com/br/2014/01/"> janeiro 2014 </option>
+	<option value="http://www.matera.com/br/2013/12/"> dezembro 2013 </option>
+	<option value="http://www.matera.com/br/2013/11/"> novembro 2013 </option>
+	<option value="http://www.matera.com/br/2013/10/"> outubro 2013 </option>
+	<option value="http://www.matera.com/br/2013/09/"> setembro 2013 </option>
+	<option value="http://www.matera.com/br/2013/08/"> agosto 2013 </option>
+	<option value="http://www.matera.com/br/2013/07/"> julho 2013 </option>
+	<option value="http://www.matera.com/br/2013/06/"> junho 2013 </option>
+	<option value="http://www.matera.com/br/2013/05/"> maio 2013 </option>
+	<option value="http://www.matera.com/br/2013/04/"> abril 2013 </option>
+	<option value="http://www.matera.com/br/2013/03/"> março 2013 </option>
+	<option value="http://www.matera.com/br/2013/02/"> fevereiro 2013 </option>
+	<option value="http://www.matera.com/br/2013/01/"> janeiro 2013 </option>
+	<option value="http://www.matera.com/br/2012/12/"> dezembro 2012 </option>
+	<option value="http://www.matera.com/br/2012/11/"> novembro 2012 </option>
+	<option value="http://www.matera.com/br/2012/10/"> outubro 2012 </option>
+	<option value="http://www.matera.com/br/2012/09/"> setembro 2012 </option>
+	<option value="http://www.matera.com/br/2012/08/"> agosto 2012 </option>
+	<option value="http://www.matera.com/br/2012/07/"> julho 2012 </option>
+	<option value="http://www.matera.com/br/2012/06/"> junho 2012 </option>
+	<option value="http://www.matera.com/br/2012/05/"> maio 2012 </option>
+	<option value="http://www.matera.com/br/2012/04/"> abril 2012 </option>
+	<option value="http://www.matera.com/br/2012/03/"> março 2012 </option>
+	<option value="http://www.matera.com/br/2012/02/"> fevereiro 2012 </option>
+	<option value="http://www.matera.com/br/2012/01/"> janeiro 2012 </option>
+	<option value="http://www.matera.com/br/2011/12/"> dezembro 2011 </option>
+	<option value="http://www.matera.com/br/2011/11/"> novembro 2011 </option>
+	<option value="http://www.matera.com/br/2011/10/"> outubro 2011 </option>
+	<option value="http://www.matera.com/br/2011/09/"> setembro 2011 </option>
+	<option value="http://www.matera.com/br/2011/08/"> agosto 2011 </option>
+	<option value="http://www.matera.com/br/2011/07/"> julho 2011 </option>
+	<option value="http://www.matera.com/br/2011/06/"> junho 2011 </option>
+	<option value="http://www.matera.com/br/2011/05/"> maio 2011 </option>
+	<option value="http://www.matera.com/br/2011/04/"> abril 2011 </option>
+	<option value="http://www.matera.com/br/2011/03/"> março 2011 </option>
+	<option value="http://www.matera.com/br/2011/02/"> fevereiro 2011 </option>
+	<option value="http://www.matera.com/br/2011/01/"> janeiro 2011 </option>
+	<option value="http://www.matera.com/br/2010/12/"> dezembro 2010 </option>
+	<option value="http://www.matera.com/br/2010/11/"> novembro 2010 </option>
+	<option value="http://www.matera.com/br/2010/10/"> outubro 2010 </option>
+	<option value="http://www.matera.com/br/2010/09/"> setembro 2010 </option>
+		</select>
+</div></div>		<div id="recent-posts-2" class="widget widget_recent_entries"><div class="widget-content">		<h3 class="widget-title">Tópicos recentes</h3>		<ul>
+					<li>
+				<a href="http://www.matera.com/br/2016/09/28/inovacao-como-criar-um-ambiente-propicio/">Inovação: Como criar um ambiente propício?</a>
+						</li>
+					<li>
+				<a href="http://www.matera.com/br/2016/09/28/raspberry-pi-e-o-proposito-de-valores/">Raspberry Pi e o propósito de Valores</a>
+						</li>
+					<li>
+				<a href="http://www.matera.com/br/2016/09/28/inteligencia-artificial-entendendo-rna-parte-1/">Inteligência Artificial – Entendendo RNA –  Parte 1</a>
+						</li>
+					<li>
+				<a href="http://www.matera.com/br/2016/09/26/aporte-de-ir-da-matera-resulta-em-pecas-teatrais-sobre-sustentabilidade/">Aporte de IR da MATERA resulta em peças teatrais sobre sustentabilidade</a>
+						</li>
+					<li>
+				<a href="http://www.matera.com/br/2016/09/26/templates-de-projeto-customizados-com-apache-maven/">Templates de projeto customizados com Apache Maven</a>
+						</li>
+				</ul>
+		</div></div>			</div>
+		</div>
+	</div><!--sidebars-->
+</aside>
+	</div><!--#page-->
+
+</div><!--.main-container-->
+
+
+
+<footer id="footer">
+    <div class="container">
+
+        <div id="footer-nav">
+                    </div>
+
+        <div class="copyrights">
+            <span>© Copyright 2016, MATERA Systems | Todos os direitos reservados</span>
+			<div class="top">&nbsp;<a href="#top" class="toplink" rel="nofollow"><i class="fa fa-angle-up"></i></a></div>
+        </div> 
+    </div><!--.container-->
+</footer><!--footer-->
+
+
+<script type="text/javascript"><!--
+wpa2a.targets=[
+{title:'Desvendando os métodos equals e hashcode',url:'http://www.matera.com/br/2015/01/15/desvendando-os-metodos-equals-e-hashcode/'}];
+wpa2a.html_done=true;if(wpa2a.script_ready&&!wpa2a.done)wpa2a.init();wpa2a.script_load();
+//--></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5PJ78C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5PJ78C');</script>
+<!-- End Google Tag Manager -->
+    <!-- Auto SyntaxHighlighter -->
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/core-min.js"></script>
+<link rel="stylesheet" id="ash_core-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/shCore-min.css" type="text/css" media="all">
+<link rel="stylesheet" id="ash_theme_default-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/shThemeDefault-min.css" type="text/css" media="all">
+<script type="text/javascript">
+SyntaxHighlighter.autoloader(
+	'applescript	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushAppleScript-min.js',
+	'actionscript3 as3	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushAS3-min.js',
+	'bash shell	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushBash-min.js',
+	'coldfusion cf	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushColdFusion-min.js',
+	'c# c-sharp csharp	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushCSharp-min.js',
+	'cpp c	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushCpp-min.js',
+	'css	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushCss-min.js',
+	'delphi pas pascal	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushDelphi-min.js',
+	'diff patch	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushDiff-min.js',
+	'erl erlang	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushErlang-min.js',
+	'groovy	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushGroovy-min.js',
+	'js jscript javascript	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushJScript-min.js',
+	'java	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushJava-min.js',
+	'jfx javafx	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushJavaFX-min.js',
+	'objective-c objc cocoa	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushObjC-min.js',
+	'perl pl	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushPerl-min.js',
+	'php	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushPhp-min.js',
+	'text plain	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushPlain-min.js',
+	'ps powershell	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushPowerShell-min.js',
+	'py python	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushPython-min.js',
+	'rails ror ruby	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushRuby-min.js',
+	'scala	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushScala-min.js',
+	'sql	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushSql-min.js',
+	'vb vbnet	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushVb-min.js',
+	'xml xhtml xslt html	http://www.matera.com/br/wp-content/plugins/auto-syntaxhighlighter/SyntaxHighlighter/build/scripts/shBrushXml-min.js'
+);
+SyntaxHighlighter.defaults['auto-links'] = false;
+SyntaxHighlighter.defaults['toolbar'] = false;
+SyntaxHighlighter.all();
+</script>
+<!-- /Auto SyntaxHighlighter -->
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/form.js"></script>
+<link rel="stylesheet" id="font-awesome-css" href="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/font-awesome.css" type="text/css" media="all">
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/core.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/datepicker.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery_006.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.matera.com\/br\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Enviando ...","cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/scripts.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/comment-reply.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var mts_customscript = {"ajaxurl":"http:\/\/www.matera.com\/br\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/customscript.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var slideropts = {"twitter_slider":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/owl.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/sticky.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/jquery.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var mts_ajax_loadposts = {"startPage":"1","maxPages":"67","nextLink":null,"autoLoad":"1","i18n_loadmore":"Mais posts","i18n_loading":"Carregando...","i18n_nomore":"N\u00e3o h\u00e1 mais posts."};
+var mts_ajax_search = {"url":"http:\/\/www.matera.com\/br\/wp-admin\/admin-ajax.php","ajax_search":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/ajax.js"></script>
+<script type="text/javascript" src="Desvendando%20os%20m%C3%A9todos%20equals%20e%20hashcode_files/history.js"></script>
+
+<script type="text/javascript">
+	
+	// Enable parralax images for different sections on homepage
+	if(jQuery().parallax){
+		
+		
+		
+				
+				
+				
+				
+			
+				
+				
+			}
+</script>
+
+
+
+</div><div style="position: static;"><div class="a2a_overlay" id="a2apage_overlay"></div><div class="a2a_menu a2a_full" id="a2apage_full"><div class="a2a_full_header"><div id="a2apage_find_container" class="a2a_menu_find_container"><input id="a2apage_find" class="a2a_menu_find" onclick="a2a.focus_find()" onkeyup="a2a.do_find()" autocomplete="off" title="Encontrar rapidamente qualquer serviço para" type="text"><span id="a2apage_find_icon" class="a2a_svg a2a_s_find" onclick="a2a.focus_find()"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><path fill="#CCCCCC" d="M19.7 18.2l-4.5-4.5c0.7-1.1 1.2-2.3 1.2-3.6 0-3.5-2.8-6.3-6.3-6.3 -3.5 0-6.3 2.8-6.3 6.3 0 3.5 2.8 6.3 6.3 6.3 1.4 0 2.6-0.4 3.6-1.2l4.5 4.5c0.6 0.6 1.3 0.7 1.7 0.2C20.4 19.5 20.3 18.8 19.7 18.2zM10.1 14.6c-2.5 0-4.5-2.1-4.5-4.5 0-2.5 2.1-4.5 4.5-4.5 2.5 0 4.5 2.1 4.5 4.5C14.6 12.5 12.6 14.6 10.1 14.6z"></path></svg></span></div></div><div class="a2a_full_services" id="a2apage_full_services"><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_facebook"></span>Facebook</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_twitter"></span>Twitter</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_google_plus"></span>Google+</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_pinterest"></span>Pinterest</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_email"></span>Email</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_linkedin"></span>LinkedIn</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_reddit"></span>Reddit</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_tumblr"></span>Tumblr</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_wordpress"></span>WordPress</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_stumbleupon"></span>StumbleUpon</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_gmail"></span>Google Gmail</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_whatsapp"></span>WhatsApp</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_aim"></span>AIM</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_amazon"></span>Amazon Wish List</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_aol"></span>AOL Mail</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_app_net"></span>App.net</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_baidu"></span>Baidu</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_balatarin"></span>Balatarin</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_bibsonomy"></span>BibSonomy</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_bitty"></span>Bitty Browser</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_blinklist"></span>Blinklist</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_blogger"></span>Blogger Post</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_blogmarks"></span>BlogMarks</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_bookmarks_fr"></span>Bookmarks.fr</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_box"></span>Box.net</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_buddymarks"></span>BuddyMarks</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_buffer"></span>Buffer</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_care2"></span>Care2 News</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_citeulike"></span>CiteULike</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_delicious"></span>Delicious</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_designfloat"></span>Design Float</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_diary_ru"></span>Diary.Ru</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_diaspora"></span>Diaspora</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_digg"></span>Digg</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_dihitt"></span>diHITT</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_diigo"></span>Diigo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_dzone"></span>DZone</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_evernote"></span>Evernote</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_fark"></span>Fark</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_flipboard"></span>Flipboard</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_folkd"></span>Folkd</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_friendfeed"></span>FriendFeed</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_google"></span>Google Bookmarks</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_y18"></span>Hacker News</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_hatena"></span>Hatena</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_instapaper"></span>Instapaper</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_jamespot"></span>Jamespot</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_kakao"></span>Kakao</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_kindle"></span>Kindle It</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_line"></span>Line</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_livejournal"></span>LiveJournal</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_mail_ru"></span>Mail.Ru</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_mendeley"></span>Mendeley</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_meneame"></span>Meneame</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_mixi"></span>Mixi</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_myspace"></span>MySpace</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_netlog"></span>Netlog</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_netvouz"></span>Netvouz</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_newstrust"></span>NewsTrust</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_newsvine"></span>NewsVine</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_nujij"></span>NUjij</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_odnoklassniki"></span>Odnoklassniki</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_oknotizie"></span>Oknotizie</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_outlook_com"></span>Outlook.com</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_pinboard"></span>Pinboard</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_plurk"></span>Plurk</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_pocket"></span>Pocket</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_print"></span>Print</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_printfriendly"></span>PrintFriendly</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_protopage"></span>Protopage Bookmarks</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_pusha"></span>Pusha</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_qzone"></span>Qzone</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_rediff"></span>Rediff MyPage</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_renren"></span>Renren</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_segnalo"></span>Segnalo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_sina_weibo"></span>Sina Weibo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_sitejot"></span>SiteJot</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_slashdot"></span>Slashdot</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_springpad"></span>Springpad</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_stumpedia"></span>Stumpedia</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_svejo"></span>Svejo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_symbaloo"></span>Symbaloo Feeds</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_tuenti"></span>Tuenti</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_twiddla"></span>Twiddla</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_typepad"></span>TypePad Post</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_viadeo"></span>Viadeo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_vk"></span>VK</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_wanelo"></span>Wanelo</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_webnews"></span>Webnews</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_wykop"></span>Wykop</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_xing"></span>XING</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yahoo"></span>Yahoo Bookmarks</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yahoo"></span>Yahoo Mail</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yim"></span>Yahoo Messenger</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yoolink"></span>Yoolink</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_youmob"></span>YouMob</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yummly"></span>Yummly</a><i class="a2a_i"></i><i class="a2a_i"></i></div><div class="a2a_full_footer"><a href="https://www.addtoany.com/" title="Share Buttons" target="_blank"><span class="a2a_svg a2a_s_a2a"></span>AddToAny</a></div></div><div id="a2apage_dropdown" class="a2a_menu a2a_mini" onmouseover="a2a.onMouseOver_stay()" onmouseout="a2a.onMouseOut_delay()" style="display:none"><div id="a2apage_title_container" class="a2a_menu_title_container" style="display:none"><input id="a2apage_title" class="a2a_menu_title"></div><div class="a2a_mini_services" id="a2apage_mini_services"><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_facebook"></span>Facebook</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_twitter"></span>Twitter</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_google_plus"></span>Google+</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_pinterest"></span>Pinterest</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_email"></span>Email</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_linkedin"></span>LinkedIn</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_reddit"></span>Reddit</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_tumblr"></span>Tumblr</a></div><div id="a2apage_cols_container" class="a2a_cols_container"><div class="a2a_col1" id="a2apage_col1"></div><div id="a2apage_2_col1" style="display:none"><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_gmail"></span>Google Gmail</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_aol"></span>AOL Mail</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_outlook_com"></span>Outlook.com</a><a target="_blank" href="http://www.matera.com/" class="a2a_i" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_yahoo"></span>Yahoo Mail</a><a id="a2apage_any_email" target="_blank" href="http://www.matera.com/" class="a2a_i a2a_emailer" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_email"></span>Any email</a><a id="a2apage_email_client" target="" href="http://www.matera.com/" class="a2a_i a2a_emailer a2a_email_client" rel="nofollow"><span class="a2a_svg a2a_s__default a2a_s_email"></span>Email app</a></div><div class="a2a_clear"></div></div><div class="a2apage_wide a2a_wide"><a href="" id="a2apage_show_more_less" class="a2a_menu_show_more_less a2a_more" title="Mostrar tudo"><span class="a2a_svg a2a_s_a2a"></span>More…</a></div></div><div style="height: 1px; width: 1px; position: absolute; z-index: 100000; top: 0px; visibility: hidden;"><iframe src="http://static.addtoany.com/menu/sm12.html#type=page&amp;event=load&amp;url=http%3A%2F%2Fwww.matera.com%2Fbr%2F2015%2F01%2F15%2Fdesvendando-os-metodos-equals-e-hashcode%2F&amp;referrer=http%3A%2F%2Fwww.renanrodrigues.com.br%2Fmoodle%2Fcourse%2Fview.php%3Fid%3D19" allowtransparency="true" transparency="true" title="AddToAny Utility Frame" style="height: 1px; width: 1px; border: 0px none; left: 0px; top: 0px; position: absolute; z-index: 100000; display: none;" id="a2apage_sm_ifr" width="1" frameborder="0" height="1"></iframe></div></div><!--.main-container-wrap-->
+
+
+<div style="display: none;" id="mobile-menu-wrapper"><div class="mobile-menu">
+						<nav id="navigation">
+	                        <a href="#" id="pull" class="toggle-mobile-menu">Menu</a>
+															<ul id="menu-primary" class="menu primary-menu"><li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/solucoes/">Soluções</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4165" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/mercado-financeiro/">Mercado Financeiro</a></li>
+	<li id="menu-item-4166" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/instituicoes-de-pagamento/">Instituições de Pagamento</a></li>
+	<li id="menu-item-4167" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/gestao-de-riscos/">Gestão de Riscos</a></li>
+	<li id="menu-item-4168" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/gestao-empresarial/">Gestão Empresarial</a></li>
+	<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/e-commerce/">e-Commerce</a></li>
+	<li id="menu-item-4169" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/solucoes/nuvem/">Nuvem</a></li>
+</ul>
+</li>
+<li id="menu-item-4170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/servicos/">Serviços</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4171" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/desenvolvimento-e-manutencao-de-sistemas/">Desenvolvimento e Manutenção de Sistemas</a></li>
+	<li id="menu-item-4172" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/dba-oracle-sql-server/">DBA Oracle / SQL Server</a></li>
+	<li id="menu-item-4173" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/consultoria-websphere/">Consultoria Websphere MQ</a></li>
+	<li id="menu-item-4174" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/gerenciamento-de-infraestrutura-de-aplicacoes/">Gerenciamento de Infraestrutura de Aplicações</a></li>
+	<li id="menu-item-4175" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/servicos/migracao-de-aplicativos-para-a-nuvem/">Migração de Aplicativos para a Nuvem</a></li>
+</ul>
+</li>
+<li id="menu-item-4176" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="http://www.matera.com/br/empresa/">Empresa</a>
+<ul style="display: none;" class="sub-menu">
+	<li id="menu-item-4177" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/sobre/">Sobre</a></li>
+	<li id="menu-item-4178" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/tecnologia/">Tecnologia</a></li>
+	<li id="menu-item-4179" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/parcerias/">Parcerias</a></li>
+	<li id="menu-item-13044" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/startups/">Startups</a></li>
+	<li id="menu-item-4180" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/imprensa/">Imprensa</a></li>
+	<li id="menu-item-4181" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/empresa/responsabilidade-social/">Responsabilidade Social</a></li>
+</ul>
+</li>
+<li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/carreira/">Carreira</a></li>
+<li id="menu-item-12" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/blog/">Blog</a></li>
+<li id="menu-item-15297" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/webinars/">Webinars</a></li>
+<li id="menu-item-4182" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://www.matera.com/br/contato/">Contato</a></li>
+</ul>													</nav>
+					</div></div></body></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Content Delivery Network via 404846152.r.upxcdn.net
+
+ Served from: www.matera.com @ 2016-10-03 02:36:46 by W3 Total Cache -->

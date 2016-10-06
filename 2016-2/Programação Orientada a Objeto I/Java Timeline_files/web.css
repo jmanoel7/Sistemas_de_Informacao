@@ -1,0 +1,60 @@
+  /**************************/
+ /*        CSS reset       */
+/**************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;}
+a, img {margin:0; padding:0; outline:0; font-size:100%; background:transparent;}
+body {line-height:1;}
+ol, ul {list-style:none;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content:''; content:none;}
+:focus {outline:0;}
+ins {text-decoration:none;}
+del {text-decoration:line-through;}
+/*caption, th, td {text-align: left; font-weight: normal;}
+table, caption, tbody, tfoot, thead, tr, th, td {font-size:100%; vertical-align:baseline; outline:0; margin:0; padding:0;}
+table { border-collapse:collapse; border-spacing: 0;}*/
+/******* Default rules tags *******/
+body {font-family:Arial, Helvetica, sans-serif; color:#000; background-color:#ffffff; -webkit-user-select: none; font-size:11px;}
+h1 {font-size:20px;}
+h2 {font-size:18px; }
+h3 {font-size:16px;}
+h4 {font-size:14px;}
+h5 {font-size:12px;}
+a{text-decoration:none; color:#000;}
+a:hover{text-decoration:none;}
+a img{border:0 none;}
+input, select, textarea {font-size:11px; border:1px solid #CCC; font-family:Arial, Helvetica, sans-serif;}
+
+/*#main{ min-width:980px;}*/
+#header{min-width:340px; }
+.innerTimeLine, #timeLine ul{min-height:1200px;}
+.overview{min-width: 310px;max-width: 847px; width: auto;display: inline-block; }
+.blockRight{max-width:605px;}
+.lstItem{ width:902px;}
+.lstItem dd{ width:782px;}
+.popupType01, .popupType02{width:96.4%; }
+.popupVideo{width:870px;}
+.popupType01 section{width:92%; }
+.popupType02 section{width:100%; min-width:980px;}
+.popupType02 section .lstPhotos, .popupType01 section .lstContent{/*width:36%;*/ width:402px;}
+.frameType01{max-width:100%;}
+.frameType01 .galleryViewer{margin:8px 0 5px 14px;}
+.frameType01 p {padding:0 10px 10px 24px}
+.popupType02 section .lstPhotos{margin-top:0;}
+/*.frameType01 .galleryViewer img.fadePhoto{min-height:283px;}*/
+
+
+
+@media screen and (max-width: 1200px) {
+    .innerIntro {
+        background-color: rgba(255,255,255, 0.8);
+    }
+}

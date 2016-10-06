@@ -1,0 +1,11 @@
+http://www.eclipse.org/downloads/packages/eclipse-php-developers/neon1
+http://www.eclipse.org/pdt/
+https://wiki.eclipse.org/PDT
+http://projects.eclipse.org/projects/tools.pdt
+http://download.eclipse.org/tools/pdt/updates/latest
+http://download.eclipse.org/tools/pdt/updates/4.1/
+http://download.eclipse.org/tools/pdt/updates/4.0.1/
+http://download.eclipse.org/tools/pdt/updates/4.0/
+http://download.eclipse.org/tools/pdt/updates/3.7/
+http://download.eclipse.org/tools/pdt/updates/3.6/
+http://download.eclipse.org/tools/pdt/updates/3.5/
