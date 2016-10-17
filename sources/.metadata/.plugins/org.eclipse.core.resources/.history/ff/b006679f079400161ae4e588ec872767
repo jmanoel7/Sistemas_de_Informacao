@@ -1,0 +1,30 @@
+package lista_agregacao;
+
+public class Roda {
+
+	private String modelo;
+	private String marca;
+	private boolean dianteira;
+	
+	public Roda(String modelo, String marca, boolean dianteira) {
+		this.modelo = modelo;
+		this.marca = marca;
+		this.dianteira = dianteira;
+	}
+
+	public trocaRoda(String modelo, String marca, boolean dianteira) {
+		boolean sucesso = false;
+		
+		if (
+		    (modelo != null && marca != null) &&
+		    (this.modelo != modelo || this.marca != marca || this.dianteira != dianteira)
+		   ) {
+			this.modelo = modelo;
+			this.marca = marca;
+			this.dianteira = dianteira;
+			sucesso = true;
+		}
+		
+		return sucesso;
+	}
+}

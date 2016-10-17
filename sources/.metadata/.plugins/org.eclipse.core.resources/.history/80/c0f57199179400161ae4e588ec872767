@@ -1,0 +1,12 @@
+package lista_agregacao;
+
+public class WebCam {
+	
+	private String marca;
+	private String modelo;
+	private int resolucaoX;
+	private int resolucaoY;
+	private boolean filmaHD;
+	
+	
+}

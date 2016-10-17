@@ -1,0 +1,11 @@
+package lista_agregacao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TV {
+
+	private String marca;
+	private String modelo;
+	private List<DVD> listaDVD = new ArrayList<DVD>();
+}

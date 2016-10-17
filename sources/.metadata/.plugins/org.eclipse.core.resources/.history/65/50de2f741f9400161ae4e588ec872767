@@ -1,0 +1,13 @@
+package lista_agregacao;
+
+public class TestePC {
+
+	public static void main(String[] args) {
+		
+		Teclado tc1 = new Teclado(105, "br-abnt2", "LG", "Usb", false);
+		Teclado tc2 = new Teclado(105, "us-acentos", "exbom", "BK-A1100", true);
+		Teclado tc3 = null;
+
+	}
+
+}

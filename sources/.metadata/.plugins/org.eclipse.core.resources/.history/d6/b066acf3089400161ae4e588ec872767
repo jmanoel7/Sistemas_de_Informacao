@@ -1,0 +1,27 @@
+package lista_agregacao;
+
+public class Roda {
+
+	private String modelo;
+	private String marca;
+	private boolean dianteira;
+	
+	public Roda(String modelo, String marca, boolean dianteira) {
+		this.modelo = modelo;
+		this.marca = marca;
+		this.dianteira = dianteira;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public boolean isDianteira() {
+		return dianteira;
+	}
+	
+}

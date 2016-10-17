@@ -1,0 +1,38 @@
+package lista_agregacao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import agregacao.Cliente;
+
+public class TV {
+
+	private String marca;
+	private String modelo;
+	private List<DVD> listaDVD = new ArrayList<DVD>();
+	
+	public TV(String marca, String modelo, List<DVD> listaDVD) {
+	
+		this.marca = marca;
+		this.modelo = modelo;
+		
+		if (DVD == null) {
+			throw new NullPointerException("A referência do DVD não pode ser nula!");
+		}
+		
+		this.listaDVD = listaDVD;
+	}
+
+	public boolean addDVD(DVD aparelho) {
+		boolean sucesso = false;
+		
+		if (aparelho != null) {
+			listaDVD.add(aparelho);
+			sucesso = true;
+		} 
+		
+		return sucesso;
+	}
+	
+	
+}
