@@ -1,0 +1,6 @@
+[submodule "sources/poo1_java"]
+	path = sources/poo1_java
+	url = https://github.com/jmanoel7/bsi_poo1_codigos_java.git
+[submodule "softwares/ninja-ide"]
+	path = softwares/ninja-ide
+	url = https://github.com/ninja-ide/ninja-ide.git
