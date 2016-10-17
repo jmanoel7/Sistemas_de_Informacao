@@ -75,7 +75,7 @@ int main(void){
 		printf("\n Idade    : %d", emp[i].idade);
 		printf("\n Sexo     : %c", emp[i].sexo);
 		printf("\n Salario  : %f", emp[i].salario);
-		printf("\n *******************************");
+		printf("\n *******************************\n");
 	}
 	system("PAUSE || read");
 
