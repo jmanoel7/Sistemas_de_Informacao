@@ -2,9 +2,9 @@
 
 Altere o programa abaixo e que foi desenvolvido na aula anterior da seguinte forma:
 
-1) Crie uma funÁ„o para cada uma das rotinas (cadastrar, ordenar e listar)
+1) Crie uma fun√ß√£o para cada uma das rotinas (cadastrar, ordenar e listar)
 
-2) Crie um menu com as seguintes opÁıes:
+2) Crie um menu com as seguintes op√ß√µes:
 
 	Menu
 	1 - Cadastrar
@@ -19,67 +19,64 @@ Altere o programa abaixo e que foi desenvolvido na aula anterior da seguinte for
 #include <stdlib.h>
 
 typedef struct {
-	int   mat;
-	char  nome[50];
-	char  sexo;
-	int   idade;
-	float salario;
+  int   mat;
+  char  nome[50];
+  char  sexo;
+  int   idade;
+  float salario;
 } empregado;
 
 int main(void){
+  empregado emp[3], aux;
+  int i,j;
 
-	empregado emp[3], aux;
-	int i,j;
+  /* cadastro dos funcion√°rios */
+  printf("\nCadastro de Funcionarios\n");
+  for (i=0; i<3; i++) {
 
-	/* cadastro dos funcion·rios */
-	printf("\nCadastro de Funcionarios\n");
-	for (i=0; i<3; i++) {
+    printf("\nFuncionario %d:\n\n", i+1);
 
-	    printf("\nFuncionario %d:\n\n", i+1);
+    printf("Matricula: ");
+    scanf(" %d", &emp[i].mat);
 
-		printf("Matricula: ");
-		scanf(" %d", &emp[i].mat);
+    printf("Nome: ");
+    scanf(" %s", emp[i].nome);
 
-		printf("Nome: ");
-		scanf(" %s", emp[i].nome);
+    printf("Sexo: ");
+    scanf(" %c", &emp[i].sexo);
 
-		printf("Sexo: ");
-		scanf(" %c", &emp[i].sexo);
+    printf("Idade: ");
+    scanf(" %d", &emp[i].idade);
 
-		printf("Idade: ");
-		scanf(" %d", &emp[i].idade);
+    printf("Salario: ");
+    scanf(" %f", &emp[i].salario);
 
-		printf("Salario: ");
-		scanf(" %f", &emp[i].salario);
+  }
 
-	}
+  /* Ordena√ß√£o do vetor de funcionarios */
+  for (i=0; i<3 ; i++)
+    for (j=i+1; j<3; j++)
+      if (emp[i].idade > emp[j].idade) {
 
-	/* OrdenaÁ„o do vetor de funcionarios */
-	for (i=0; i<3 ; i++)
-		for (j=i+1; j<3; j++)
-			if (emp[i].idade > emp[j].idade) {
+	aux = emp[j];
+	emp[j] = emp[i];
+	emp[i] = aux;
+      }
 
-				aux = emp[j];
-				emp[j] = emp[i];
-				emp[i] = aux;
-			}
+  /* Apresenta√ß√£o dos Funcion√°rios */
+  system("cls || clear");
+  printf("\nLista Ordenada de Funcionarios\n\n");
+  for (i=0; i<3; i++) {
 
-	/* ApresentaÁ„o dos Funcion·rios */
-	system("cls");
-	printf("\nLista Ordenada de Funcionarios\n\n");
-	for (i=0; i<3; i++) {
+    printf("\n *******************************");
+    printf("\n Matricula: %d", emp[i].mat);
+    printf("\n Nome     : %s", emp[i].nome);
+    printf("\n Idade    : %d", emp[i].idade);
+    printf("\n Sexo     : %c", emp[i].sexo);
+    printf("\n Salario  : %f", emp[i].salario);
+    printf("\n *******************************\n");
+  }
+  system("PAUSE || read teste");
 
-		printf("\n *******************************");
-		printf("\n Matricula: %d", emp[i].mat);
-		printf("\n Nome     : %s", emp[i].nome);
-		printf("\n Idade    : %d", emp[i].idade);
-		printf("\n Sexo     : %c", emp[i].sexo);
-		printf("\n Salario  : %f", emp[i].salario);
-		printf("\n *******************************\n");
-	}
-	system("PAUSE || read");
-
-	return 0;
+  return 0;
 }
-
-

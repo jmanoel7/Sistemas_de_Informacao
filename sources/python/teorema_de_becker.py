@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import time
+
 ciclos = int(input("Digite o número de ciclos: "))
 
-import time
 t0 = time.time()
 
 base = [1, 5, 11, 13, 17, 19, 23, 25, 29, 31, 37, 41]
