@@ -21,65 +21,61 @@ Altere o programa abaixo e que foi desenvolvido na aula anterior da seguinte for
 typedef struct {
 	int   mat;
 	char  nome[50];
-	char  sexo;
 	int   idade;
+	char  sexo;
 	float salario;
 } empregado;
 
-int main(void){
-
+main(){
+	
 	empregado emp[3], aux;
 	int i,j;
-
+	
 	/* cadastro dos funcionários */
-	printf("\nCadastro de Funcionarios\n\n");
+	printf("\nCadastro de Funcionarios\n\n");			
 	for (i=0; i<3; i++) {
-
-	    printf("Funcionario %d:\n\n", i+1);
-
+	
 		printf("Matricula: ");
-		scanf(" %d", &emp[i].mat);
-
+		scanf("%d", &emp[i].mat);			
+		
 		printf("Nome: ");
-		scanf(" %s", emp[i].nome);
-
-		printf("Sexo: ");
-		scanf(" %c", &emp[i].sexo);
-
+		scanf(" %s", emp[i].nome);			
+		
 		printf("Idade: ");
-		scanf(" %d", &emp[i].idade);
-
+		scanf("%d", &emp[i].idade);			
+		
+		printf("Sexo: ");
+		scanf(" %c", &emp[i].sexo);			
+		
 		printf("Salario: ");
-		scanf(" %f", &emp[i].salario);
-
+		scanf(" %f", &emp[i].salario);			
+		
 	}
-
+	
 	/* Ordenação do vetor de funcionarios */
 	for (i=0; i<3 ; i++)
-		for (j=i+1; j<3; j++)
+		for (j=i+1; j<3; j++) 
 			if (emp[i].idade > emp[j].idade) {
-
+	
 				aux = emp[j];
 				emp[j] = emp[i];
 				emp[i] = aux;
 			}
-
+	
 	/* Apresentação dos Funcionários */
 	system("cls");
-	printf("\nLista Ordenada de Funcionarios\n\n");
+	printf("\nLista Ordenada de Funcionarios\n\n");			
 	for (i=0; i<3; i++) {
-
-		printf("\n *******************************");
-		printf("\n Matricula: %d", emp[i].mat);
-		printf("\n Nome     : %s", emp[i].nome);
-		printf("\n Idade    : %d", emp[i].idade);
-		printf("\n Sexo     : %c", emp[i].sexo);
-		printf("\n Salario  : %f", emp[i].salario);
-		printf("\n *******************************");
+	
+		printf("\n *******************************");			
+		printf("\n Matricula: %d", emp[i].mat);			
+		printf("\n Nome     : %s", emp[i].nome);			
+		printf("\n Idade    : %d", emp[i].idade);			
+		printf("\n Sexo     : %c", emp[i].sexo);			
+		printf("\n Salario  : %f", emp[i].salario);			
+		printf("\n *******************************");			
 	}
-	system("PAUSE || read");
-
-	return 0;
+	system("PAUSE");
 }
 
 
