@@ -14,7 +14,6 @@ org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" 
 org.eclipse.jdt.ui.text.templates_migrated=true
 org.eclipse.jface.textfont=1|Monospace|10.0|0|GTK|1|;
 proposalOrderMigrated=true
-sourceHoverBackgroundColor=251,234,160
 spelling_ignore_ampersand_in_properties=true
 spelling_ignore_digits=true
 spelling_ignore_java_strings=true
