@@ -1,0 +1,1082 @@
+INTRODUÇÃO
+
+Um sistema pode ser definido como a combinação de
+Elementos interagentes organizados para atingir um
+Para fins mais precisos [1]. A configuração de um
+Sistema é a característica funcional e física -
+Ticos de hardware ou software, conforme estabelecido
+Documentação técnica ou realizada num produto [1]; Ele
+Também pode ser pensado como um conjunto de
+Versões de hardware, firmware ou itens de software
+Combinados de acordo com procedimentos de construção específicos
+Para um propósito particular. Configuração man-
+(CM), então, é a disciplina de identificar
+Configuração de um sistema em pontos distintos
+Com o objetivo de controlar sistematicamente
+Alterações na configuração e manutenção
+A integridade ea rastreabilidade da configuração
+Durante todo o ciclo de vida do sistema. É formalmente
+definido como
+
+Uma disciplina aplicando técnicas e adminis-
+Direcção e vigilância para:
+Tificar e documentar as características funcionais e
+Características de um item de configuração,
+Controlar as alterações dessas características,
+Registro e relatório de processamento de
+Estado de implementação e verificar se
+Conformidade com os requisitos especificados. [1]
+
+Gerenciamento de configuração de software (SCM)
+É um processo de ciclo de vida do software de suporte que
+Gerenciamento de projetos, desenvolvimento e
+Actividades de manutenção da qualidade,
+Bem como os clientes e utilizadores do
+Produto.
+Os conceitos de gerenciamento de configuração
+Todos os itens a serem controlados, embora haja
+Existem algumas diferenças na implementação entre
+Hardware CM e software CM.
+O SCM está intimamente relacionado com o
+(SQA). Conforme definido no
+Área de conhecimento de qualidade de software (KA), SQA
+Fornecem garantia de que o software
+Produtos e processos no ciclo de vida do projeto
+Conformidade com os requisitos especificados
+planejamento, execução e realização de um conjunto de
+Confiança suficiente para que a qualidade seja
+Sendo incorporado no software. As atividades do SCM ajudam
+Na realização dessas metas SQA. Em alguns pro-
+Contextos, os requisitos específicos da SQA prescrevem
+Certas actividades do SCM.
+
+As atividades do SCM são gerenciamento e
+Do processo SCM, configuração do software
+Identificação, controle de configuração de software,
+Contabilidade de status de configuração de software,
+Auditoria de configuração do ware e lançamento do software
+Gestão e entrega.
+O Software Configuration Management KA
+Está relacionado com todos os outros KAs, uma vez que o objeto
+Gerenciamento de configuração é o pro-
+Desenvolvidos e utilizados em todo o
+De um processo inovador.
+
+REPARTIÇÃO DOS TEMAS PARA
+CONFIGURAÇÃO DO SOFTWARE
+GESTÃO
+
+A divisão de tópicos para o Software Config-
+A Gestão KA é mostrada na Figura 6.1.
+
+1. Gestão do Processo do SCM
+
+A SCM controla a evolução ea integridade de um
+Identificando os seus elementos; Gestão e
+Controle da mudança; E verificar, gravar e
+Informações de configuração. De
+Perspectiva do engenheiro de software, o SCM facilita
+Atividades de implementação de mudanças e
+Gravatas Uma implementação bem-sucedida do SCM requer
+Planejamento e gerenciamento cuidadoso. Isto por sua vez,
+Exige uma compreensão da estrutura organizacional
+Contexto e as restrições impostas à
+Concepção e implementação do processo de SCM.
+
+1.1. Contexto organizacional para SCM
+[2 *, c6, ann. D] [3 *, introdução] [4 *, c29]
+
+Para planejar um processo SCM para um projeto, é
+Compreender o contexto organizacional e
+As relações entre os elementos organizacionais.
+O SCM interage com várias outras atividades ou
+Elementos organizacionais.
+Os elementos organizacionais responsáveis ​​pela
+Engenharia de software podem ser
+Estruturado de várias maneiras. Embora a responsabilidade
+Para executar certas tarefas do SCM podem ser
+Atribuídos a outras partes da organização (por exemplo,
+Organização de desenvolvimento), a responsa-
+A SCM muitas vezes assenta numa organização distinta
+Ou elemento designado.
+O software é freqüentemente desenvolvido como parte
+Maior sistema contendo hardware e firmware
+Elementos. Nesse caso, as atividades do SCM
+Em paralelo com o hardware e firmware CM activa-
+E devem ser coerentes com os níveis de
+CM. Observe que o firmware contém hardware e
+Programas; Portanto, hardware e software
+Conceitos de CM são aplicáveis.
+O SCM pode interagir com os
+Actividades de garantia da qualidade em
+Gerenciamento de registros e itens não conformes.
+Quanto à primeira, alguns itens sob SCM
+Também podem ser registos de projectos sujeitos a
+De segurança da qualidade da organização.
+programa. A gestão de itens não conformes é
+A responsabilidade da garantia de qualidade
+atividade; No entanto, SCM pode ajudar com track-
+E relatórios sobre itens de configuração de software
+Caindo nesta categoria.
+Talvez a relação mais próxima seja
+De desenvolvimento e manutenção de
+Nizações. É neste contexto que muitos dos
+As tarefas de controle de configuração do software são con-
+Conduzida. Freqüentemente, as mesmas ferramentas
+Manutenção, e propósitos de SCM.
+
+1.2. Restrições e Orientações para o SCM
+Processo
+[2 *, c6, ann. D, ann. E] [3 *, c2, c5]
+[5 *, c19s2.2]
+
+Restrições que afectam e orientam o SCM
+Processo vêm de várias fontes. Poli-
+Procedimentos e procedimentos estabelecidos em
+Níveis organizacionais podem influenciar ou prescrever
+Concepção e implementação dos programas de
+Para um determinado projeto. Além disso, o contrato
+Entre o adquirente eo fornecedor possa
+Disposições que afectam o processo de SCM. Para
+Exemplo, certas auditorias de configuração podem
+Necessário, ou pode ser especificado que determinados itens
+Ser colocado sob CM. Quando os produtos de
+Ser desenvolvidos têm o potencial de afectar
+Segurança, os organismos reguladores externos
+Restrições. Finalmente, a vida do software em particular
+Ciclo escolhido para um projeto de software e
+O nível de formalismo escolhido para implementar
+Software afetam a concepção ea implementação de
+O processo SCM.
+Orientações para a concepção e implementação de
+O processo SCM também pode ser obtido a partir
+Prática ", conforme refletido nas normas sobre software
+Engenharia emitida pelas diferentes normas
+(Ver Apêndice B sobre normas).
+
+1.3. Planejamento para SCM
+[2 *, c6, ann. D, ann. E] [3 *, c23] [4 *, c29]
+
+O planeamento de um processo SCM para
+Projecto deve ser coerente com a organização
+Contexto nacional, restrições aplicáveis,
+Exclusivamente a orientação aceita e a natureza da
+Projeto (por exemplo, tamanho, criticidade de segurança e
+segurança). As principais actividades cobertas são soft-
+Identificação de configuração de ware, software con-
+Controle de figuração, status de configuração do software
+Contabilidade, auditoria de configuração de software e
+Gerenciamento de lançamento de software e entrega. Em
+Além disso, questões como organização e responsa-
+Recursos e horários, seleção de ferramentas
+E implementação, fornecedor e subcontratado
+Controle e controle de interface são tipicamente
+Consideradas Os resultados da atividade de planejamento são
+Registado num Plano SCM (SCMP), que é tipicamente
+Sujeitos à revisão e auditoria da SQA.
+As estratégias de ramificação e fusão devem ser
+Cuidadosamente planejadas e comunicadas, uma vez
+Impacto muitas atividades SCM. De um SCM stand-
+Ponto, um ramo é definido como um conjunto de
+Versões de arquivo [1]. A fusão consiste em combinar
+Alterações diferentes para o mesmo arquivo [1]. Esta tipologia
+Ocorre quando mais de uma pessoa muda de
+Item de configuração. Existem muitas ramificações e
+Fusão de estratégias de uso comum (ver
+Leituras para discussão adicional).
+O modelo de ciclo de vida de desenvolvimento de software
+(Consulte Modelos do ciclo de vida do software no software
+Processo de Engenharia KA) também impacta SCM
+Atividades e planejamento do SCM deve levar
+Em conta. Por exemplo, a integração contínua
+É uma prática comum em muitos desenvolvi-
+mento se aproxima. Caracteriza-se tipicamente por
+Freqüentes build-test-deploy ciclos. Atividades de SCM
+Deve ser planeado em conformidade.
+
+1.3.1. Organização e Responsabilidades do SCM
+[2 *, ann. Ds5, ann. Ds6] [3 *, c10-11]
+[4 *, introdução, c29]
+
+Para evitar confusão sobre quem realizará
+Atividades ou tarefas do SCM, organização
+Os papéis a serem envolvidos no processo de SCM
+Para ser claramente identificado. Responsabilidades específicas
+Para determinadas actividades ou tarefas do SCM também
+Atribuídos a entidades organizacionais, seja por título
+Ou por elemento organizacional. O autor-
+Canais de informação e de informação para o SCM
+Identificados, embora isso possa ser
+Gestão de projectos ou de garantia de qualidade.
+Planejamento.
+
+1.3.2. Recursos e horários do SCM
+[2 *, ann. Ds8] [3 *, c23]
+
+O planejamento do SCM identifica o pessoal e as ferramentas
+Envolvidas na realização das atividades e tarefas do SCM.
+Ele aborda as questões de programação, estabelecendo
+Necessárias de tarefas SCM e identificar as
+Relacionamentos com os cronogramas do projeto
+E marcos estabelecidos na gestão do projeto
+Fase de planeamento do projecto. Quaisquer requisitos de formação
+Necessárias para a implementação dos planos e
+Novos membros do pessoal também são especificados.
+
+1.3.3. Seleção e implementação de ferramentas
+[3 *, c26s2, c26s6] [4 *, c29s5]
+
+Como para qualquer área de engenharia de software, a
+Seleção e implementação de ferramentas SCM
+Devem ser cuidadosamente planejadas. As seguintes ques-
+Devem ser consideradas:
+
+• Organização: o que motiva a aquisição de
+Perspectiva organizacional?
+
+• Ferramentas: podemos usar ferramentas comerciais ou
+Desenvolvê-los nós mesmos?
+
+• Ambiente: quais são as restrições
+Imposta pela organização e suas técnicas
+Contexto econômico?
+
+• Legado: como os projetos usarão (ou não) o
+Novas ferramentas?
+
+• Financiamento: quem vai pagar pelas ferramentas?
+Aquisição, manutenção, treinamento e
+Personalização?
+
+• Escopo: como as novas ferramentas serão implantadas -
+Por exemplo, através de toda a organização
+Ou apenas em projetos específicos?
+
+• Propriedade: quem é responsável pela intro-
+De novas ferramentas?
+
+• Futuro: qual é o plano para o uso das ferramentas em
+o futuro?
+
+• Mudança: quão adaptáveis ​​são as ferramentas?
+
+• Ramificação e fusão: são as capacidades das ferramentas
+Compatível com a ramificação planejada
+E estratégias de fusão?
+
+• Integração: as várias ferramentas SCM integram
+entre eles? Com outras ferramentas
+Uso na organização?
+
+• Migração: o repositório pode ser mantido por
+A ferramenta de controle de versão seja portada para outro
+Ferramenta de controle de versão, mantendo
+Histórico dos itens de configuração
+Contém?
+
+O SCM normalmente requer um conjunto de ferramentas,
+Opostos a uma única ferramenta. Esses conjuntos de ferramentas são
+Referidos como bancos de trabalho. Nesse contexto,
+Outra consideração importante em planos
+Seleção de ferramentas é determinar se o SCM
+O banco de trabalho estará aberto (em outras palavras,
+De diferentes fornecedores serão utilizados em
+Actividades do processo SCM) ou integrado
+(Onde os elementos do banco de trabalho são projetados
+Trabalhar juntos).
+O tamanho da organização eo tipo de
+Projetos envolvidos também podem afetar a seleção de ferramentas
+(Consulte o tópico 7, Software Configuration Management
+Ferramentas).
+
+1.3.4. Controle Fornecedor / Subcontratado
+[2 *, c13] [3 *, c13s9, c14s2]
+
+Um projecto de software pode adquirir ou utilizar
+Produtos de software comprados, como compiladores
+Ou outras ferramentas. O planejamento do SCM considera se e
+Como estes itens serão tomados sob a
+(Por exemplo, integrado no projeto
+Bibliotecas) e como as alterações ou atualizações serão
+Avaliados e gerenciados.
+Considerações semelhantes aplicam-se a
+Programas. Ao usar software subcontratado,
+Tanto os requisitos do SCM a serem impostos
+Processo de SCM do subcontratante como parte
+Subcontratação e os meios de controlo da conformidade
+Precisam ser estabelecidos. Este último inclui
+Consideração as informações sobre o SCM
+Monitoramento de conformidade.
+
+1.3.5. Controle de Interface
+[2 *, c12] [3 *, c24s4]
+
+Quando um item de software
+Outro item de software ou hardware, uma
+Para qualquer item pode afetar o outro. Planejamento para
+O processo SCM considera como a interface
+Itens serão identificados e como as mudanças na
+Itens serão gerenciados e comunicados. O
+O papel do SCM pode fazer parte de um sistema
+Processo de especificação e controle de interfaces;
+Pode envolver especificações de interface, interface
+Planos de controle e documentos de controle de interface.
+Neste caso, o planejamento SCM para controle de interface
+Ocorre dentro do contexto do sistema-
+Nível.
+
+1.4. Plano SCM
+[2 *, ann. D] [3 *, c23] [4 *, c29s1]
+
+Os resultados do planejamento de SCM para um determinado projeto
+São gravadas em um gerenciador de configuração
+(SCMP), um "documento vivo" que
+Serve de referência para o processo SCM. Isto é
+Mantida (ou seja, atualizada e aprovada) como
+Necessário durante o ciclo de vida do software. Na implementação
+Mento do SCMP, é normalmente necessário
+Desenvolver um número mais detalhado e subordinado de
+Procedimentos que definem como os requisitos
+Serão realizadas durante as atividades do dia-a-dia -
+Por exemplo, que estratégias de ramificação serão
+Usado e com que freqüência as compilações ocorrem e auto-
+Testes de todos os tipos são executados.
+Orientação sobre a criação e manutenção de
+Um SCMP, com base nas informações produzidas
+A atividade de planejamento, está disponível a partir de um número
+De fontes, tais como [2 *]. Esta referência fornece
+Requisitos para que as informações sejam contidas
+Em um SCMP; Também define e descreve seis
+Informações de SCM a serem incluídas em uma
+SCMP:
+
+• Introdução (finalidade, âmbito, termos utilizados)
+
+• Gestão de SCM (organização, responsa-
+Responsabilidades, autoridades, políticas aplicáveis,
+Diretrizes e procedimentos)
+
+• Atividades SCM (identificação de configuração,
+Controle de configuração, e assim por diante)
+
+• Horários SCM (coordenação com outros
+Atividades do projeto)
+
+• Recursos do SCM (ferramentas, recursos físicos,
+E recursos humanos)
+
+• Manutenção do SCMP.
+
+1.5. Vigilância da Configuração do Software
+Gestão
+[3 *, c11s3]
+
+Após a implementação do processo SCM,
+Algum grau de vigilância pode ser necessário
+Assegurar que as disposições do SCMP sejam
+Devidamente efectuadas. É provável que haja
+Requisitos específicos da SQA para garantir o
+Com processos e procedimentos SCM especificados.
+A pessoa responsável pela SCM assegura que
+Aqueles com a responsabilidade atribuída
+As tarefas SCM definidas corretamente. O software
+De garantia da qualidade, como parte de um
+Atividade de auditoria, também pode
+vigilância.
+O uso de ferramentas SCM integradas com
+Capacidade de controle pode tornar a vigilância
+Tarefa mais fácil. Algumas ferramentas facilitam a
+Proporcionando flexibilidade para os soft-
+Engenheiro para adaptar os procedimentos. Outras ferramentas
+Processo, deixando o engenheiro de software
+Com menos flexibilidade. Requisitos de vigilância
+O nível de flexibilidade a ser
+Engenheiro de software são considerações importantes
+Na seleção da ferramenta.
+
+1.5.1. Medidas e Medidas de SCM
+[3 *, c9s2, c25s2-s3]
+
+As medidas SCM podem ser projetadas para fornecer
+Informações sobre o produto em evolução ou
+Fornecer informações sobre o funcionamento do SCM
+processo. Um objetivo relacionado de monitoramento do SCM
+Processo é descobrir oportunidades para
+melhoria. Medições de processos SCM
+Um bom meio para monitorar o efetivo
+Atividades de SCM em uma base contínua.
+Estas medidas são úteis na
+O estado actual do processo, bem como
+Fornecendo uma base para fazer comparações
+Tempo. A análise das medições pode produzir
+Insights que levam a mudanças de processos e
+Actualizações correspondentes ao SCMP.
+Bibliotecas de software e as várias ferramentas SCM
+Fornecem fontes para extração de informações
+Sobre as características do SCM
+Processo (assim como fornecer projetos e
+Informação de gestão). Por exemplo,
+Sobre o tempo necessário para realizar vários
+Tipos de mudanças seriam úteis em uma avaliação
+Ção dos critérios para determinar os níveis de
+São ideais para autorizar determinados tipos de
+De mudanças e para estimar mudanças futuras.
+Deve-se ter cuidado para manter o foco
+Vigilância dos insights que podem ser adquiridos
+Das medições, não nas medições
+si mesmos. Discussão de processos de software e
+Produto é apresentada no Soft-
+Ware Processo de engenharia KA. Software mea-
+Os programas de garantia estão descritos no
+Engenharia de Gestão KA.
+
+1.5.2. Auditorias em Processo do SCM
+[3 *, c1s1]
+
+As auditorias podem ser realizadas durante o
+Processo de engenharia para investigar a situação
+De elementos específicos da configuração ou
+Avaliar a implementação do processo de SCM.
+A auditoria em processo do SCM fornece uma
+Mecanismo de monitoramento de aspectos selecionados
+Do processo e pode ser coordenado com o
+Função SQA (consulte o tópico 5, Configuração
+Auditoria).
+
+2. Identificação da configuração do software
+[2 *, c8] [4 *, c29s1.1]
+
+Identificação de configuração de software identifica
+Itens a serem controlados, estabelece
+Esquemas para os itens e suas versões, e
+Estabelece as ferramentas e técnicas a serem utilizadas
+Aquisição e administração de itens controlados. Estes
+Actividades de base constituem a base para o
+Atividades.
+
+2.1. Identificando itens a serem controlados
+[2 *, c8s2.2] [4 *, c29s1.1]
+
+Um dos primeiros passos no controle da mudança é
+Identificando os itens de software a serem controlados.
+Isso envolve a compreensão da configuração
+No contexto da configuração do sistema.
+Selecionar itens de configuração de software,
+Desenvolver uma estratégia para rotular itens de software
+E descrevendo suas relações e identificando
+Tanto as linhas de base a utilizar como o procedimento
+Para a aquisição de uma linha de base dos itens.
+
+2.1.1. Configuração do software
+[1, c3]
+
+A configuração do software é a configuração funcional e
+Características físicas de hardware ou software
+Documentação técnica ou realizada em conformidade
+um produto. Pode ser visto como parte de uma
+configuração do sistema.
+
+2.1.2. Item de configuração de software
+[4 *, c29s1.1]
+
+Um item de configuração (IC) é um item ou
+Hardware ou software, ou ambos os que são
+Projetado para ser gerenciado como uma única entidade. Um leve-
+Item de configuração de ware (SCI) é uma entidade de software
+Que foi estabelecido como um item de configuração
+[1]. O SCM normalmente controla uma variedade de itens
+Além do próprio código. Itens de software com
+Potencial para se tornar LIC incluem planos,
+Documentação de concepção, ensaio de mate-
+Riais, ferramentas de software, fonte e código executável,
+Bibliotecas de códigos, dicionários de dados e
+Documentação para instalação, manutenção,
+Operações e uso de software.
+A seleção de SICs é um processo
+Que deve ser alcançado um equilíbrio entre os
+Visibilidade adequada para o controlo do projecto.
+E oferece um número razoável de
+Controlados.
+
+2.1.3. Item de configuração de software
+Relacionamentos
+[3 *, c7s4]
+
+As relações estruturais entre os
+SICs e suas partes constituintes afetam outros
+Atividades ou tarefas do SCM, como software
+Elaboração ou análise do impacto das medidas
+alterar. Acompanhamento apropriado dessas relações
+Também é importante para apoiar a rastreabilidade.
+A concepção do esquema de identificação dos SICs.
+
+[Figura 6.2. Aquisição de Itens]
+
+deve considerar a necessidade de mapear itens identificados
+Estrutura do software, bem como a necessidade de
+Suporte à evolução dos itens de software e
+Seus relacionamentos.
+
+2.1.4. Versão do software
+[1, c3] [4 *, c29s3]
+
+Os itens de software evoluem à medida que um projeto de software prossegue.
+Uma versão de um item de software é uma
+Exemplo de um item. Pode ser pensado como um
+Estado de um item em evolução. Uma variante é uma versão de
+Um programa resultante da aplicação de software
+diversidade.
+2.1.5. Linha de base
+[1, c3]
+Uma linha de base de software é uma versão formalmente aprovada
+De um item de configuração (independentemente da mídia)
+Formalmente designado e fixado em
+Durante o ciclo de vida do item de configuração.
+O termo também é usado para se referir a uma versão particular
+De um item de configuração de software que
+Acordado. Em ambos os casos, a linha de
+Só pode ser alterado através de um controlo formal de alterações
+Procedimentos. Uma linha de base, juntamente com
+Alterações aprovadas à linha de base, representa a
+Configuração aprovada atual.
+As linhas de base comumente usadas incluem funcional,
+Alocados, de desenvolvimento e de
+Linhas de base. A linha de base funcional
+Requisitos do sistema analisados. A alo-
+A linha de base correspondente corresponde à
+Especificação de requisitos de software e soft-
+Especificação de requisitos de interface de ware. O
+Base de desenvolvimento representa a evolução
+Configuração do software em horários selecionados
+O ciclo de vida do software. Alterar autoridade para
+Normalmente baseia-se principalmente no
+Organização de desenvolvimento, mas podem ser
+Com outras organizações (por exemplo, SCM ou
+Teste). A linha de base do produto corresponde à
+Produto de software completo para sistemas
+Integração. As linhas de base a serem utilizadas
+Dado o projeto, juntamente com os níveis de
+Necessária para a aprovação da alteração, são
+Identificadas no SCMP.
+
+2.1.6. Adquirir itens de configuração de software
+[3 *, c18]
+
+Os itens de configuração de software são
+Controle SCM em diferentes momentos; Ou seja, eles são
+Ser incorporada em uma linha de base específica em
+Ponto no ciclo de vida do software. O disparo
+Evento é a conclusão de alguma forma de
+Aceitação, como uma revisão formal. Figura
+6.2 caracteriza o crescimento de itens
+O ciclo de vida prossegue. Este número baseia-se na
+Modelo de cachoeira para fins de ilustração apenas;
+Os índices utilizados na figura indicam as versões
+Dos itens em evolução. O pedido de alteração de software
+(SCR) está descrito na secção 3.1.
+Ao adquirir um SIC, a sua origem e integridade inicial
+Deve ser estabelecida. Na sequência da
+Ção de um LIC, as alterações ao item devem ser formalmente
+Aprovado como apropriado para o SIC e
+A linha de base envolvida, conforme definido no SCMP.
+Após a aprovação, o item é incorporado
+A linha de base do software de acordo com o apropriado
+procedimento.
+
+2.2. Biblioteca de software
+[3 *, c1s3] [4 *, c29s1.2]
+
+Uma biblioteca de software é uma coleção controlada de
+Software e documentação relacionada destinados a
+Ajuda no desenvolvimento, uso ou manutenção de software
+[1]. Também é instrumental na gestão de liberação de software
+E atividades de entrega. Vários tipos de
+Bibliotecas podem ser usadas, cada uma correspondendo
+Nível de maturidade específico do item de software. Para
+Exemplo, uma biblioteca de trabalho poderia suportar codificação
+E uma biblioteca de suporte de projeto poderia suportar testes,
+Enquanto uma biblioteca principal poderia ser usada para
+produtos. Um nível apropriado de controle de SCM
+(Nível básico associado e nível de autoridade para
+Alteração) está associado a cada biblioteca. Segurança,
+Em termos de controle de acesso e as instalações de backup,
+É um aspecto chave do gerenciamento de bibliotecas.
+As ferramentas utilizadas para cada biblioteca devem
+As necessidades de controle do SCM para aquela biblioteca - tanto em
+Termos de controle de SICs e controle de acesso
+para a biblioteca. No nível da biblioteca de trabalho, isso é
+Uma capacidade de gerenciamento de código que
+Mentores, mantenedores e SCM. Está focada na gestão
+As versões de itens de software enquanto
+As atividades de vários desenvolvedores. Em
+Níveis mais elevados de controlo, o acesso é mais
+E SCM é o usuário principal.
+Essas bibliotecas também são uma fonte importante
+De informação para medições de trabalho e
+progresso.
+
+3. Controle de Configuração do Software
+[2 *, c9] [4 *, c29s2]
+
+Controle de configuração de software
+Gerenciamento de mudanças durante o
+ciclo da vida. Abrange o processo para determinar
+As mudanças a fazer, a autoridade para aprovar
+Certas alterações, apoio à implementação de
+Dessas mudanças eo conceito de
+Desvios dos requisitos do projeto, bem como
+Renúncias deles. As informações
+É útil na medição do tráfego de mudanças
+E quebra, bem como aspectos de retrabalho.
+
+3.1. Solicitando, avaliando e aprovando
+Alterações de software
+[2 *, c9s2.4] [4 *, c29s2]
+
+O primeiro passo no gerenciamento das mudanças
+Itens é determinar quais as alterações a fazer. O
+Processo de solicitação de mudança de software (veja
+Fluxo de um processo de solicitação de mudança na Figura 6.3)
+Procedimentos formais de apresentação e
+Registro de pedidos de mudanças, avaliando o
+Custo e impacto de uma mudança proposta, e
+Aceitar, modificar, adiar ou rejeitar
+A alteração proposta. Um pedido de alteração (CR) é
+Um pedido de expansão ou redução do escopo do projeto;
+Modificar políticas, processos, planos ou procedimentos;
+Modificar custos ou orçamentos; Ou revisar os horários
+[1]. Solicitações de alterações na configuração do software
+Itens podem ser originados por qualquer pessoa
+Ponto no ciclo de vida do software e pode incluir
+Uma solução sugerida e solicitou prioridade. Um
+A fonte de um CR é o início da
+Resposta a relatórios de problemas. Independentemente
+Da fonte, o tipo de alteração (por exemplo,
+Defeito ou acessório) é normalmente registado
+Software CR (SCR).
+Isso fornece uma oportunidade para
+Defeitos e recolher medições da actividade de alteração
+Por tipo de alteração. Uma vez recebido um SCR,
+Uma avaliação técnica (também conhecida como
+Análise) é realizada para determinar a extensão
+As modificações que seriam necessárias
+O pedido de alteração seja aceito. Um bom entendimento
+Das relações entre software
+(E, possivelmente, hardware) itens é importante para
+esta tarefa. Finalmente, uma autoridade estabelecida -
+Proporcional à linha de base afetada, o SCI
+Envolvidos ea natureza da mudança -
+Avaliar os aspectos técnicos e gerenciais
+Do pedido de alteração e aceitar, modificar,
+Rejeitar ou adiar a alteração proposta.
+
+[Figura 6.3. Fluxo de um Processo de Controle de Mudanças]
+
+3.1.1. Placa de controle de configuração de software
+[2 *, c9s2.2] [3 *, c11s1] [4 *, c29s2]
+
+A autoridade para aceitar ou rejeitar propostas
+Uma entidade tipicamente conhecida como
+Placa de Controle de Configuração (CCB). Em menores
+Projectos, esta autoridade pode efectivamente residir
+O líder ou um indivíduo designado em vez de um
+Multiperson board. Pode haver vários níveis
+Dependendo de uma variedade de critérios
+- como a criticidade do item envolvido,
+A natureza da alteração (por exemplo, impacto na
+Orçamento e cronograma), ou a atual
+Ponto no ciclo de vida. A composição do
+CCBs usados ​​para um determinado sistema varia
+Critérios (um representante da SCM
+Estar sempre presente). Todas as partes interessadas,
+Ao nível do CCB, estão representados. Quando
+O escopo de autoridade de um CCB é estritamente software,
+É conhecida como Configuração de Software
+Control Board (SCCB). As atividades do CCB
+Normalmente sujeitas a auditoria de qualidade de software ou
+Revisão.
+
+3.1.2. Processo de Solicitação de Mudança de Software
+[3 *, c1s4, c8s4]
+
+Um processo efetivo de solicitação de mudança de software (SCR)
+Exige o uso de ferramentas e procedimentos de apoio
+Para originar solicitações de mudança, reforçando o fluxo
+Do processo de mudança, capturando as decisões do CCB,
+E processo de mudança de relatórios
+em formação. Uma ligação entre esta capacidade da ferramenta
+E o sistema de notificação de problemas pode facilitar
+O rastreamento de soluções para problemas relatados.
+
+3.2. Implementando alterações de software
+[4 *, c29]
+
+Os SCRs aprovados são implementados
+Definidos procedimentos de software de acordo com
+Os requisitos de cronograma aplicáveis. Uma vez que
+Número de SCRs aprovados poderá ser implementado
+Simultaneamente, é necessário proporcionar um
+Para rastrear quais SCRs são incorporados em
+Versões de software específicas e linhas de base. Como
+Parte do encerramento do processo de alteração, concluído
+Alterações podem sofrer auditorias de configuração
+E verificação da qualidade do software - isso inclui
+Garantir que somente as alterações aprovadas foram
+feito. O processo de solicitação de mudança de software
+Descritos acima normalmente documentam o
+Informações de aprovação do SCM (e de outros)
+alterar.
+As alterações podem ser suportadas pela versão do código fonte
+Ferramentas de controle. Estas ferramentas permitem que uma equipe de
+Engenheiros de software ou um único engenheiro de software,
+Para rastrear e documentar alterações no código-fonte.
+Essas ferramentas fornecem um repositório
+O código-fonte, pode impedir que mais de um software
+Engenharia de edição do mesmo módulo em
+Ao mesmo tempo e registrar todas as alterações feitas
+Código fonte. Os engenheiros de software verificam os módulos
+Do repositório, faça alterações,
+As alterações e, em seguida, salve os módulos editados
+No repositório. Se necessário, as alterações também podem ser
+Descartados, restaurando uma linha de base anterior. Mais
+Ferramentas poderosas podem suportar desenvolvimento paralelo
+E ambientes geograficamente distribuídos.
+Essas ferramentas podem ser manifestadas como separadas,
+Aplicações especializadas sob o controlo de um
+Grupo SCM independente. Eles também podem aparecer
+Como parte integrante da engenharia de software
+meio Ambiente. Finalmente, eles podem ser
+Como um sistema rudimentar de controle de mudanças
+Com um sistema operacional.
+
+3.3. Desvios e renúncias
+[1, c3]
+
+As restrições impostas a uma engenharia de software
+Esforço ou as especificações produzidas durante o
+Atividades de desenvolvimento podem conter
+Que não podem ser satisfeitas no ponto designado
+No ciclo de vida. Um desvio é uma autorização escrita,
+Concedidas antes do fabrico de uma
+Item, para afastar-se de uma determinada
+Exigência de projeto para um número específico de unidades
+Ou um período de tempo específico. Uma renúncia é uma
+Autorização para aceitar um item de
+Outro item designado encontrado durante a produção
+Ou após terem sido submetidos à inspecção,
+Afastar-se de requisitos específicos, mas não
+Considerado adequado para utilização tal como é ou após
+Retrabalho por um método aprovado. Nestes casos, um
+Processo formal é usado para obter aprovação para
+Desvios ou renúncias das disposições.
+
+4. Contabilidade de status da configuração do software
+[2 *, c10]
+
+Contabilidade de status de configuração de software (SCSA)
+É um elemento de gerenciamento de configuração que consiste
+Registo e comunicação das informações necessárias
+Para gerenciar uma configuração de forma eficaz.
+
+4.1. Informações sobre o status da configuração do software
+[2 *, c10s2.1]
+
+A atividade do SCSA projeta e opera um sistema
+Para a captura e comunicação de informações
+Informação à medida que o ciclo de vida avança. Como em qualquer
+Sistema de informação, as informações de estado da
+A ser gerenciado para as configurações em evolução
+Devem ser identificados, coletados e mantidos.
+São necessárias várias informações e medições
+Para suportar o processo SCM e para atender à configuração
+Estado das necessidades de relatórios de gestão,
+Engenharia de software e outras atividades relacionadas.
+Os tipos de informação disponíveis incluem o
+Identificação de configuração aprovada, bem
+A identificação eo estado de implementação actual
+De alterações, desvios e renúncias.
+Alguma forma de suporte automatizado de ferramentas é necessária
+Para realizar a coleta de dados do SCSA e
+Tarefas de relatório; Esta poderia ser uma capacidade de banco de dados,
+Uma ferramenta autônoma, ou uma capacidade de um maior,
+Integrado de ferramentas.
+
+4.2. Relatórios de Status de Configuração de Software
+[2 *, c10s2.4] [3 *, c1s5, c9s1, c17]
+
+As informações reportadas podem ser
+Elementos organizacionais e de projeto - incluindo
+A equipe de desenvolvimento, a equipe de manutenção,
+Gerenciamento de projetos e atividades de qualidade de software.
+Os relatórios podem assumir a forma de consultas ad hoc
+Para responder a perguntas específicas ou
+Produção de relatórios pré-concebidos. Alguma informação
+Produzido pela atividade de contabilização de status
+Durante o curso do ciclo de vida pode tornar-se
+Qualidade.
+Além de relatar o estado atual do
+Configuração, as informações obtidas pela
+SCSA pode servir como uma base de várias medições.
+Exemplos incluem o número de alterações
+Por LME eo tempo médio necessário para
+Implementar uma solicitação de alteração.
+
+5. Auditoria de Configuração de Software
+[2 *, c11]
+
+Uma auditoria de software é um exame independente
+Produto de trabalho ou conjunto de produtos de
+Avaliar o cumprimento das especificações, normas,
+Acordos contratuais ou outros critérios [1].
+As auditorias são conduzidas de acordo com um
+Processo composto por vários papéis de auditores e
+Responsabilidades. Consequentemente, cada auditoria
+Ser cuidadosamente planeado. Uma auditoria pode exigir
+De indivíduos para executar uma variedade de tarefas
+Durante um curto período de tempo. Ferramentas para suportar
+O planeamento ea condução de uma auditoria podem
+Facilitar o processo.
+A auditoria de configuração do software determina
+Medida em que um item satisfaz os requisitos
+Funcionais e físicas. Informal
+Auditorias deste tipo podem ser realizadas em pontos-chave
+No ciclo de vida. Dois tipos de auditorias formais
+Ser exigido pelo contrato vigente (por exemplo,
+Em contratos que abrangem software crítico):
+Auditoria de Configuração Funcional (FCA) ea
+Auditoria de Configuração Física (PCA). Bem sucedido
+Conclusão dessas auditorias pode ser um pré-requisito
+Para o estabelecimento da linha de base do produto.
+
+5.1. Auditoria de configuração funcional do software
+[2 *, c11s2.1]
+
+A finalidade do software FCA é assegurar que
+O item de software auditado é consistente com seu
+Especificações aplicáveis. A saída do software
+Actividades de verificação e validação (ver
+Verificação e Validação na Qualidade do Software
+KA) é uma entrada chave para esta auditoria.
+
+5.2. Auditoria de Configuração Física de Software
+[2 *, c11s2.2]
+
+O propósito da configuração física do software
+Auditoria (PCA) é assegurar que a concepção e
+Documentação de referência é consistente
+Como-construído produto de software.
+
+5.3. Auditorias em processo de uma linha de base de software
+[2 *, c11s2.3]
+
+Conforme mencionado acima, as auditorias podem ser
+Durante o processo de desenvolvimento para investigar
+O status atual de elementos específicos da configuração.
+Neste caso, uma auditoria poderia ser aplicada
+Amostraram itens de linha de base para assegurar que
+Conformidade com as especificações ou
+Assegurar que a evolução da documentação continue
+Ser consistente com o item de linha de base em desenvolvimento.
+
+6. Gerência e entrega da liberação do software
+[2 *, c14] [3 *, c8s2]
+
+Nesse contexto, a liberação refere-se à distribuição
+De um item de configuração de software
+Desenvolvimento; Isso inclui
+Lançamentos, bem como a distribuição aos clientes. Quando
+Diferentes versões de um item de software estão disponíveis
+Para entrega (como versões para diferentes plataformas
+Ou versões com diferentes capacidades), é
+Freqüentemente necessário para recriar versões específicas
+E embalar os materiais corretos para entrega de
+a versão. A biblioteca de software é um elemento-chave
+Na realização das tarefas de lançamento e entrega.
+
+6.1. Construção de Software
+[4 *, c29s4]
+
+A criação de software é a atividade de combinar o
+Versões corretas de itens de configuração de software,
+Usando os dados de configuração apropriados,
+Programa executável para entrega a um cliente ou
+Outro destinatário, como a atividade de teste. Para
+Sistemas com hardware ou firmware, o executável
+Programa é entregue à atividade de construção do sistema.
+As instruções de compilação garantem que a compilação adequada
+Etapas são tomadas na seqüência correta. Além
+Software de construção de novos lançamentos, geralmente
+Também é necessário que a SCM tenha a capacidade de
+Reproduzir versões anteriores para recuperação, teste,
+Manutenção ou outros fins de liberação.
+O software é construído utilizando versões
+Ferramentas de suporte, como compiladores (consulte
+Fundamentos nas Fundações de Computação KA).
+Pode ser necessário reconstruir uma cópia
+Um item de configuração de software previamente construído. Em
+Neste caso, as ferramentas de suporte e as
+As instruções precisam estar sob controle do SCM para
+Garantir a disponibilidade das versões corretas do
+ferramentas.
+Um recurso de ferramenta é útil para selecionar o
+Versões de itens de software para um determinado
+Ambiente e para automatizar o processo de
+Construindo o software a partir das versões selecionadas
+E dados de configuração apropriados. Para projetos
+Com ambientes de desenvolvimento paralelos ou distribuídos,
+Essa capacidade de ferramenta é necessária. A maioria
+Ambientes de engenharia de software fornecem
+capacidade. Estas ferramentas variam em
+Requerendo que o engenheiro de software aprenda um
+Linguagem de script para gráficos orientados
+Abordagens que escondem grande parte da complexidade
+Uma instalação de construção "inteligente".
+O processo de construção e os produtos são frequentemente
+À verificação da qualidade do software. Os resultados do
+Processo de compilação pode ser necessário para referência futura
+E podem se tornar registros de garantia de qualidade.
+
+6.2. Gerenciamento de versões de software
+[4 *, c29s3.2]
+
+A gestão de liberação de software abrange
+Identificação, embalagem e entrega do
+Elementos de um produto - por exemplo, um
+Documentação, notas de lançamento e
+Dados de configuração. Dado que as alterações do produto
+Pode ocorrer de forma contínua, uma preocupação
+Gerenciamento de lançamento está determinando quando
+Uma liberação. A gravidade dos problemas
+Pela liberação e medições das densidades de falha
+De lançamentos anteriores afetam esta decisão. O
+Embalagem deve identificar quais itens do produto
+Devem ser entregues e, em seguida,
+Variantes desses itens, dada a aplicação pretendida
+Do produto. As informações que documentam
+O conteúdo físico de uma liberação é conhecido
+Como um documento de descrição de versão. O lançamento
+Descrevem tipicamente novas capacidades, conhecidas
+Problemas e requisitos da plataforma necessários
+Para o funcionamento adequado do produto. O pacote a ser
+Também contém instalação ou atualização
+Instruções. Este último pode ser complicado pela
+Fato de que alguns usuários atuais podem ter versões
+Que são vários lançamentos antigos. Em alguns casos,
+Gestão pode ser necessária para acompanhar a
+Distribuição do produto a vários clientes
+Ou sistemas alvo - por exemplo, no caso em que
+O fornecedor foi obrigado a notificar um cliente
+Problemas recentemente relatados. Finalmente, um mecanismo
+Para garantir que a integridade do item liberado possa ser
+Implementado - por exemplo, liberando uma
+Assinatura com ele.
+É necessário um recurso de ferramenta para
+Funções de gerenciamento de liberação. É útil
+Para ter uma conexão com a capacidade da ferramenta
+Apoiar o processo de solicitação de mudança para
+Conteúdo de lançamento do mapa para os SCRs
+recebido. Esta ferramenta pode também
+Informações sobre várias plataformas de destino e
+Vários ambientes de clientes.
+
+7. Ferramentas de Gerenciamento de Configuração de Software
+[3 *, c26s1] [4 *, c8s2]
+
+Ao discutir o gerenciamento de configuração de software
+Ferramentas, é útil classificá-los. SCM
+Ferramentas podem ser divididas em três classes em
+Do âmbito em que prestam apoio: acções individuais
+Suporte, suporte relacionado ao projeto e processo de
+apoio.
+As ferramentas de apoio individuais são adequadas e
+Normalmente suficiente para pequenas organizações ou
+Grupos de desenvolvimento sem variantes de
+Produtos de software ou outros requisitos complexos SCM.
+Eles incluem:
+
+• Ferramentas de controle de versão: track, document e
+Armazenar itens de configuração individuais, como
+Código-fonte e documentação externa.
+
+• Criar ferramentas de manuseio: na sua forma mais simples,
+Tais ferramentas compilam e ligam um executável
+Versão do software. Mais avancado
+Ferramentas de construção extraem a última
+O software de controle de versão, executar
+Testes de regressão e produzir
+Diversas formas de relatórios, entre outras tarefas.
+
+• Ferramentas de controle de mudanças:
+Controle de solicitações de mudança e notificação de eventos
+(Por exemplo, status de solicitação de alteração
+Mudanças, marcos alcançados).
+
+As ferramentas de suporte relacionadas ao projeto
+Gerenciamento de espaço de trabalho para equipes de desenvolvimento
+E integradores; Eles normalmente são capazes de suportar
+Ambientes de desenvolvimento distribuídos. Tal
+São adequadas para organizações de médio a grande porte
+Com variantes de seus produtos de software
+E desenvolvimento paralelo, mas sem certificação
+Requisitos.
+As ferramentas de suporte ao processo da empresa podem
+Automatizar partes de um processo de toda a empresa,
+Fornecendo suporte para gerenciamento de workflow,
+papéis e responsabilidades. Eles são capazes
+Para lidar com muitos itens, dados e ciclos de vida. Tal
+Ferramentas adicionais para suporte ao projeto,
+Um processo de desenvolvimento mais formal, incluindo
+requisitos de certificação.
+
+LEITURAS ADICIONAIS
+
+Stephen P. Berczuk and Brad Appleton,
+Software Configuration Management
+Patterns: Effective Teamwork, Practical
+Integration [6].
+
+Este livro expressa práticas e práticas
+Estratégias como padrões. Os padrões podem ser implementados
+Usando várias ferramentas, mas são expressas
+De uma forma agnóstica.
+
+"CMMI for Development", Versão 1.3, pp.
+137-147 [7].
+
+Este modelo apresenta um conjunto de melhores práticas
+Para ajudar as organizações de desenvolvimento de software
+Melhorar seus processos. No nível de maturidade 2,
+Sugere atividades de gerenciamento de configuração.
+
+REFERÊNCIAS
+
+[1] ISO/IEC/IEEE 24765:2010 Systems and
+Software Engineering—Vocabulary, ISO/
+IEC/IEEE, 2010.
+
+[2*] IEEE Std. 828-2012, Standard for
+Configuration Management in Systems and
+Software Engineering, IEEE, 2012.
+
+[3*] A.M.J. Hass, Configuration Management
+Principles and Practices, 1st ed., Addison-
+Wesley, 2003.
+
+[4*] I. Sommerville, Software Engineering, 9th
+ed., Addison-Wesley, 2011.
+
+[5*] J.W. Moore, The Road Map to Software
+Engineering: A Standards-Based Guide,
+Wiley-IEEE Computer Society Press, 2006.
+
+[6] S.P. Berczuk and B. Appleton, Software
+Configuration Management Patterns:
+Effective Teamwork, Practical Integration,
+Addison-Wesley Professional, 2003.
+
+[7] CMMI Product Team, “CMMI for
+Development, Version 1.3,” Software
+Engineering Institute, 2010;
+http://resources.sei.cmu.edu/library/asset-view.cfm?assetID=9661
+
+

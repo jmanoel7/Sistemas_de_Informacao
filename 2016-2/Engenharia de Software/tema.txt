@@ -1,2 +1,3 @@
 swebok v3.0
 gerência de configuração de software
+paginas: 118-132
