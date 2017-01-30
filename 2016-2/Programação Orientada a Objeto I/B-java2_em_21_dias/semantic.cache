@@ -1,0 +1,35 @@
+;; Object java2_em_21_dias/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "java2_em_21_dias/"
+  :tables (list 
+   (semanticdb-table "Test.java"
+    :major-mode 'jde-mode
+    :tags '(("Test" type (:typemodifiers ("public" "final") :members (("Test" function (:constructor-flag t :typemodifiers ("private")) (reparse-symbol class_member_declaration) [283 305]) ("main" function (:typemodifiers ("public" "static") :arguments (("args" variable (:typemodifiers ("final") :type "String[]") (reparse-symbol formal_parameters) [455 474])) :type "void") (reparse-symbol class_member_declaration) [431 530])) :type "class") nil [180 533]))
+    :file "Test.java"
+    :pointmax 534
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "ExecCheckString.java"
+    :major-mode 'jde-mode
+    :tags '(("work21.CheckString" include nil (dependency-file none) [1 27]) ("ExecCheckString" type (:typemodifiers ("public") :members (("main" function (:typemodifiers ("public" "static") :arguments (("args" variable (:dereference 1 :typemodifiers ("final") :type "String") (reparse-symbol formal_parameters) [89 108])) :type "void") (reparse-symbol class_member_declaration) [65 804])) :type "class") nil [29 807]))
+    :file "ExecCheckString.java"
+    :pointmax 808
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "ExecuteNovaDivisao.java"
+    :major-mode 'jde-mode
+    :tags '(("work21.ExecNovaDivisao" include nil nil [1 31]) ("ExecuteDivisao1" type (:typemodifiers ("public") :members (("main" function (:typemodifiers ("public" "static") :arguments (("args" variable (:dereference 1 :typemodifiers ("final") :type "String") (reparse-symbol formal_parameters) [93 112])) :type "void") (reparse-symbol class_member_declaration) [69 216])) :type "class") nil [33 219]))
+    :file "ExecuteNovaDivisao.java"
+    :pointmax 220
+    )
+   (semanticdb-table "ExecCheckString.java.html"
+    :major-mode 'html-helper-mode
+    :tags '(("~/java/java2_em_21_dias/ExecCheckString.java.html" section nil nil [118 301]) ("import" section nil nil [301 307]))
+    :file "ExecCheckString.java.html"
+    :pointmax 2679
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0beta3"
+  :semanticdb-version "2.0beta3"
+  )
