@@ -1,0 +1,15 @@
+package lista_interfaces;
+
+public class TestePlayer {
+
+	public static void main(String[] args) {
+		CDPlayer cd = new CDPlayer("LG", "LGCDPLAYER", 10);
+		System.out.println(cd);
+		cd.play();
+		cd.setFaixa(2);
+		cd.pause();
+		cd.reverse();
+		System.out.println(cd);
+	}
+
+}

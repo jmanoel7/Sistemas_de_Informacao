@@ -1,0 +1,12 @@
+package lista_heranca;
+
+public class Funcionario {
+
+	private float salario;
+
+	public Funcionario(float salario) {
+		this.salario = salario;
+	}
+	
+	
+}

@@ -1,0 +1,59 @@
+package lista_interfaces;
+
+
+/**
+ * Describe class DVDPlayer here.
+ *
+ *
+ * Created: Tue Feb  7 02:10:30 2017
+ *
+ * @author <a href="mailto:joao.manoel@academico.ifg.edu.br"></a>
+ * @version 1.0
+ */
+public class DVDPlayer implements Player {
+
+    private String marca;
+    
+    /**
+     * Creates a new <code>DVDPlayer</code> instance.
+     *
+     */
+    public DVDPlayer(String marca) {
+        this.marca = marca;
+    }
+
+    // Implementation of lista_interfaces.Player
+
+    /**
+     * Describe <code>play</code> method here.
+     *
+     */
+    public final void play() {
+        
+    }
+
+    /**
+     * Describe <code>pause</code> method here.
+     *
+     */
+    public final void pause() {
+
+    }
+
+    /**
+     * Describe <code>stop</code> method here.
+     *
+     */
+    public final void stop() {
+
+    }
+
+    /**
+     * Describe <code>reverse</code> method here.
+     *
+     */
+    public final void reverse() {
+
+    }
+
+}

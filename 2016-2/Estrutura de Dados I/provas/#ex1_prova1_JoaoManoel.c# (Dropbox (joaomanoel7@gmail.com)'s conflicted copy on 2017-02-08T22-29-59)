@@ -1,0 +1,50 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+#define MAX_CARRO 10
+#define MAX_STR   50
+
+typedef struct
+{
+     char modelo[MAX_STR];
+     char marca[MAX_STR];
+     int ano_fab;
+     char cor[MAX_STR];
+     float valor_venda;
+} tp_carro;
+
+void cadastrar(tp_carro *carro);
+void localizar(tp_carro *carro);
+void excluir(tp_carro *carro);
+void listar(tp_carro *carro);
+int total = 0;
+
+int main(void)
+{
+     tp_carro *carro;
+     int opcao=0;
+
+     do
+     {
+          do
+          {
+               printf("\nEscolha uma opção do menu:\n\n");
+               printf("\t1) Cadastrar\n");
+               printf("\t2) Localizar\n");
+               printf("\t3) Excluir\n");
+               printf("\t4) Listar\n");
+               printf("\t5) Sair\n");
+               scanf("%d", &opcao);
+               if (opcao < 1 || opcao > 5) {
+                    printf("\nA opção informada: \'%d\', é inválida!\n\n", opcao);
+                    prin
+               }
+               
+          } while (1);
+
+          
+     } while (opcao != 5);
+
+     
+     return 0;
+}

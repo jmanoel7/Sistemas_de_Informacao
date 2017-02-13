@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="lista_heranca.Funcionario"/>
+<fullyQualifiedTypeName name="lista_heranca.Administrativo"/>
+<fullyQualifiedTypeName name="lista_heranca.Professor"/>
+<fullyQualifiedTypeName name="lista_heranca.ProfessorEfetivo"/>
+<fullyQualifiedTypeName name="lista_heranca.ProfessorTemporario"/>
+<fullyQualifiedTypeName name="lista_interfaces.CDPlayer"/>
+<fullyQualifiedTypeName name="lista_interfaces.DVDPlayer"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,63 @@
+package lista_interfaces;
+
+/**
+ * @author João Manoel <joao.manoel@academico.ifg.edu.br>
+ *
+ */
+public class CDPlayer implements Player {
+
+	private String marca;
+	private String modelo;
+    private boolean tocando;
+    private boolean fimFaixa;
+    private boolean inicioFaixa;
+    private int faixa;
+    private boolean reverso;
+
+	public CDPlayer(String marca, String modelo) {
+		this.marca = marca;
+		this.modelo = modelo;
+        this.inicioFaixa = true;
+        this.faixa = 1;
+        this.fimFaixa = false;
+        this.tocando = false;
+        this.reverso = false;
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see lista_interfaces.Player#play()
+	 */
+	@Override
+	public void play() {
+
+	}
+
+	/* (non-Javadoc)
+	 * @see lista_interfaces.Player#stop()
+	 */
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see lista_interfaces.Player#pause()
+	 */
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/* (non-Javadoc)
+	 * @see lista_interfaces.Player#reverse()
+	 */
+	@Override
+	public void reverse() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,13 @@
+package lista_heranca;
+
+public class Professor extends Funcionario {
+
+	// matricula professor
+	private String matProf;
+	// carga horaria de aulas dadas semanalmente
+	private int cargaHoraria;
+	
+	
+	
+
+}

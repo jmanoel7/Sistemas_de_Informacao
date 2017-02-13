@@ -1,0 +1,45 @@
+package lista_heranca;
+
+public class Professor extends Funcionario {
+
+	// matricula professor
+	private String matProf;
+	// carga horaria de aulas dadas semanalmente
+	private int cargaHoraria;
+	
+	public Professor(String nome, float salario, String matProf, int cargaHoraria) {
+		super(nome, salario);
+		this.matProf = matProf;
+		this.cargaHoraria = cargaHoraria;
+	}
+	
+	public Professor(String nome, float salario, float gratificacao, String matProf, int cargaHoraria) {
+		super(nome, salario, gratificacao);
+		this.matProf = matProf;
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	public String getMatProf() {
+		return matProf;
+	}
+
+	public void setMatProf(String matProf) {
+		this.matProf = matProf;
+	}
+
+	public int getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "Professor [matProf=" + matProf + ", cargaHoraria=" + cargaHoraria + "]";
+	}
+
+}

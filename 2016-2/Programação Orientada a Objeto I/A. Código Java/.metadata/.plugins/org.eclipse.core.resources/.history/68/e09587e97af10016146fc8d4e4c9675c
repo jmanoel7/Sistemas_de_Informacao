@@ -1,0 +1,33 @@
+package lista_heranca;
+
+public class Administrativo extends Funcionario {
+
+	// matricula administrativa
+	private String matAdm;
+
+	public Administrativo(String nome, float salario, String matAdm) {
+		super(nome, salario);
+		this.matAdm = matAdm;
+	}
+
+	public Administrativo(String nome, float salario, float gratificacao, String matAdm) {
+		super(nome, salario, gratificacao);
+		this.matAdm = matAdm;
+	}
+
+	// Sobrescrito
+	@Override
+	public float calculoSalario() {
+		
+		return super.getSalario() + super.getGratificacao();
+	}
+
+	public float calculoGratificacao() {
+		if (this.gratificacao <= 0) {
+			setGratificacao(0.0f);
+		}
+		return this.gratificacao;
+	}
+
+	
+}
