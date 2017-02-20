@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>MXE - build-pkg by starius</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">MXE - build-pkg</h1>
+      <h2 class="project-tagline">Binary distribution of MXE packages</h2>
+      <a href="https://github.com/starius/mxedeb" class="btn">View on GitHub</a>
+      <a href="https://github.com/starius/mxedeb/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/starius/mxedeb/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>MXE (M cross environment) is a Makefile that compiles a cross compiler and cross compiles many free libraries such as SDL and Qt. Thus, it provides a nice cross compiling environment for various target platforms. Visit <a href="http://mxe.cc/">MXE site</a> to learn more about MXE.</p>
+
+<p>This project aims to provide binary packages built from MXE packages. Packages can be downloaded as <code>tar.xz</code> files or installed as Debian packages from our APT.</p>
+
+<p>Currently we provide pre-compiled packages only for amd64 host. All 4 MXE targets are available.</p>
+
+<h3>
+<a id="tarxz-packages" class="anchor" href="#tarxz-packages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>tar.xz packages</h3>
+
+<p><code>tar.xz</code> packages can be downloaded from the following location:</p>
+
+<p><a href="http://pkg.mxe.cc/repos/tar/">http://pkg.mxe.cc/repos/tar/</a></p>
+
+<p>Old releases:</p>
+
+<p><a href="http://pkg.mxe.cc/releases/">http://pkg.mxe.cc/releases/</a></p>
+
+<h3>
+<a id="debian-packages" class="anchor" href="#debian-packages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debian packages</h3>
+
+<p>To install Debian packages, add the location of our APT to your <code>/etc/apt/sources</code>:</p>
+
+<pre><code># echo "deb http://pkg.mxe.cc/repos/apt/debian wheezy main" &gt; \
+   /etc/apt/sources.list.d/mxeapt.list
+</code></pre>
+
+<p>Then add our GPG key to APT:</p>
+
+<pre><code># apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
+</code></pre>
+
+<p>Update APT cache:</p>
+
+<pre><code># apt-get update
+</code></pre>
+
+<p>Install some MXE package:</p>
+
+<pre><code># apt-get install mxe-i686-w64-mingw32.static-qt
+</code></pre>
+
+<p>Names of packages are <code>mxe-&lt;target&gt;-&lt;package&gt;</code>.</p>
+
+<p>Possible targets:</p>
+
+<ul>
+<li>i686-w64-mingw32.static</li>
+<li>x86-64-w64-mingw32.static (note that <code>_</code> replaced with <code>-</code>)</li>
+<li>i686-w64-mingw32.shared</li>
+<li>x86-64-w64-mingw32.shared (note that <code>_</code> replaced with <code>-</code>)</li>
+</ul>
+
+<p>List of packages can be found on <a href="http://mxe.cc/#packages">MXE site</a> and in <a href="http://mxe.cc/build-matrix.html">the build matrix</a>.</p>
+
+<p>Packages are installed to <code>/usr/lib/mxe/&lt;target&gt;/</code>.
+You can use this location as MXE source tree.</p>
+
+<p>For example, cross-compile CMake project:</p>
+
+<pre><code>$ target=i686-w64-mingw32.static
+$ mxedir=/usr/lib/mxe/
+$ $mxedir/usr/bin/$target-cmake project-source
+$ make
+</code></pre>
+
+<h3>
+<a id="use-in-travis-continuous-integration" class="anchor" href="#use-in-travis-continuous-integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use in Travis Continuous Integration</h3>
+
+<p>Apply the steps above in your <code>.travis.yml</code>. <a href="https://docs.travis-ci.com/user/deployment/releases">Deploying build artefacts</a> from Travis to Github releases is also a good idea. You can use <a href="https://github.com/zer0main/battleship">https://github.com/zer0main/battleship</a> as an example.</p>
+
+<h3>
+<a id="how-to-build-binary-packages-from-mxe-packages" class="anchor" href="#how-to-build-binary-packages-from-mxe-packages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to build binary packages from MXE packages</h3>
+
+<p>See <a href="https://github.com/mxe/mxe-apt">https://github.com/mxe/mxe-apt</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/starius/mxedeb">MXE - build-pkg</a> is maintained by <a href="https://github.com/starius">starius</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

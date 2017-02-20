@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>MinGW cross compiler for Linux build environment | MinGW</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/www.mingw.org/files/css/css_9a797b4445bb286492939d95da32b0aa.css" />
+    <script type="text/javascript"> </script>
+  </head>
+
+<body id="second">
+  <div id="page" class="one-sidebar two-sidebars">
+  
+    <div id="header">
+    
+      <div id="logo-title">
+       
+                
+                  <h1 id='site-name'>
+            <a href="/" title="Home">
+              MinGW            </a>
+          </h1>
+                
+         
+          <div id='site-slogan'>
+            Minimalist GNU for Windows          </div>
+                
+      </div>
+      
+      <div class="menu withprimarywithsecondary">
+                      <div id="primary" class="clear-block">
+              <ul class="links primary-links"><li class="menu-43 first"><a href="/Welcome_to_MinGW_org" title="About MinGW">About</a></li>
+<li class="menu-92"><a href="https://sourceforge.net/downloads/mingw" title="">Downloads</a></li>
+<li class="menu-66"><a href="/wiki" title="MinGW&#039;s New Wiki">Documentation</a></li>
+<li class="menu-63"><a href="/tracker">Recent posts</a></li>
+<li class="menu-48 last"><a href="/aggregator">Feed aggregator</a></li>
+</ul>            </div>
+                    
+                      <div id="secondary" class="clear-block">
+                      </div>
+                </div>
+      
+            
+    </div>
+
+    <div id="container" class="withleft withright clear-block">
+      
+      <div id="main-wrapper">
+      <div id="main" class="clear-block">
+        <div class="breadcrumb"><a href="/">Home</a></div>                        <h1 class="title">MinGW cross compiler for Linux build environment</h1>        <div class="tabs"><ul class="tabs primary">
+<li class="active" ><a href="/wiki/LinuxCrossMinGW" class="active">View</a></li>
+<li ><a href="/node/51/revisions">Revisions</a></li>
+</ul>
+</div>                        <div class="node" id="node-51">
+  
+    
+  
+    <div class="meta with-taxonomy">
+  
+          <div class="submitted">Posted September 15th, 2008 by keith</div> 
+        
+     
+      <div class="taxonomy"><ul class="links inline"><li class="taxonomy_term_30 first"><a href="/category/wiki/cross_compiler" rel="tag" title="">cross compiler</a></li>
+<li class="taxonomy_term_1"><a href="/category/wiki/faq" rel="tag" title="">faq</a></li>
+<li class="taxonomy_term_9"><a href="/category/wiki/gcc" rel="tag" title="">gcc</a></li>
+<li class="taxonomy_term_3 last"><a href="/category/wiki/how_to" rel="tag" title="">how to</a></li>
+</ul></div>
+        
+  </div>
+    
+  <div class="content">
+    <p>If you're currently interested in a working MinGW cross compiler for Linux, check out the following project:<br />
+<a href="http://mingw-cross-env.nongnu.org/">MinGW cross compiling environment</a>.  They have their own mailing list with support for this project (and are separate from the MinGW project and its mailing lists).  They use makefiles to build a MinGW cross-compiler and several useful libraries.  The makefiles are similar to the BSD ports project and even resemble the Arch build scripts in some ways.</p>
+<p>Rest of page updated to current status, as of 15-September-2008.</p>
+<p>Previous content of this page was confused, misleading and obsolete.  Nevertheless, if you wish to refer to this older content, you may find it <a class="" style="" href="/wiki/ObsoleteLinuxCrossMinGW">here</a>.</p>
+<hr />
+<h4 id="toc0">Important Note</h4>
+<p>As of this writing, the <a class="" style="" href="/wiki/MinGW">MinGW Project</a> does not support any official build of GCC, more recent than GCC-3.4.5, for use as a cross hosted <a class="" style="" href="/wiki/MinGW">MinGW</a> development tool, on <strong>any</strong> platform.  This is unlikely to change, until <em>after</em> an officially supported <em>stable</em> GCC-4.x version has been released, for <em>native</em> use on the MS-Windows platform.</p>
+<p>If you wish to experiment with more recent versions, then please feel free to do so, (and please share your experience with us, via the <a href="mailto:mingw-users@lists.sourceforge.net">MinGW-Users Mailing List</a> -- but, please ensure that you are <a href="https://lists.sourceforge.net/mailman/listinfo/mingw-users">subscribed</a> <em>before</em> you post).  However, please understand that we are currently unable to offer you support for such experimental builds in production use.</p>
+<p><strong>Please</strong> <em><strong>do not</strong></em> <strong>append comments to this article, relating to your own experimental cross compiler builds.</strong></p>
+<hr />
+<h3 id="toc1">Procedure for Building the Cross Compiler</h3>
+<p>The <em>only</em> method now <em>officially sanctioned</em> by the <a class="" style="" href="/wiki/MinGW">MinGW Project</a>, for building <a class="" style="" href="/wiki/MinGW">MinGW</a> as a cross hosted tool chain, is managed entirely by a collection of interactive shell scripts, which you may download as a composite tarball, from <a href="https://sourceforge.net/projects/mingw/files/Cross-Hosted%20MinGW%20Build%20Tool">here</a>.  (You may also <a href="http://mingw.cvs.sourceforge.net/mingw/xscripts/">browse</a> the most recent development versions of the script files, or check them out from the <a class="" style="" href="/wiki/Official_CVS_Repository">Official CVS Repository</a>, where they will be found in the <a href="http://mingw.cvs.sourceforge.net/mingw/xscripts/">xscripts</a> module, under the <a class="" style="" href="/wiki/Official_CVS_Repository">other MinGW packages</a> heading).</p>
+<p>Having downloaded the script tarball, you should unpack it, study the included <em>README</em> file, review and optionally adjust the default settings specified in <em>x86-mingw32-build.sh.conf</em>, then run the main script</p>
+<pre>sh x86-mingw32-build.sh &lt;name&gt;</pre><p>(where <em>&lt;name&gt;</em> represents the label you would like to use in the <em>--host=&lt;name&gt;</em> specification, when you configure packages for cross compilation; please ensure that it ends with <em>mingw32</em>, and <em>do not</em> emulate the asinine practice of some GNU/Linux distributors, by appending <em>msvc</em>).</p>
+<p>From here on, simply follow the on-screen prompts, to complete the build and installation process.</p>
+<p><strong>Caution</strong><br />
+If you use the <em>--dry-run</em> option to <em>x86-mingw32-build.sh</em>, to see what it plans to do, before you actually let it do it, then please ensure that you <em>completely</em> purge <em>all content</em> from the path you nominate as the <em>build directory</em>, <strong>before</strong> you initiate the real build; it has been reported that artifacts from the dry run cause the real build to fail.</p>
+  </div>
+  
+      <div class="links">
+      <ul class="links inline"><li class="comment_forbidden first"></li>
+<li class="statistics_counter"><span>245963 reads</span></li>
+<li class="print_html last"><a href="/print/wiki/LinuxCrossMinGW" title="Display a printer-friendly version of this page." class="print-page" onclick="window.open(this.href); return false" rel="nofollow"><img src="/sites/www.mingw.org/modules/print/icons/print_icon.gif" alt="Printer-friendly version" title="Printer-friendly version" width="16" height="16" class="print-icon" /></a></li>
+</ul>    </div>
+    
+</div>
+        <div id="content-bottom"><div class="block block-block" id="block-block-8">
+  <div class="blockinner">
+
+    <h2 class="title"> Site Status </h2>
+    <div class="content">
+      <p>Site maintenance completed May 25th, 2012 at 12:38 UTC</p>
+    </div>
+    
+  </div>
+</div>
+</div>      </div>
+      </div>
+      
+              <div id="sidebar-left" class="sidebar">
+          <form action="/wiki/LinuxCrossMinGW"  accept-charset="UTF-8" method="post" id="search-theme-form">
+<div><div id="search" class="container-inline">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Search this site: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
+</div>
+<input type="submit" name="op" id="edit-submit" value="Search"  class="form-submit" />
+<input type="hidden" name="form_build_id" id="form-3898973821bcc5c96c4eae8927d68226" value="form-3898973821bcc5c96c4eae8927d68226"  />
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+</div>
+
+</div></form>
+          <div class="block block-block" id="block-block-2">
+  <div class="blockinner">
+
+    <h2 class="title"> Administrative Update </h2>
+    <div class="content">
+      <p>As of June 2013 we are accepting donations.  Please see the <a href="http://mingw.org/donate">Donate</a> page for more information on how to Donate.</p>
+    </div>
+    
+  </div>
+</div>
+<div class="block block-user" id="block-user-0">
+  <div class="blockinner">
+
+    <h2 class="title"> User login </h2>
+    <div class="content">
+      <a href="/user/login?destination=node%2F51">Login/Register</a>    </div>
+    
+  </div>
+</div>
+<div class="block block-user" id="block-user-1">
+  <div class="blockinner">
+
+    <h2 class="title"> Navigation </h2>
+    <div class="content">
+      <ul class="menu"><li class="expanded first"><a href="/Welcome_to_MinGW_org" title="About MinGW">About</a><ul class="menu"><li class="leaf first"><a href="/contact">Contact</a></li>
+<li class="leaf"><a href="/donate" title="Donate to MinGW.org">Donate</a></li>
+<li class="leaf"><a href="/history" title="History">History</a></li>
+<li class="leaf"><a href="/license" title="Licensing Terms">Licensing Terms</a></li>
+<li class="leaf"><a href="/lists.shtml" title="Mailing Lists">Mailing Lists</a></li>
+<li class="leaf"><a href="/privacy" title="Privacy">Privacy</a></li>
+<li class="leaf"><a href="/Reporting_Bugs" title="Reporting Bugs">Reporting Bugs</a></li>
+<li class="leaf"><a href="/wiki/SubmitPatches" title="How to submit patches">Submit Patches</a></li>
+<li class="leaf last"><a href="http://www.mingw.org/sitemap.xml" title="Sitemap">Sitemap</a></li>
+</ul></li>
+<li class="leaf"><a href="https://sourceforge.net/downloads/mingw" title="">Downloads</a></li>
+<li class="collapsed"><a href="/wiki" title="MinGW&#039;s New Wiki">Documentation</a></li>
+<li class="leaf"><a href="/tracker">Recent posts</a></li>
+<li class="collapsed last"><a href="/aggregator">Feed aggregator</a></li>
+</ul>    </div>
+    
+  </div>
+</div>
+<div class="block block-user" id="block-user-3">
+  <div class="blockinner">
+
+    <h2 class="title"> Who's online </h2>
+    <div class="content">
+      There are currently <em>0 users</em> and <em>195 guests</em> online.    </div>
+    
+  </div>
+</div>
+<div class="block block-statistics" id="block-statistics-0">
+  <div class="blockinner">
+
+    <h2 class="title"> Popular content </h2>
+    <div class="content">
+      <div class="item-list"><h3>Today's:</h3><ul><li class="first"><a href="/download/installer">download/installer</a></li>
+<li><a href="/wiki/InstallationHOWTOforMinGW">HOWTO Install the MinGW (GCC) Compiler Suite</a></li>
+<li><a href="/wiki/Getting_Started">Getting Started</a></li>
+<li><a href="/wiki/MSYS">MSYS</a></li>
+<li><a href="/wiki/MinGW_for_First_Time_Users_HOWTO">MinGW for First Time Users HOWTO</a></li>
+<li><a href="/wiki">MinGWiki</a></li>
+<li class="last"><a href="/wiki/MinGW">MinGW</a></li>
+</ul></div><br /><div class="item-list"><h3>All time:</h3><ul><li class="first"><a href="/download/installer">download/installer</a></li>
+<li><a href="/wiki/InstallationHOWTOforMinGW">HOWTO Install the MinGW (GCC) Compiler Suite</a></li>
+<li class="last"><a href="/wiki/Getting_Started">Getting Started</a></li>
+</ul></div><br /><div class="item-list"><h3>Last viewed:</h3><ul><li class="first"><a href="/wiki/MinGW">MinGW</a></li>
+<li><a href="/download/installer">download/installer</a></li>
+<li class="last"><a href="/wiki/Getting_Started">Getting Started</a></li>
+</ul></div>    </div>
+    
+  </div>
+</div>
+<div class="block block-comment" id="block-comment-0">
+  <div class="blockinner">
+
+    <h2 class="title"> Recent comments </h2>
+    <div class="content">
+      <div class="item-list"><ul><li class="first"><a href="/story/File_list_on_SourceForge#comment-897">Re: File list on SourceForge</a><br />6 years 2 weeks ago</li>
+<li><a href="/wiki/Getting_Started#comment-896">Re: Getting Started</a><br />6 years 2 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-812">Re: File list on SourceForge</a><br />6 years 35 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-811">Re: File list on SourceForge</a><br />6 years 35 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-810">Re: File list on SourceForge</a><br />6 years 35 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-809">Re: File list on SourceForge</a><br />6 years 35 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-806">Re: File list on SourceForge</a><br />6 years 36 weeks ago</li>
+<li><a href="/story/File_list_on_SourceForge#comment-803">Re: File list on SourceForge</a><br />6 years 36 weeks ago</li>
+<li><a href="/wiki/Community_Supplied_Links#comment-801">Re: Community_Supplied_Links</a><br />6 years 36 weeks ago</li>
+<li class="last"><a href="/wiki/InstallationHOWTOforMinGW#comment-781">Re: HOWTO Install the MinGW (GCC) Compiler Suite</a><br />6 years 44 weeks ago</li>
+</ul></div>    </div>
+    
+  </div>
+</div>
+        </div>
+      
+              <div id="sidebar-right" class="sidebar">
+          <div class="block block-block" id="block-block-10">
+  <div class="blockinner">
+
+    
+    <div class="content">
+      <form action="/download/installer">
+<input type="submit" value="Download Installer" />
+</form>
+    </div>
+    
+  </div>
+</div>
+<div class="block block-block" id="block-block-6">
+  <div class="blockinner">
+
+    <h2 class="title"> Search mingw-users </h2>
+    <div class="content">
+         <form method="post" action="https://sourceforge.net/search?type_of_search=mlists&group_id=2435&forum_id=5119&search_body=1&search_subject=1&ml_name[]=mingw-users&posted_date_start=&posted_date_end=&form_submit=Search">
+   <p>
+   <span class="small">Choose Mail List:</span>
+   <select name="forum_id">
+     <option value="5119">MinGW-users</option>
+   </select>
+   </p><p>
+   <input type="hidden" name="type_of_search" value="mlists" />
+   <input type="hidden" name="group_id" value="2435" />
+   <input type="submit" name="Search" value="Search" />
+   </p>
+   </form>
+    </div>
+    
+  </div>
+</div>
+<div class="block block-block" id="block-block-4">
+  <div class="blockinner">
+
+    <h2 class="title"> Powered by </h2>
+    <div class="content">
+      <a href="http://sourceforge.net/projects/mingw" target="_sfpage"><img  src="http://sourceforge.net/sflogo.php?group_id=2435" width="88"  height="31" border="0" alt="SourceForge Logo" />  </a><br/><a href="http://www.networkredux.com"><img src="http://oldwiki.mingw.org/themes/default/images/NetworkRedux-140x31-3.png" /></a><br/><a href="http://drupal.org"><img src="http://www.mingw.org/misc/powered-blue-80x15.png" /></a><br/>
+</br/></br/></br/>    </div>
+    
+  </div>
+</div>
+<div class="block block-block" id="block-block-9">
+  <div class="blockinner">
+
+    <h2 class="title"> What Can You Do for MinGW? </h2>
+    <div class="content">
+      <p>There are various activities that require willing helpers who have a few minutes to spare each week.  Below is a list of a few of those things you can help us with.</p>
+<ul>
+<li><a href="/drupal_administration" rel="nofollow">Drupal Administration</a>
+</li>
+<li><a href="/Content_Administration" rel="nofollow">Content Administration</a>
+</li>
+<li><a href="/Wiki_Content_Updates" rel="nofollow">Wiki Content Updates</a>
+</li>
+<li><a href="/Ubuntu_Server_Administration" rel="nofollow">Ubuntu Server Administration</a>
+</li>
+<li><a href="/Software_Package_Contribution" rel="nofollow">Software Package Contributions</a>
+</li>
+<li><a href="/Runtime_Updates" rel="nofollow">Runtime Updates</a>
+</li>
+<li><a href="/Windows_API_Updates" rel="nofollow">Windows API Updates</a>
+</li>
+</ul>
+<p>This is not an exhaustive list there are plenty of other things we do.  If you would like to help let us know via the <a href="mailto:mingw-users@lists.sourceforge.net" rel="nofollow">mingw-users@lists.sourceforge.net</a> mail list.</p>
+    </div>
+    
+  </div>
+</div>
+        </div>
+      
+    </div>
+
+    <div id="footer">
+      Copyright &copy; 2017 - MinGW.org    </div>
+
+    
+        
+  </div>
+
+</body>
+</html>
