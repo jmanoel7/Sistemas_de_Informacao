@@ -53,5 +53,3 @@ WITH (
 ALTER TABLE public."Medico"
   OWNER TO aluno;
 
-
-
