@@ -3,16 +3,16 @@
 
 ## DEFINICOES DO COMPILADOR
 
-CC := gcc
-CFLAGS := -W -Wall -ansi -pedantic -I./include
+CC := x86_64-w64-mingw32.static-gcc
+CFLAGS := -W -Wall -ansi -pedantic
 
 
 ## DEFINICOES DOS CODIGOS
 
-bin := bin/lista1.out
-object := src/main.o
-source := src/main.c
-includes := include/ex_01.h
+bin := lista1.exe
+object := main.o
+source := main.c
+includes := ex_01.h
 
 
 ## REGRAS DO MAKEFILE
@@ -30,4 +30,3 @@ clean:
 
 mrproper: clean
 	rm -f $(bin)
-
