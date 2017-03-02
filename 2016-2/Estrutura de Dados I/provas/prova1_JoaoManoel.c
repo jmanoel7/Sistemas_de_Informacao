@@ -177,7 +177,8 @@ void excluir(tp_carro *carro) {
                if (resp == 's' || resp == 'S')
                     break;
           } while(1);
-          carro[--total] = (tp_carro) NULL;
+          //a_carro = carro[--total];
+          //a_carro = (tp_carro) NULL;
           return;
                
      }

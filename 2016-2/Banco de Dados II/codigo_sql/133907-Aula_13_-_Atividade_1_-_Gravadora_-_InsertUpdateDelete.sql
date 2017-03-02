@@ -70,3 +70,4 @@ DELETE FROM gravadora where idgravadora = 8;
 SELECT * FROM gravadora;
 
 SELECT * FROM gravadora_auditoria;
+		
