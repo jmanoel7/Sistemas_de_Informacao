@@ -1,5 +1,5 @@
 /*
- * Aluno:       João Manoel Leite Ribeiro Nogueira
+ * Aluno:       João Manoel Leite Ribeiro Nogueira <joao.manoel@academico.ifg.edu.br>
  * Matrícula:   20131011090230
  * Lista:       01
  * Exercício:   03
@@ -9,10 +9,10 @@
  * IFG:         Câmpus Goiânia
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef EX_03_H
+#define EX_03_H
 
-int main (void)
+int exercicio_03(void)
 {
      unsigned int i, j, k, l, m, n, valores_repetidos;
 
@@ -38,22 +38,24 @@ int main (void)
                          if (A[i][j] == A[k][l]) {
                               valores_repetidos = 1;
                               break;
-                         } // end if
-                    } // end for l
+                         } /* end if */
+                    } /* end for l */
                     if (valores_repetidos)
                          break;
-               } // end for k  
+               } /* end for k */
                if (valores_repetidos)
                     break;
-          } // end for j
+          } /* end for j */
           if (valores_repetidos)
                break;
-     } // end for i  
+     } /* end for i */
 
      if (valores_repetidos)
           printf("\tSIM\n\n");
      else
           printf("\tNÃO\n\n");
-     
+
      return 0;
 }
+
+#endif /* EX_03_H */

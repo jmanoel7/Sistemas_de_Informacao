@@ -1,6 +1,5 @@
-/* Copyright 2017 João Manoel <joao.manoel@academico.ifg.edu.br>
- *
- * Aluno:       João Manoel Leite Ribeiro Nogueira
+/*
+ * Aluno:       João Manoel Leite Ribeiro Nogueira <joao.manoel@academico.ifg.edu.br>
  * Matrícula:   20131011090230
  * Lista:       01
  * Exercício:   01
@@ -14,7 +13,7 @@
 #ifndef EX_01_H
 #define EX_01_H
 
-int Exercicio_01(void) {
+int exercicio_01(void) {
     int i;
     char palavra[5], teste1[5], teste2[5];
 

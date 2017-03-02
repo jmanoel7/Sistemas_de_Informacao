@@ -1,15 +1,18 @@
-############################# Makefile ##########################
+############################# Makefile for Windows ##########################
 
 
 ## DEFINICOES DO COMPILADOR
 
-CC := x86_64-w64-mingw32.static-gcc
+# AJUSTE O COMANDO 'CC' DE ACORDO COM SUA CONFIGURACAO
+# NO MEU LINUX, PARA CROSSCOMPILE:
+CC := /usr/lib/mxe/usr/bin/x86_64-w64-mingw32.static-gcc
+
 CFLAGS := -W -Wall -ansi -pedantic
 
 
 ## DEFINICOES DOS CODIGOS
 
-bin := lista1.exe
+bin := lista-01.exe
 object := main.o
 source := main.c
 includes := ex_01.h

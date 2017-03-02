@@ -1,5 +1,5 @@
 /*
- * Aluno:       João Manoel Leite Ribeiro Nogueira
+ * Aluno:       João Manoel Leite Ribeiro Nogueira <joao.manoel@academico.ifg.edu.br>
  * Matrícula:   20131011090230
  * Lista:       01
  * Exercício:   01
@@ -9,10 +9,10 @@
  * IFG:         Câmpus Goiânia
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef EX_04_H
+#define EX_04_H
 
-int main (void) {
+int exercicio_04(void) {
 
     int i;
     char palavra[5], teste1[5], teste2[5];
@@ -48,3 +48,5 @@ int main (void) {
 
     return 0;
 }
+
+#endif /* EX_04_H */
